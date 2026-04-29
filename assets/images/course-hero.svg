@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#bcd6df"/>
+      <stop offset="0.56" stop-color="#edf0d6"/>
+      <stop offset="1" stop-color="#6d9669"/>
+    </linearGradient>
+    <linearGradient id="fairway" x1="0" x2="1">
+      <stop offset="0" stop-color="#356d4d"/>
+      <stop offset="0.48" stop-color="#9dbf70"/>
+      <stop offset="1" stop-color="#25563c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <circle cx="1260" cy="180" r="88" fill="#f4d16f" opacity=".88"/>
+  <path d="M0 640 C250 520 460 560 730 618 C990 674 1240 568 1600 520 L1600 1000 L0 1000 Z" fill="#244d37"/>
+  <path d="M0 720 C250 640 460 650 730 710 C1020 775 1260 650 1600 610 L1600 1000 L0 1000 Z" fill="url(#fairway)"/>
+  <path d="M820 1000 C840 820 1010 730 1600 670 L1600 1000 Z" fill="#d7d28d" opacity=".55"/>
+  <path d="M1140 660 l0 -150" stroke="#f9f6ea" stroke-width="8"/>
+  <path d="M1144 512 l110 34 l-110 34 z" fill="#d96752"/>
+  <ellipse cx="1138" cy="663" rx="72" ry="18" fill="#dfe7cf" opacity=".85"/>
+</svg>

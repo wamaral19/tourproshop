@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TourPro Shop | Private Access</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body class="login-page">
+    <main class="login-shell" aria-labelledby="login-title">
+      <section class="login-hero">
+        <div class="brand-row">
+          <span class="brand-mark">TP</span>
+          <span>tourpro.shop</span>
+        </div>
+        <h1 id="login-title">Private player shop</h1>
+        <p>Enter your access password to view player collections, headwear, polos, and outerwear.</p>
+      </section>
+
+      <form class="login-panel" id="login-form">
+        <label for="password">Password</label>
+        <div class="password-row">
+          <input id="password" name="password" type="password" autocomplete="current-password" required />
+          <button type="submit">Enter</button>
+        </div>
+        <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+      </form>
+    </main>
+
+    <script>
+      const form = document.querySelector("#login-form");
+      const message = document.querySelector("#form-message");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        message.textContent = "Checking password...";
+
+        const formData = new FormData(form);
+
+        try {
+          const response = await fetch("/api/login", {
+            method: "POST",
+            body: formData,
+            credentials: "include",
+          });
+
+          if (!response.ok) {
+            message.textContent = "That password did not work.";
+            return;
+          }
+
+          window.location.href = "/shop.html";
+        } catch (error) {
+          message.textContent = "Could not reach the login service. Try again after deploying to Cloudflare Pages.";
+        }
+      });
+    </script>
+  </body>
+</html>

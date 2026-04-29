@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TourPro Shop | Player Collections</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand-row" href="/shop.html" aria-label="TourPro Shop home">
+        <span class="brand-mark">TP</span>
+        <span>tourpro.shop</span>
+      </a>
+      <nav class="topnav" aria-label="Shop categories">
+        <a href="#headwear">Headwear</a>
+        <a href="#polos">Polos</a>
+        <a href="#outerwear">Outerwear</a>
+        <button id="logout-button" type="button">Log out</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="shop-intro" aria-labelledby="shop-title">
+        <div>
+          <p class="eyebrow">Private catalog</p>
+          <h1 id="shop-title">Player-curated gear for tournament weeks.</h1>
+        </div>
+        <p>Select a golfer, then browse their headwear, polo, and outerwear rows.</p>
+      </section>
+
+      <section class="players-wrap" aria-labelledby="players-title">
+        <div class="section-heading">
+          <h2 id="players-title">Golfers</h2>
+          <span id="selected-player-label">Showing all collections</span>
+        </div>
+        <div class="player-grid" id="player-grid"></div>
+      </section>
+
+      <section class="merch-section" id="headwear" aria-labelledby="headwear-title">
+        <div class="section-heading">
+          <h2 id="headwear-title">Headwear</h2>
+          <span>Caps, visors, and rope hats</span>
+        </div>
+        <div class="product-scroller" data-category="headwear"></div>
+      </section>
+
+      <section class="merch-section" id="polos" aria-labelledby="polos-title">
+        <div class="section-heading">
+          <h2 id="polos-title">Polo</h2>
+          <span>Course-ready performance shirts</span>
+        </div>
+        <div class="product-scroller" data-category="polos"></div>
+      </section>
+
+      <section class="merch-section" id="outerwear" aria-labelledby="outerwear-title">
+        <div class="section-heading">
+          <h2 id="outerwear-title">Outerwear</h2>
+          <span>Layers for wind, rain, and travel days</span>
+        </div>
+        <div class="product-scroller" data-category="outerwear"></div>
+      </section>
+    </main>
+
+    <script src="/assets/catalog.js"></script>
+    <script src="/assets/shop.js"></script>
+  </body>
+</html>
