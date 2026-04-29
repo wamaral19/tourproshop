@@ -1,4 +1,13 @@
-const protectedPaths = ["/shop.html", "/product.html"];
+const protectedPaths = [
+  "/shop.html",
+  "/players.html",
+  "/collections.html",
+  "/player.html",
+  "/product.html",
+  "/about.html",
+  "/account.html",
+  "/cart.html",
+];
 
 export async function onRequest(context) {
   const url = new URL(context.request.url);

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tour Pro Shop | Product</title>
+    <title>Tour Pro Shop | Player</title>
     <link rel="stylesheet" href="/assets/styles.css" />
   </head>
   <body>
@@ -30,10 +30,31 @@
       </nav>
     </header>
 
-    <main class="product-page" id="product-root"></main>
+    <main class="player-detail-page" id="player-detail"></main>
+
+    <dialog class="interest-modal" id="interest-modal">
+      <form class="interest-form" id="interest-form" novalidate>
+        <button class="modal-close" type="button" aria-label="Close">×</button>
+        <p class="eyebrow">Request Gear</p>
+        <h2 id="modal-title">Let them know I want their gear</h2>
+        <label>
+          Name
+          <input name="name" type="text" autocomplete="name" required />
+        </label>
+        <label>
+          Email
+          <input name="email" type="email" autocomplete="email" />
+        </label>
+        <label>
+          Mobile number
+          <input name="mobile" type="tel" autocomplete="tel" inputmode="tel" />
+        </label>
+        <p class="form-message" id="interest-message" role="status" aria-live="polite"></p>
+        <button class="cart-button" type="submit">Submit request</button>
+      </form>
+    </dialog>
 
     <script src="/assets/nav.js"></script>
-    <script src="/assets/catalog.js"></script>
-    <script src="/assets/product.js"></script>
+    <script src="/assets/player.js"></script>
   </body>
 </html>

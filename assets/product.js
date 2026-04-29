@@ -1,5 +1,4 @@
 const root = document.querySelector("#product-root");
-const logoutButton = document.querySelector("#logout-button");
 const params = new URLSearchParams(window.location.search);
 const product = products.find((item) => item.id === params.get("id")) || products[0];
 const golfer = golfers.find((item) => item.id === product.golfer);
@@ -74,9 +73,4 @@ root.innerHTML = `
 root.querySelector(".cart-button").addEventListener("click", (event) => {
   event.currentTarget.textContent = "Added";
   event.currentTarget.classList.add("is-added");
-});
-
-logoutButton.addEventListener("click", async () => {
-  await fetch("/api/logout", { method: "POST", credentials: "include" });
-  window.location.href = "/";
 });

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tour Pro Shop | Product</title>
+    <title>Tour Pro Shop | Players</title>
     <link rel="stylesheet" href="/assets/styles.css" />
   </head>
   <body>
@@ -30,10 +30,15 @@
       </nav>
     </header>
 
-    <main class="product-page" id="product-root"></main>
+    <main class="players-page">
+      <section class="players-hero" aria-labelledby="players-title">
+        <p class="eyebrow">Players</p>
+        <h1 id="players-title">Choose Your Tour Pro</h1>
+      </section>
+      <section class="players-directory" id="players-directory" aria-label="Tour Pro player grid"></section>
+    </main>
 
     <script src="/assets/nav.js"></script>
-    <script src="/assets/catalog.js"></script>
-    <script src="/assets/product.js"></script>
+    <script src="/assets/players.js"></script>
   </body>
 </html>

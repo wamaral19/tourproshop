@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tour Pro Shop | Product</title>
+    <title>Tour Pro Shop | Collections</title>
     <link rel="stylesheet" href="/assets/styles.css" />
   </head>
   <body>
@@ -30,10 +30,27 @@
       </nav>
     </header>
 
-    <main class="product-page" id="product-root"></main>
+    <main class="collections-page">
+      <section class="players-hero" aria-labelledby="collections-title">
+        <p class="eyebrow">Collections</p>
+        <h1 id="collections-title">Shop by Category</h1>
+      </section>
+      <section class="collection-grid" aria-label="Collection categories">
+        <a class="collection-tile collection-headwear" href="/shop.html">
+          <span>Headwear</span>
+        </a>
+        <a class="collection-tile collection-outerwear" href="/shop.html">
+          <span>Outerwear</span>
+        </a>
+        <a class="collection-tile collection-polos" href="/shop.html">
+          <span>Polos</span>
+        </a>
+        <a class="collection-tile collection-other" href="/shop.html">
+          <span>Other</span>
+        </a>
+      </section>
+    </main>
 
     <script src="/assets/nav.js"></script>
-    <script src="/assets/catalog.js"></script>
-    <script src="/assets/product.js"></script>
   </body>
 </html>
