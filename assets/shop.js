@@ -6,7 +6,7 @@ const logoutButton = document.querySelector("#logout-button");
 let selectedGolfer = "all";
 
 function getGolferName(id) {
-  return golfers.find((golfer) => golfer.id === id)?.name || "TourPro";
+  return golfers.find((golfer) => golfer.id === id)?.name || "Tour Pro Shop";
 }
 
 function productCard(product) {

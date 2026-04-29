@@ -1,4 +1,4 @@
-# TourPro Shop
+# Tour Pro Shop
 
 Private storefront for `tourpro.shop`, built as a static Cloudflare Pages site with Pages Functions for password protection.
 

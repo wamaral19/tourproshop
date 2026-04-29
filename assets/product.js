@@ -5,7 +5,7 @@ const product = products.find((item) => item.id === params.get("id")) || product
 const golfer = golfers.find((item) => item.id === product.golfer);
 const related = products.filter((item) => item.golfer === product.golfer && item.id !== product.id);
 
-document.title = `TourPro Shop | ${product.name}`;
+document.title = `Tour Pro Shop | ${product.name}`;
 
 root.innerHTML = `
   <nav class="breadcrumb" aria-label="Breadcrumb">
