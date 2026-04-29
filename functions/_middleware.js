@@ -1,12 +1,20 @@
 const protectedPaths = [
   "/shop.html",
+  "/shop",
   "/players.html",
+  "/players",
   "/collections.html",
+  "/collections",
   "/player.html",
+  "/player",
   "/product.html",
+  "/product",
   "/about.html",
+  "/about",
   "/account.html",
+  "/account",
   "/cart.html",
+  "/cart",
 ];
 
 export async function onRequest(context) {
