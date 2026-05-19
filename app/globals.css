@@ -1,26 +1,109 @@
 @import "tailwindcss";
 
+@theme {
+  /* Brand palette — sourced from logo SVG */
+  --color-brand-primary: #58914a;
+  --color-brand-accent: #71a75c;
+  --color-brand-deep: #30682b;
+  --color-brand-cream: #f4f1ea;
+  --color-brand-flag: #d8302a;
+  --color-brand-ink: #1a1a1a;
+
+  /* Surface tokens */
+  --color-surface: #f4f1ea;
+  --color-surface-raised: #ffffff;
+  --color-surface-deep: #1a1a1a;
+  --color-line: rgba(26, 26, 26, 0.12);
+  --color-line-strong: rgba(26, 26, 26, 0.24);
+
+  /* Typography — wired up via next/font in app/layout.tsx */
+  --font-condensed: var(--font-bebas);
+  --font-sans: var(--font-switzer);
+  --font-wordmark: var(--font-gemunu);
+
+  /* Editorial tracking */
+  --tracking-condensed: 0.08em;
+  --tracking-eyebrow: 0.18em;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-surface);
+  --foreground: var(--color-brand-ink);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.font-display {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.font-condensed {
+  font-family: var(--font-condensed), "Arial Narrow", sans-serif;
+  letter-spacing: var(--tracking-condensed);
+}
+
+.font-wordmark {
+  font-family: var(--font-wordmark), "Bebas Neue", "Arial Narrow", sans-serif;
+}
+
+.eyebrow {
+  font-family: var(--font-condensed), sans-serif;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Horizontal scroll-snap rail (used on home featured products) */
+.scroll-rail {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.scroll-rail::-webkit-scrollbar {
+  display: none;
+}
+.scroll-snap-start {
+  scroll-snap-align: start;
+}
+.scroll-snap-center {
+  scroll-snap-align: center;
+}
+
+/* Vertical full-bleed snap for editorial home sections */
+.snap-y-mandatory {
+  scroll-snap-type: y mandatory;
+}
+
+/* Subtle grain for hero panels */
+.texture-grain {
+  position: relative;
+  isolation: isolate;
+}
+.texture-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.45) 1px, transparent 1px);
+  background-size: 3px 3px;
+  z-index: 1;
 }

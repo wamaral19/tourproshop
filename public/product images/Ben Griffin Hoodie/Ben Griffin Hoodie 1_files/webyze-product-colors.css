@@ -1,0 +1,546 @@
+/*.webyzeProductColors::before {
+	content:'Colors';
+	font-weight: bold;
+	display:block;
+}*/
+
+.webyzeProductColorsLabel {
+	display: block;
+	clear:both;
+}
+.webyzeProductColors {
+	display:block;
+	/*padding:5px 3px;
+	padding-left:0px;*/
+	flex-grow: 1;
+	width: auto;
+	min-width: 70%;
+	direction: ltr;
+	clear:both;
+}
+.webyzeProductColors.webyzeProductColorsForceCenter,
+.webyzeProductColorsLabel.webyzeProductColorsForceCenter {
+	text-align: center !important;
+	align-self:center !important;
+	margin-left:auto;
+	margin-right:auto;
+}
+.webyzeProductColors *
+{
+	-webkit-box-sizing:content-box !important;
+	-moz-box-sizing:content-box !important;
+	box-sizing:content-box !important;
+	line-height: 1;
+}
+.webyzeProductColors>.swatchProductColor,
+.webyzeProductColors>.swatchProductColor>div
+{
+	margin:0px;
+	padding:0px;
+	box-shadow:none;
+	border-radius:0px;
+	border:0px;
+	width: 26px;
+	height: 26px;
+	overflow: hidden;
+	display: inline-block;
+	background-position: center center;
+	background-size: cover;
+	vertical-align: middle;
+}
+.webyzeProductColors>.swatchProductColor
+{
+	cursor:pointer;
+	margin:3px 5px;
+	border: 2px solid #ffffff;
+	border-radius: 50%;
+	box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.3);
+	transition:box-shadow 0.4s;
+}
+.webyzeProductColors>.swatchProductColor>div
+{
+	border-radius:inherit;
+}
+.webyzeProductColors>.swatchProductColor.currentSwatch
+{
+	box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.6);
+	-moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.6);
+	-webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.6);
+}
+.webyzeProductColors>.swatchProductColor.swatchUnavailable
+{
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+.webyzeProductColors>.swatchProductColor.swatchUnavailable:hover {
+	opacity: 1;
+}
+.webyzeProductColors>.swatchProductColor>.webyzeTooltip
+{
+	display:block;
+	position:absolute;
+	pointer-events: none;
+	opacity:0;
+	transition:opacity 0.4s, margin-top 0.4s;
+	width:200px;
+	margin-left:-87px;/* -100 + 13 */
+	margin-top: -10px;
+	text-align:center;
+	z-index: 100;
+}
+.webyzeProductColors>.swatchProductColor:hover>.webyzeTooltip
+{
+	opacity:0.8;
+	margin-top:10px;
+}
+.webyzeProductColors>.swatchProductColor>.webyzeTooltip>span:first-child
+{
+	top: -5px;
+	left: 50%;
+	margin-left: -5px;
+	position: absolute;
+	display: block;
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid black;
+}
+.webyzeProductColors>.swatchProductColor>.webyzeTooltip>.innerText
+{
+	background:#000000;
+	border-radius:3px;
+	padding:3px 5px;
+	color:#ffffff;
+	display:inline-block;
+	text-align:center;
+
+}
+.webyzeProductColors>.swatchProductColor.swatchType_two_colors>div {
+	transform: rotate(0deg);
+}
+.webyzeProductColors>.swatchProductColor.swatchType_two_colors>div>div:first-child {
+	transform-origin: 100% 50%;
+}
+.webyzeProductColors>.swatchProductColor.swatchType_two_colors>div>div:last-child {
+	transform-origin: 0% 50%;
+}
+.webyzeProductColors>.swatchProductColor.swatchType_two_colors>div>div {
+	width: 13px;
+	transform: rotate(90deg);
+	height: 26px;
+	display: inline-block;
+}
+
+
+
+/* Theme 2 */
+.webyzeProductColors[data-style="2"]>.swatchProductColor
+{
+	border-radius:3px;
+}
+.webyzeProductColors[data-style="2"]>.swatchProductColor>div
+{
+	border-radius:0px;
+}
+
+
+/* Theme 3 & 9 */
+.webyzeProductColors[data-style="3"]>.swatchProductColor,
+.webyzeProductColors[data-style="9"]>.swatchProductColor
+{
+	border-radius:50%;
+	border: 2px solid rgba(0, 0, 0, 0.1);
+	padding:2px;
+	box-shadow:none;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	transition:border 0.4s;
+}
+.webyzeProductColors[data-style="3"]>.swatchProductColor.currentSwatch,
+.webyzeProductColors[data-style="9"]>.swatchProductColor.currentSwatch
+{
+	border:2px solid rgba(0, 0, 0, 0.4);
+	box-shadow:none;
+}
+
+
+/* Theme 4 & 10 */
+.webyzeProductColors[data-style="4"]>.swatchProductColor,
+.webyzeProductColors[data-style="10"]>.swatchProductColor
+{
+	border-radius:4px;
+	border: 2px solid rgba(0, 0, 0, 0.1);
+	padding:2px;
+	box-shadow:none;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	transition:border 0.4s;
+}
+.webyzeProductColors[data-style="4"]>.swatchProductColor>div,
+.webyzeProductColors[data-style="10"]>.swatchProductColor>div
+{
+	border-radius:0px;
+}
+.webyzeProductColors[data-style="4"]>.swatchProductColor.currentSwatch,
+.webyzeProductColors[data-style="10"]>.swatchProductColor.currentSwatch
+{
+	border:2px solid rgba(0, 0, 0, 0.4);
+	box-shadow:none;
+}
+
+
+/* Theme 5 */
+.webyzeProductColors[data-style="5"]>.swatchProductColor
+{
+	border-radius:4px;
+	padding:3px;
+	box-shadow:none;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	transition:border 0.4s;
+	overflow:visible;
+	width:auto;
+}
+.webyzeProductColors[data-style="5"]>.swatchProductColor>div
+{
+	border-radius:0px;
+}
+.webyzeProductColors[data-style="5"]>.swatchProductColor.currentSwatch
+{
+	border:2px solid rgba(0, 0, 0, 0.3);
+	box-shadow:none;
+}
+.webyzeProductColors[data-style="5"]>.swatchProductColor>.webyzeTooltip
+{
+	display:inline-block;
+	position:static;
+	opacity:1;
+	transition:none;
+	width:60px;
+	margin:2px 0px 2px 4px;
+	text-align:left;
+	font-size:0.8em;
+	text-overflow: ellipsis;
+	white-space:nowrap;
+}
+.webyzeProductColors[data-style="5"]>.swatchProductColor:hover>.webyzeTooltip
+{
+	margin:2px 0px 2px 4px;
+	display:inline-block;
+	opacity:1;
+}
+.webyzeProductColors[data-style="5"]>.swatchProductColor>.webyzeTooltip>.innerText
+{
+	display:inline-block;
+	background:transparent;
+	border-radius:0px;
+	padding:0px;
+	color:inherit;
+	text-align:left;
+	text-overflow: ellipsis;
+	overflow:hidden;
+	vertical-align:middle;
+	width:60px;
+}
+.webyzeProductColors[data-style="5"]>.swatchProductColor>.webyzeTooltip>span,
+.webyzeProductColors[data-style="5"]>.swatchProductColor>.webyzeTooltip>span:first-child
+{
+	display:none;
+}
+
+
+/* Theme 6 */
+.webyzeProductColors[data-style="6"]>.swatchProductColor
+{
+	border-radius:0px;
+	padding:3px;
+	box-shadow:none;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	transition:border 0.4s;
+	overflow:visible;
+	width:auto;
+	border:1px solid rgba(0, 0, 0, 0.2);
+}
+.webyzeProductColors[data-style="6"]>.swatchProductColor>div
+{
+	border-radius:0px;
+}
+.webyzeProductColors[data-style="6"]>.swatchProductColor.currentSwatch
+{
+	border:1px solid rgba(0, 0, 0, 0.8);
+	box-shadow:none;
+}
+.webyzeProductColors[data-style="6"]>.swatchProductColor>.webyzeTooltip
+{
+	display:inline-block;
+	position:static;
+	opacity:1;
+	transition:none;
+	width:60px;
+	margin:2px 0px 2px 4px;
+	text-align:left;
+	font-size:0.8em;
+	text-overflow: ellipsis;
+	white-space:nowrap;
+}
+.webyzeProductColors[data-style="6"]>.swatchProductColor:hover>.webyzeTooltip
+{
+	margin:2px 0px 2px 4px;
+	display:inline-block;
+	opacity:1;
+}
+.webyzeProductColors[data-style="6"]>.swatchProductColor>.webyzeTooltip>.innerText
+{
+	display:inline-block;
+	background:transparent;
+	border-radius:0px;
+	padding:0px;
+	color:inherit;
+	text-align:left;
+	text-overflow: ellipsis;
+	overflow:hidden;
+	vertical-align:middle;
+	width:60px;
+}
+.webyzeProductColors[data-style="6"]>.swatchProductColor>.webyzeTooltip>span,
+.webyzeProductColors[data-style="6"]>.swatchProductColor>.webyzeTooltip>span:first-child
+{
+	display:none;
+}
+
+
+/* Theme 7 */
+.webyzeProductColors[data-style="7"]>.swatchProductColor
+{
+	border-radius:0px;
+	border:2px solid transparent;
+	box-shadow:none;
+	margin:2px;
+}
+.webyzeProductColors[data-style="7"]>.swatchProductColor.currentSwatch
+{
+	border:2px solid #333333;
+	box-shadow:none;
+}
+.webyzeProductColors[data-style="7"]>.swatchProductColor>div
+{
+	border-radius:0px;
+}
+.webyzeProductColors[data-style="7"]>.swatchProductColor.swatchType_two_colors>div>div
+{
+    transform: scale(2, 2) rotate(45deg);
+}
+
+
+/* Theme 8 */
+.webyzeProductColors[data-style="8"]>.swatchProductColor
+{
+	border-radius:50%;
+	border:2px solid transparent;
+	box-shadow:none;
+	margin:2px;
+}
+.webyzeProductColors[data-style="8"]>.swatchProductColor.currentSwatch
+{
+	border:2px solid #333333;
+	background:#333333;
+	box-shadow:none;
+}
+.webyzeProductColors[data-style="8"]>.swatchProductColor>div
+{
+	border-radius:50%;
+}
+.webyzeProductColors[data-style="8"]>.swatchProductColor.swatchType_two_colors>div>div
+{
+    transform: scale(2, 2) rotate(45deg);
+}
+
+
+/* Theme 9 & 10 */
+.webyzeProductColors[data-style="9"]>.swatchProductColor:hover>.webyzeTooltip,
+.webyzeProductColors[data-style="10"]>.swatchProductColor:hover>.webyzeTooltip {
+	margin-top: 6px;
+}
+.webyzeProductColors[data-style="9"]>.swatchProductColor>.webyzeTooltip>span:first-child,
+.webyzeProductColors[data-style="10"]>.swatchProductColor>.webyzeTooltip>span:first-child {
+	display:none;
+}
+.webyzeProductColors[data-style="9"]>.swatchProductColor>.webyzeTooltip>.innerText,
+.webyzeProductColors[data-style="10"]>.swatchProductColor>.webyzeTooltip>.innerText {
+	font-size: 0.85em;
+	font-weight: 600;
+	color: #4c4c4c;
+	border-radius: 2px;
+	padding: 8px 10px;
+	background: #f3f3f3;
+	box-shadow: 2px 1px 2px rgb(0 0 0 / 10%);
+}
+
+/* Theme 11 & 12 */
+.webyzeProductColors[data-style="11"]>.swatchProductColor,
+.webyzeProductColors[data-style="12"]>.swatchProductColor {
+	border-radius: 4px;
+	padding: 3px;
+	box-shadow: none;
+	transition: border 0.4s;
+	overflow: visible;
+	display: inline-flex;
+	flex-flow: column nowrap;
+	align-items: stretch;
+	height: auto;
+	vertical-align: top;
+	width: 60px;
+}
+.webyzeProductColors[data-style="11"]>.swatchProductColor.currentSwatch,
+.webyzeProductColors[data-style="12"]>.swatchProductColor.currentSwatch {
+	border:2px solid rgba(0, 0, 0, 0.3);
+	box-shadow:none;
+}
+.webyzeProductColors[data-style="11"]>.swatchProductColor>div,
+.webyzeProductColors[data-style="12"]>.swatchProductColor>div {
+	border-radius: 2px;
+	width: 100%;
+	height: 0px;
+	padding-top: 50%;
+	position: relative;
+}
+.webyzeProductColors[data-style="11"]>.swatchProductColor.swatchType_two_colors>div>div:first-child,
+.webyzeProductColors[data-style="12"]>.swatchProductColor.swatchType_two_colors>div>div:first-child {
+	left: 50%;
+}
+.webyzeProductColors[data-style="11"]>.swatchProductColor.swatchType_two_colors>div>div,
+.webyzeProductColors[data-style="12"]>.swatchProductColor.swatchType_two_colors>div>div {
+	transform:none;
+	display: block;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	height: 100%;
+	width: 50%;
+}
+
+
+.webyzeProductColors[data-style="11"]>.swatchProductColor>.webyzeTooltip,
+.webyzeProductColors[data-style="12"]>.swatchProductColor>.webyzeTooltip {
+	position: static;
+	opacity: 1;
+	transition: none;
+	font-size: 0.8em;
+	margin: 8px 0px 0px 0px;
+	text-align: center;
+	display: block;
+	max-width: 100%;
+}
+.webyzeProductColors[data-style="11"]>.swatchProductColor>.webyzeTooltip>span:first-child,
+.webyzeProductColors[data-style="12"]>.swatchProductColor>.webyzeTooltip>span:first-child {
+	display:none;
+}
+.webyzeProductColors[data-style="11"]>.swatchProductColor>.webyzeTooltip>.innerText,
+.webyzeProductColors[data-style="12"]>.swatchProductColor>.webyzeTooltip>.innerText {
+	background: transparent;
+	border-radius: 0px;
+	padding: 0px;
+	color: inherit;
+	vertical-align: middle;
+	text-align: center;
+	width: 100%;
+	overflow: visible;
+	word-break: break-word;
+	white-space: break-spaces;
+	display: block;
+}
+/* Theme 12 */
+.webyzeProductColors[data-style="12"]>.swatchProductColor {
+	border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.webyzeProductColors[data-style="12"]>.swatchProductColor.currentSwatch {
+	border: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+
+
+
+/* Large Swatches */
+.webyzeProductColors.webyzeProductColorsLarge>.swatchProductColor.swatchType_two_colors>div>div {
+	width: 28px;
+	height: 56px;
+}
+.webyzeProductColors.webyzeProductColorsLarge>.swatchProductColor,
+.webyzeProductColors.webyzeProductColorsLarge>.swatchProductColor>div
+{
+	width: 56px;
+	height: 56px;
+}
+.webyzeProductColors.webyzeProductColorsLarge>.swatchProductColor>.webyzeTooltip
+{
+	margin-left:-72px;
+}
+
+
+
+
+/* Large Swatches | Styles 5 & 6 */
+.webyzeProductColors.webyzeProductColorsLarge[data-style="5"]>.swatchProductColor.swatchType_two_colors>div>div,
+.webyzeProductColors.webyzeProductColorsLarge[data-style="6"]>.swatchProductColor.swatchType_two_colors>div>div
+{
+	width: 28px;
+	height: 56px;
+}
+.webyzeProductColors.webyzeProductColorsLarge[data-style="5"]>.swatchProductColor,
+.webyzeProductColors.webyzeProductColorsLarge[data-style="6"]>.swatchProductColor
+{
+	width: 56px;
+	height: auto;
+}
+.webyzeProductColors.webyzeProductColorsLarge[data-style="5"]>.swatchProductColor>div,
+.webyzeProductColors.webyzeProductColorsLarge[data-style="6"]>.swatchProductColor>div
+{
+	width: 56px;
+	height: 56px;
+}
+.webyzeProductColors.webyzeProductColorsLarge[data-style="5"]>.swatchProductColor>.webyzeTooltip,
+.webyzeProductColors.webyzeProductColorsLarge[data-style="6"]>.swatchProductColor>.webyzeTooltip,
+.webyzeProductColors.webyzeProductColorsLarge[data-style="5"]>.swatchProductColor:hover>.webyzeTooltip,
+.webyzeProductColors.webyzeProductColorsLarge[data-style="6"]>.swatchProductColor:hover>.webyzeTooltip
+{
+	text-align:center;
+	width:56px;
+	margin-left:0px;
+}
+.webyzeProductColors.webyzeProductColorsLarge[data-style="5"]>.swatchProductColor>.webyzeTooltip>.innerText,
+.webyzeProductColors.webyzeProductColorsLarge[data-style="6"]>.swatchProductColor>.webyzeTooltip>.innerText
+{
+	text-align:center;
+	text-overflow: clip;
+	width:56px;
+}
+
+/* Large Swatches | Styles 11 & 12 */
+.webyzeProductColors.webyzeProductColorsLarge[data-style="11"]>.swatchProductColor.swatchType_two_colors>div>div,
+.webyzeProductColors.webyzeProductColorsLarge[data-style="12"]>.swatchProductColor.swatchType_two_colors>div>div {
+	width: 50%;
+	height: 100%;
+}
+.webyzeProductColors.webyzeProductColorsLarge[data-style="11"]>.swatchProductColor,
+.webyzeProductColors.webyzeProductColorsLarge[data-style="12"]>.swatchProductColor {
+	width: 100px;
+	height: auto;
+}
+.webyzeProductColors.webyzeProductColorsLarge[data-style="11"]>.swatchProductColor>div,
+.webyzeProductColors.webyzeProductColorsLarge[data-style="12"]>.swatchProductColor>div {
+	width: 100%;
+	height: 0px;
+}
+.webyzeProductColors.webyzeProductColorsLarge[data-style="11"]>.swatchProductColor>.webyzeTooltip,
+.webyzeProductColors.webyzeProductColorsLarge[data-style="12"]>.swatchProductColor>.webyzeTooltip {
+	margin-left:0px;
+}
+
+/* Disable Tooltips */
+.webyzeProductColors[disable-tooltips]:not([data-style="5"]):not([data-style="6"])>.swatchProductColor>.webyzeTooltip {
+	display:none !important;
+}

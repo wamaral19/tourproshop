@@ -1,0 +1,580 @@
+{
+  "$schema": "./owgr.schema.json",
+  "updatedAt": "2026-05-17",
+  "source": "https://www.owgr.com/current-world-ranking",
+  "players": [
+    {
+      "owgrRank": 1,
+      "slug": "scottie-scheffler",
+      "name": "Scottie Scheffler",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 29,
+      "turnedPro": 2018,
+      "signatureWin": "2024 Masters",
+      "bio": "Methodical, unflappable, and the most consistent ball-striker of his generation.",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Nike", "url": "https://www.nike.com/golf", "kind": "apparel" },
+        { "vendor": "TaylorMade", "url": "https://www.taylormadegolf.com", "kind": "equipment" }
+      ]
+    },
+    {
+      "owgrRank": 2,
+      "slug": "rory-mcilroy",
+      "name": "Rory McIlroy",
+      "country": "Northern Ireland",
+      "countryCode": "GB-NIR",
+      "age": 36,
+      "turnedPro": 2007,
+      "signatureWin": "2025 Masters",
+      "bio": "A career grand slam champion and the modern face of the game's poetry.",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Nike", "url": "https://www.nike.com/golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 3,
+      "slug": "cameron-young",
+      "name": "Cameron Young",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 28,
+      "turnedPro": 2019,
+      "signatureWin": "2025 Wyndham Championship",
+      "bio": "Length, touch, and one of the prettiest young swings on tour.",
+      "relationship": "exclusive",
+      "vendorLinks": [
+        { "vendor": "Peter Millar", "url": "https://www.petermillar.com/c/golf/mens-golf-apparel/", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 4,
+      "slug": "matt-fitzpatrick",
+      "name": "Matt Fitzpatrick",
+      "country": "England",
+      "countryCode": "GB-ENG",
+      "age": 31,
+      "turnedPro": 2014,
+      "signatureWin": "2022 U.S. Open",
+      "bio": "Stat-obsessed, putt-obsessed, and a U.S. Open champion at Brookline.",
+      "relationship": "linked",
+      "freeAgent": true
+    },
+    {
+      "owgrRank": 5,
+      "slug": "justin-rose",
+      "name": "Justin Rose",
+      "country": "England",
+      "countryCode": "GB-ENG",
+      "age": 45,
+      "turnedPro": 1998,
+      "signatureWin": "2013 U.S. Open",
+      "bio": "Quiet leadership, decades of consistency, and a major in his back pocket.",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Peter Millar", "url": "https://www.petermillar.com/c/golf/mens-golf-apparel/", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 6,
+      "slug": "collin-morikawa",
+      "name": "Collin Morikawa",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 29,
+      "turnedPro": 2019,
+      "signatureWin": "2021 Open Championship",
+      "bio": "Iron precision personified. Hits more greens than seems fair.",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "adidas", "url": "https://www.adidas.com/us/golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 7,
+      "slug": "tommy-fleetwood",
+      "name": "Tommy Fleetwood",
+      "country": "England",
+      "countryCode": "GB-ENG",
+      "age": 35,
+      "turnedPro": 2010,
+      "signatureWin": "2024 Olympic Silver",
+      "bio": "Hair, hands, and a swing the rest of us can only dream of.",
+      "relationship": "linked",
+      "freeAgent": true
+    },
+    {
+      "owgrRank": 8,
+      "slug": "xander-schauffele",
+      "name": "Xander Schauffele",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 32,
+      "turnedPro": 2015,
+      "signatureWin": "2024 PGA Championship",
+      "bio": "Olympic gold medalist with the cleanest swing on tour.",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Descente", "url": "https://xanderclub.com/", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 9,
+      "slug": "jj-spaun",
+      "name": "JJ Spaun",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 35,
+      "turnedPro": 2012,
+      "signatureWin": "2025 U.S. Open",
+      "bio": "The Sunday Oakmont closer who refused to flinch with a major on the line.",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "PUMA", "url": "https://www.cobragolf.com/collections/apparel-men", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 10,
+      "slug": "chris-gotterup",
+      "name": "Chris Gotterup",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 26,
+      "turnedPro": 2022,
+      "signatureWin": "2025 Genesis Scottish Open",
+      "bio": "From Rutgers to the winner's circle. A new face the establishment is taking seriously.",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Nike", "url": "https://www.nike.com/golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 11,
+      "slug": "russell-henley",
+      "name": "Russell Henley",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 36,
+      "turnedPro": 2011,
+      "signatureWin": "2025 Arnold Palmer Invitational",
+      "bio": "Quiet, accurate, and one of the best putters on tour.",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Dunning", "url": "https://dunninggolf.com", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 12,
+      "slug": "jon-rahm",
+      "name": "Jon Rahm",
+      "country": "Spain",
+      "countryCode": "ES",
+      "age": 31,
+      "turnedPro": 2016,
+      "signatureWin": "2023 Masters",
+      "bio": "Spain's best, with a swing built like a tractor and a heart to match.",
+      "relationship": "linked",
+      "vendorLinks": []
+    },
+    {
+      "owgrRank": 13,
+      "slug": "ludvig-aberg",
+      "name": "Ludvig Åberg",
+      "country": "Sweden",
+      "countryCode": "SE",
+      "age": 26,
+      "turnedPro": 2023,
+      "signatureWin": "2024 Genesis Invitational",
+      "bio": "The Swede with a textbook action and the future already in his hands.",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "adidas", "url": "https://www.adidas.com/us/golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 14,
+      "slug": "robert-macintyre",
+      "name": "Robert MacIntyre",
+      "country": "Scotland",
+      "countryCode": "GB-SCT",
+      "age": 29,
+      "turnedPro": 2017,
+      "signatureWin": "2024 RBC Canadian Open",
+      "bio": "A left-handed Scot with a heart the size of Oban.",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "adidas", "url": "https://www.adidas.com/us/golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 15,
+      "slug": "aaron-rai",
+      "name": "Aaron Rai",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Levelwear", "url": "https://us.levelwear.com/", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 16,
+      "slug": "justin-thomas",
+      "name": "Justin Thomas",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 32,
+      "turnedPro": 2013,
+      "signatureWin": "2022 PGA Championship",
+      "bio": "Fifteen tour wins and a swing built for big moments.",
+      "relationship": "linked",
+      "freeAgent": true
+    },
+    {
+      "owgrRank": 17,
+      "slug": "ben-griffin",
+      "name": "Ben Griffin",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 30,
+      "turnedPro": 2018,
+      "signatureWin": "2025 Charles Schwab Challenge",
+      "bio": "Bank-teller turned tour winner. The first official Tour Pro Shop player partnership — full kit, sponsor logos intact.",
+      "relationship": "exclusive",
+      "vendorLinks": [
+        { "vendor": "Holderness & Bourne", "url": "https://holdernessandbourne.com/", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 18,
+      "slug": "sepp-straka",
+      "name": "Sepp Straka",
+      "country": "Austria",
+      "countryCode": "AT",
+      "age": 32,
+      "turnedPro": 2015,
+      "signatureWin": "2025 Truist Championship",
+      "bio": "Austrian iron play, American swagger. The quiet riser of the past two seasons.",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Fairway & Greene", "url": "https://fairwayandgreene.com/", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 19,
+      "slug": "hideki-matsuyama",
+      "name": "Hideki Matsuyama",
+      "country": "Japan",
+      "countryCode": "JP",
+      "age": 34,
+      "turnedPro": 2013,
+      "signatureWin": "2021 Masters",
+      "bio": "The first Japanese man to wear a green jacket.",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Srixon Apparel", "url": "https://us.dunlopsports.com/srixon/", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 20,
+      "slug": "alex-noren",
+      "name": "Alex Norén",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Macade", "url": "https://macadegolf.com/collections/mens-golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 22,
+      "slug": "harris-english",
+      "name": "Harris English",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 36,
+      "turnedPro": 2011,
+      "signatureWin": "2021 Travelers Championship",
+      "bio": "Steady Eddie. The kind of game that wins majors when nobody's looking.",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Onward Reserve", "url": "https://onwardreserve.com/collections/golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 23,
+      "slug": "jacob-bridgeman",
+      "name": "Jacob Bridgeman",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "adidas", "url": "https://www.adidas.com/us/golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 24,
+      "slug": "si-woo-kim",
+      "name": "Si Woo Kim",
+      "country": "South Korea",
+      "countryCode": "KR",
+      "age": 30,
+      "turnedPro": 2012,
+      "signatureWin": "2017 The Players Championship",
+      "bio": "The 2017 Players champion. Cool under pressure, slick around the greens.",
+      "relationship": "exclusive",
+      "vendorLinks": [
+        { "vendor": "Primo", "url": "https://primogolfapparel.com/", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 26,
+      "slug": "akshay-bhatia",
+      "name": "Akshay Bhatia",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "TravisMathew", "url": "https://www.travismathew.com/tm/shop-all-golf/c/2000000000000000144", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 28,
+      "slug": "nicolai-hojgaard",
+      "name": "Nicolai Højgaard",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Nike", "url": "https://www.nike.com/golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 29,
+      "slug": "kurt-kitayama",
+      "name": "Kurt Kitayama",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "johnnie-O", "url": "https://johnnie-o.com/collections/golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 30,
+      "slug": "viktor-hovland",
+      "name": "Viktor Hovland",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "J.Lindeberg", "url": "https://www.jlindeberg.com/en-us/collections/golf-men", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 31,
+      "slug": "min-woo-lee",
+      "name": "Min Woo Lee",
+      "country": "Australia",
+      "countryCode": "AU",
+      "age": 27,
+      "turnedPro": 2019,
+      "signatureWin": "2025 Texas Children's Houston Open",
+      "bio": "Australian shotmaker with one of the most exciting swings on tour and a wardrobe to match — equal parts power, swagger, and personality.",
+      "relationship": "exclusive",
+      "vendorLinks": [
+        { "vendor": "Lululemon", "url": "https://shop.lululemon.com/c/men-golf-clothes/n11m2dzoxc7", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 32,
+      "slug": "bryson-dechambeau",
+      "name": "Bryson DeChambeau",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 32,
+      "turnedPro": 2016,
+      "signatureWin": "2024 U.S. Open",
+      "bio": "Mad scientist turned major champion. Long off the tee, loud on the mic.",
+      "relationship": "linked",
+      "vendorLinks": []
+    },
+    {
+      "owgrRank": 33,
+      "slug": "patrick-cantlay",
+      "name": "Patrick Cantlay",
+      "relationship": "linked",
+      "freeAgent": true
+    },
+    {
+      "owgrRank": 34,
+      "slug": "maverick-mcnealy",
+      "name": "Maverick McNealy",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "TravisMathew", "url": "https://www.travismathew.com/tm/shop-all-golf/c/2000000000000000144", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 35,
+      "slug": "sam-burns",
+      "name": "Sam Burns",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Peter Millar", "url": "https://www.petermillar.com/c/golf/mens-golf-apparel/", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 36,
+      "slug": "keegan-bradley",
+      "name": "Keegan Bradley",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Flag & Anthem", "url": "https://www.flagandanthem.com/collections/madeflex-golf-performance-tops", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 37,
+      "slug": "ryan-gerard",
+      "name": "Ryan Gerard",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "FootJoy", "url": "https://www.footjoy.com/men/golf-apparel/", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 39,
+      "slug": "jake-knapp",
+      "name": "Jake Knapp",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "johnnie-O", "url": "https://johnnie-o.com/collections/golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 40,
+      "slug": "shane-lowry",
+      "name": "Shane Lowry",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Greyson Clothiers", "url": "https://greysonclothiers.com/collections/mens-golf-wear", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 41,
+      "slug": "jason-day",
+      "name": "Jason Day",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Malbon", "url": "https://malbongolf.com/collections/mens-apparel", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 44,
+      "slug": "daniel-berger",
+      "name": "Daniel Berger",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "TravisMathew", "url": "https://www.travismathew.com/tm/shop-all-golf/c/2000000000000000144", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 45,
+      "slug": "michael-kim",
+      "name": "Michael Kim",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Dunning", "url": "https://dunninggolf.com", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 46,
+      "slug": "matt-mccarty",
+      "name": "Matt McCarty",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "adidas", "url": "https://www.adidas.com/us/golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 48,
+      "slug": "gary-woodland",
+      "name": "Gary Woodland",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "adidas", "url": "https://www.adidas.com/us/golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 50,
+      "slug": "nico-echavarria",
+      "name": "Nico Echavarria",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Penguin", "url": "https://www.originalpenguin.com/collections/golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 51,
+      "slug": "sam-stevens",
+      "name": "Sam Stevens",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "FootJoy", "url": "https://www.footjoy.com/men/golf-apparel/", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 52,
+      "slug": "corey-conners",
+      "name": "Corey Conners",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Levelwear", "url": "https://us.levelwear.com/collections/golf-men", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 55,
+      "slug": "brian-harman",
+      "name": "Brian Harman",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "FootJoy", "url": "https://www.footjoy.com/men/golf-apparel/", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 56,
+      "slug": "michael-brennan",
+      "name": "Michael Brennan",
+      "relationship": "linked",
+      "vendorLinks": [
+        { "vendor": "Dunning", "url": "https://dunninggolf.com", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 72,
+      "slug": "sungjae-im",
+      "name": "Sungjae Im",
+      "country": "South Korea",
+      "countryCode": "KR",
+      "age": 28,
+      "turnedPro": 2015,
+      "signatureWin": "2024 The American Express",
+      "bio": "Plays more events than anyone — and somehow shoots in the 60s in all of them.",
+      "relationship": "exclusive",
+      "vendorLinks": []
+    },
+    {
+      "owgrRank": 108,
+      "slug": "keith-mitchell",
+      "name": "Keith Mitchell",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 34,
+      "turnedPro": 2014,
+      "signatureWin": "2019 Honda Classic",
+      "bio": "Bombs off the tee, lives to win on Sundays. A Southern grinder with a big-time game.",
+      "relationship": "exclusive",
+      "vendorLinks": []
+    },
+    {
+      "owgrRank": 281,
+      "slug": "james-nicholas",
+      "name": "James Nicholas",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 30,
+      "turnedPro": 2018,
+      "bio": "A Yale grad with a whip-smart short game and one of the easiest swings on Tour.",
+      "relationship": "exclusive",
+      "vendorLinks": []
+    }
+  ]
+}

@@ -1,0 +1,379 @@
+"use client";
+
+import Link from "next/link";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCart } from "@/lib/cart-context";
+import { formatPrice } from "@/lib/format";
+import { ProductImage } from "./product-image";
+import { ProductCard } from "./product-card";
+import { ImageHotspots } from "./image-hotspots";
+import type { Product, ProductSize } from "@/lib/products";
+import { getSponsorsByPlayer } from "@/lib/sponsors";
+
+export function ProductDetail({
+  product,
+  related,
+}: {
+  product: Product;
+  related: Product[];
+}) {
+  const cart = useCart();
+  const [colorway, setColorway] = useState(product.colorways[0]?.name ?? "");
+  const [size, setSize] = useState<ProductSize | undefined>(
+    product.sizes.length === 1 ? product.sizes[0] : undefined,
+  );
+  const [qty, setQty] = useState(1);
+  const [error, setError] = useState<string | null>(null);
+  const sponsors = getSponsorsByPlayer(product.playerSlug);
+
+  // Filter images by selected colorway. Images without a `colorway` tag are
+  // shared across all colorways; images with one only show when their tag
+  // matches. If a colorway has no tagged images at all, fall back to showing
+  // everything so we never render an empty gallery.
+  const galleryImages = useMemo(() => {
+    const matching = product.images.filter(
+      (img) => !img.colorway || img.colorway === colorway,
+    );
+    const resolved = matching.length > 0 ? matching : product.images;
+    return resolved.length > 0 ? resolved : [undefined];
+  }, [product.images, colorway]);
+
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const [activeImage, setActiveImage] = useState(0);
+
+  const scrollToImage = useCallback((index: number) => {
+    const el = galleryRef.current;
+    if (!el) return;
+    const slide = el.children[index] as HTMLElement | undefined;
+    if (!slide) return;
+    el.scrollTo({ left: slide.offsetLeft - el.offsetLeft, behavior: "smooth" });
+  }, []);
+
+  // Snap back to the first slide whenever the gallery changes (e.g., colorway
+  // switch). Instant jump — the user just picked a new color and expects to
+  // see it immediately.
+  useEffect(() => {
+    const el = galleryRef.current;
+    if (!el) return;
+    el.scrollTo({ left: 0, behavior: "auto" });
+    setActiveImage(0);
+  }, [colorway]);
+
+  useEffect(() => {
+    const el = galleryRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const tileWidth = (el.firstElementChild as HTMLElement | null)
+        ?.offsetWidth;
+      if (!tileWidth) return;
+      const idx = Math.round(el.scrollLeft / tileWidth);
+      setActiveImage(Math.min(galleryImages.length - 1, Math.max(0, idx)));
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [galleryImages.length]);
+
+  const handleAdd = () => {
+    if (!size) {
+      setError("Choose a size to continue.");
+      return;
+    }
+    setError(null);
+    cart.addLine({ product, size, colorway });
+  };
+
+  return (
+    <article className="bg-brand-cream pb-24">
+      {/* Breadcrumb */}
+      <div className="mx-auto max-w-[1400px] px-4 pt-6 md:px-8 md:pt-10">
+        <nav
+          aria-label="Breadcrumb"
+          className="font-condensed text-xs uppercase tracking-widest text-brand-ink/60"
+        >
+          <Link href="/shop" className="hover:text-brand-deep">
+            Shop
+          </Link>
+          <span className="mx-2">/</span>
+          <span className="text-brand-ink">{product.name}</span>
+        </nav>
+      </div>
+
+      {/* Main */}
+      <div className="mx-auto mt-6 grid max-w-[1400px] grid-cols-1 gap-10 px-4 md:grid-cols-12 md:gap-12 md:px-8">
+        {/* Gallery — single horizontal scroll rail across all viewports.
+            Mobile peeks the next slide; desktop snaps one image at a time. */}
+        <div className="md:col-span-6 lg:col-span-6">
+          <div className="relative">
+            <div
+              ref={galleryRef}
+              className="scroll-rail flex gap-3 overflow-x-auto"
+            >
+              {galleryImages.map((img, i) => (
+                <div
+                  key={img?.src ?? i}
+                  className="scroll-snap-center relative aspect-[4/5] w-[88vw] shrink-0 md:w-full"
+                >
+                  <ProductImage
+                    product={product}
+                    image={img}
+                    priority={i === 0}
+                    sizes="(max-width: 768px) 88vw, 50vw"
+                    className="absolute inset-0 h-full w-full"
+                  />
+                  {img?.hotspots && img.hotspots.length > 0 ? (
+                    <ImageHotspots
+                      hotspots={img.hotspots}
+                      sponsors={sponsors}
+                    />
+                  ) : null}
+                </div>
+              ))}
+            </div>
+
+            {galleryImages.length > 1 ? (
+              <>
+                <button
+                  type="button"
+                  aria-label="Previous image"
+                  onClick={() =>
+                    scrollToImage(Math.max(0, activeImage - 1))
+                  }
+                  disabled={activeImage === 0}
+                  className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-brand-cream/95 text-brand-ink shadow-md transition-opacity hover:bg-brand-cream disabled:opacity-0 md:h-12 md:w-12"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    aria-hidden
+                  >
+                    <path d="M15 6l-6 6 6 6" strokeLinecap="round" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  aria-label="Next image"
+                  onClick={() =>
+                    scrollToImage(
+                      Math.min(galleryImages.length - 1, activeImage + 1),
+                    )
+                  }
+                  disabled={activeImage === galleryImages.length - 1}
+                  className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-brand-cream/95 text-brand-ink shadow-md transition-opacity hover:bg-brand-cream disabled:opacity-0 md:h-12 md:w-12"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    aria-hidden
+                  >
+                    <path d="M9 6l6 6-6 6" strokeLinecap="round" />
+                  </svg>
+                </button>
+              </>
+            ) : null}
+          </div>
+
+          {galleryImages.length > 1 ? (
+            <div className="mt-4 flex items-center justify-center gap-1.5">
+              {galleryImages.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Go to image ${i + 1}`}
+                  onClick={() => scrollToImage(i)}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === activeImage
+                      ? "w-6 bg-brand-ink"
+                      : "w-1.5 bg-brand-ink/30"
+                  }`}
+                />
+              ))}
+            </div>
+          ) : null}
+        </div>
+
+        {/* Info */}
+        <aside className="md:col-span-6 md:sticky md:top-24 md:h-fit lg:col-span-6">
+          <p className="eyebrow text-brand-ink/60">{product.brand}</p>
+          <h1 className="font-display mt-3 text-3xl leading-tight md:text-5xl">
+            {product.name}
+          </h1>
+          <p className="mt-3 text-lg tabular-nums">
+            {formatPrice(product.price)}
+          </p>
+          <p className="mt-5 text-base leading-relaxed text-brand-ink/80">
+            {product.description}
+          </p>
+
+          {/* Colorways */}
+          {product.colorways.length > 1 ? (
+            <div className="mt-8">
+              <div className="flex items-center justify-between">
+                <span className="eyebrow text-brand-ink/60">Color</span>
+                <span className="text-sm">{colorway}</span>
+              </div>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {product.colorways.map((c) => (
+                  <button
+                    key={c.name}
+                    type="button"
+                    aria-label={c.name}
+                    onClick={() => setColorway(c.name)}
+                    className={`relative h-10 w-10 rounded-full border-2 transition-transform ${
+                      colorway === c.name
+                        ? "border-brand-ink scale-110"
+                        : "border-line hover:scale-105"
+                    }`}
+                    style={{ backgroundColor: c.hex }}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {/* Sizes */}
+          {product.sizes.length > 1 ? (
+            <div className="mt-8">
+              <div className="flex items-center justify-between">
+                <span className="eyebrow text-brand-ink/60">Size</span>
+                <button
+                  type="button"
+                  className="font-condensed text-xs uppercase tracking-widest text-brand-ink/60 underline underline-offset-4 hover:text-brand-ink"
+                >
+                  Sizing guide
+                </button>
+              </div>
+              <div className="mt-3 grid grid-cols-5 gap-2">
+                {product.sizes.map((s) => (
+                  <button
+                    key={s}
+                    type="button"
+                    onClick={() => {
+                      setSize(s);
+                      setError(null);
+                    }}
+                    className={`flex h-12 items-center justify-center border font-condensed text-sm uppercase tracking-widest transition-colors ${
+                      size === s
+                        ? "border-brand-ink bg-brand-ink text-brand-cream"
+                        : "border-line hover:border-brand-ink"
+                    }`}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {/* Quantity */}
+          <div className="mt-8 flex items-center gap-4">
+            <span className="eyebrow text-brand-ink/60">Qty</span>
+            <div className="inline-flex items-center rounded-full border border-line">
+              <button
+                type="button"
+                aria-label="Decrease"
+                onClick={() => setQty((q) => Math.max(1, q - 1))}
+                className="flex h-10 w-10 items-center justify-center"
+              >
+                −
+              </button>
+              <span className="min-w-[2rem] text-center text-sm tabular-nums">
+                {qty}
+              </span>
+              <button
+                type="button"
+                aria-label="Increase"
+                onClick={() => setQty((q) => q + 1)}
+                className="flex h-10 w-10 items-center justify-center"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Add to bag */}
+          <button
+            type="button"
+            onClick={() => {
+              for (let i = 0; i < qty; i++) handleAdd();
+            }}
+            className="mt-8 flex h-14 w-full items-center justify-center rounded-full bg-brand-ink font-condensed text-sm uppercase tracking-widest text-brand-cream transition-colors hover:bg-brand-deep"
+          >
+            Add to Bag · {formatPrice(product.price * qty)}
+          </button>
+          {error ? (
+            <p className="mt-2 text-sm text-brand-flag">{error}</p>
+          ) : null}
+
+          {/* Details */}
+          <details className="mt-10 border-t border-line py-5">
+            <summary className="flex cursor-pointer items-center justify-between font-condensed text-sm uppercase tracking-widest">
+              Details &amp; fit
+              <span className="text-lg">+</span>
+            </summary>
+            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-brand-ink/80">
+              {product.details.map((d) => (
+                <li key={d} className="flex gap-3">
+                  <span aria-hidden className="text-brand-deep">
+                    ·
+                  </span>
+                  {d}
+                </li>
+              ))}
+            </ul>
+          </details>
+          {sponsors.length > 0 ? (
+            <details className="border-t border-line py-5">
+              <summary className="flex cursor-pointer items-center justify-between font-condensed text-sm uppercase tracking-widest">
+                About the sponsors
+                <span className="text-lg">+</span>
+              </summary>
+              <ul className="mt-4 space-y-5 text-sm leading-relaxed text-brand-ink/80">
+                {sponsors.map((s) => (
+                  <li key={s.name}>
+                    <p className="font-condensed text-xs uppercase tracking-widest text-brand-deep">
+                      {s.name}
+                    </p>
+                    <p className="mt-1.5">{s.blurb}</p>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          ) : null}
+          <details className="border-t border-line py-5">
+            <summary className="flex cursor-pointer items-center justify-between font-condensed text-sm uppercase tracking-widest">
+              Shipping &amp; returns
+              <span className="text-lg">+</span>
+            </summary>
+            <p className="mt-4 text-sm leading-relaxed text-brand-ink/80">
+              Complimentary shipping on orders over $150. Free returns within 30
+              days. Full policy at checkout.
+            </p>
+          </details>
+        </aside>
+      </div>
+
+      {/* Related */}
+      {related.length > 0 ? (
+        <section className="mt-24 border-t border-line">
+          <div className="mx-auto max-w-[1400px] px-4 py-16 md:px-8 md:py-24">
+            <p className="eyebrow text-brand-ink/60">More like this</p>
+            <h2 className="font-display mt-3 text-3xl leading-tight md:text-5xl">
+              You may also like.
+            </h2>
+            <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+              {related.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+    </article>
+  );
+}

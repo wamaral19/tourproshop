@@ -1,0 +1,381 @@
+webyze-linkify-product-colors {
+	display:flex;
+	flex-flow:column nowrap;
+	gap:var(--label-gap, 4px);
+	align-self:stretch;
+	label {
+		font-size: var(--label-font-size, 14px);
+		font-weight: var(--label-font-weight, 'normal');
+		color: var(--label-color, inherit);
+		text-align: var(--label-alignment, left);
+		cursor:default;
+		>linkify-product-colors-label:has(+linkify-product-colors-label-value:not(:empty))::after {
+			content: var(--label-value-separator, ' ');
+		}
+		linkify-product-colors-label-value {
+			font-size: var(--label-value-font-size, 14px);
+			font-weight: var(--label-value-font-weight, 'normal');
+			color: var(--label-value-color, inherit);
+		}
+	}
+	linkify-product-colors-swatches {
+		display:flex;
+		flex-flow:row wrap;
+		gap:calc(var(--gap, 30) * var(--size, 26px));
+		position:relative;
+		justify-content: var(--alignment, left);
+		align-items:center;
+		linkify-product-colors-swatch {
+			display:block;
+			cursor:pointer;
+			position:relative;
+			&::before {
+				content: '';
+				display:block;
+				width:var(--size, 26px);
+				/*height:var(--size, 26px);*/
+				aspect-ratio: 1;
+				flex: 0 0 auto;
+				border-radius:var(--size, 26px);
+			}
+			&[data-type="one_color"]::before {
+				background-color: var(--color);
+			}
+			&[data-type="two_colors"]::before {
+				background: linear-gradient(180deg, var(--color1) 50%, var(--color2) 50%);
+			}
+			&[data-type="image"]::before {
+				background-image: var(--image);
+				background-size: cover;
+				background-position: center;
+			}
+		}
+	}
+
+	&:not([data-collection]) {
+		flex: 1 1 auto;
+		&[data-theme="1"], &[data-theme="2"] {
+			linkify-product-colors-swatch {
+				&::before {
+					border:2px solid #FFFFFF;
+					box-shadow: 0px 0px 4px 0px rgba(from #000000 r g b / 30%);
+				}
+				&[data-selected]::before {
+					box-shadow: 0px 0px 8px 0px rgba(from var(--highlight-color, #000000) r g b / 70%);
+				}
+			}
+		}
+	}
+	&[data-theme="2"] {
+		linkify-product-colors-swatch {
+			&::before {
+				border-radius:0px;
+			}
+		}
+	}
+	&[data-theme="3"], &[data-theme="4"] {
+		linkify-product-colors-swatch {
+			&::before {
+				outline: 2px solid rgba(from #000000 r g b / 10%);
+				outline-offset: 2px;
+			}
+			&[data-selected]::before {
+				outline: 2px solid rgba(from var(--highlight-color, #000000) r g b / 80%);
+				outline-offset: 2px;
+			}
+		}
+	}
+	&[data-theme="4"] {
+		linkify-product-colors-swatch {
+			&::before {
+				border-radius:2px;
+			}
+		}
+	}
+
+	&[data-theme="3"], &[data-theme="4"], &[data-theme="5"], &[data-theme="6"] {
+		linkify-product-colors-swatches {
+			gap:calc(var(--gap, 30) * var(--size, 26px));
+			linkify-product-colors-swatch {
+				margin:4px;
+			}
+		}
+	}
+	
+
+
+	&[data-theme="5"], &[data-theme="6"] {
+		linkify-product-colors-swatch {
+			&[data-type="two_colors"]::before {
+				background: linear-gradient(45deg, var(--color1) 50%, var(--color2) 50%);
+			}
+			&::before {
+				outline:2px solid transparent;
+				outline-offset:0px;
+			}
+			&[data-selected]::before {
+				outline-color:var(--highlight-color, #000000);
+			}
+		}
+	}
+	&[data-theme="6"] {
+		linkify-product-colors-swatch {
+			&::before {
+				border-radius:0px;
+			}
+		}
+	}
+
+
+
+	&[data-theme="7"], &[data-theme="8"], &[data-theme="9"], &[data-theme="10"] {
+		linkify-product-colors-swatch {
+			border: 2px solid rgba(from #000000 r g b / 10%);
+			border-radius:4px;
+			display:flex;
+			flex-flow:row nowrap;
+			align-items:center;
+			width:120px;
+			gap:4px;
+			padding:3px;
+			&[data-selected] {
+				border-color:rgba(from var(--highlight-color, #000000) r g b / 80%);
+			}
+			&::before {
+				border-radius:2px;
+			}
+			linkify-product-colors-tooltip {
+				flex:1 1 auto;
+				display:block;
+				text-overflow: ellipsis;
+				overflow:hidden;
+				white-space: nowrap;
+			}
+		}
+	}
+	&[data-theme="7"], &[data-theme="8"] {
+		linkify-product-colors-swatch {
+			flex-flow:row nowrap;
+			width:max(120px, max(calc(var(--size, 26px) + 100px), calc(var(--size, 26px) * 2.5)));
+			padding-right:5px;
+		}
+	}
+	&[data-theme="8"], &[data-theme="10"] {
+		linkify-product-colors-swatch {
+			border-radius:0px;
+			border-width:1px;
+			border-color:rgba(from #000000 r g b / 20%);
+			&::before {
+				border-radius:0px;
+			}
+			&[data-selected] {
+				border-color:rgba(from var(--highlight-color, #000000) r g b / 80%);
+			}
+		}
+	}
+
+	&[data-theme="9"], &[data-theme="10"] {
+		linkify-product-colors-swatch {
+			flex-flow:column nowrap;
+			align-items:center;
+			max-width:calc(var(--size, 26px) * 2 + 6px);
+			width:auto;
+			gap:4px;
+			&[data-type="two_colors"]::before {
+				background: linear-gradient(90deg, var(--color1) 50%, var(--color2) 50%);
+			}
+			&::before {
+				width:calc(var(--size, 26px) * 2);
+				/*height:var(--size, 26px);*/
+				aspect-ratio: 2;
+			}
+			linkify-product-colors-tooltip {
+				text-align: center;
+				max-width:100%;
+			}
+		}
+	}
+
+
+	&:not([data-tooltips], [data-theme="7"], [data-theme="8"], [data-theme="9"], [data-theme="10"]) linkify-product-colors-swatches linkify-product-colors-swatch linkify-product-colors-tooltip {
+		display:none;
+	}
+
+
+
+
+	&:not([data-theme="7"], [data-theme="8"], [data-theme="9"], [data-theme="10"]) {
+		linkify-product-colors-tooltip {
+			display:block;
+			position:absolute;
+			top:100%;
+			left:50%;
+			padding:calc(var(--tooltips-size, 1) * 5px) calc(var(--tooltips-size, 1) * 7px);
+			line-height:1;
+			background-color:#000000cc;
+			color:#fff;
+			font-size:calc(var(--tooltips-size, 1) * 11px);
+			border-radius:calc(var(--tooltips-size, 1) * 4px);
+			white-space:nowrap;
+			pointer-events:none;
+			opacity:0;
+			transform: translate(-50%, calc(var(--tooltips-gap, 5px) - 10px));
+			transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+			z-index:2;
+			backdrop-filter: blur(4px);
+		}
+		linkify-product-colors-swatch:hover, linkify-product-colors-swatch[data-force-tooltips] {
+			linkify-product-colors-tooltip {
+				opacity:1;
+				transform: translate(-50%, var(--tooltips-gap, 5px));
+			}
+		}
+		&[data-tooltips-style="1"], &[data-tooltips-style="2"], &[data-tooltips-style="3"], &[data-tooltips-style="4"] {
+			linkify-product-colors-swatches linkify-product-colors-swatch linkify-product-colors-tooltip {
+				background-color:#000000;
+				&::after {
+					content: " ";
+					position: absolute;
+					bottom: 100%; /* At the bottom of the tooltip */
+					left: 50%;
+					margin-left: calc(var(--tooltips-size, 1) * -5px);
+					border-width:calc(var(--tooltips-size, 1) *  5px);
+					border-style: solid;
+					border-color: transparent transparent #000000 transparent;
+				}
+			}
+		}
+		/* white swatches */
+		&[data-tooltips-style="2"], &[data-tooltips-style="4"], &[data-tooltips-style="6"], &[data-tooltips-style="8"] {
+			linkify-product-colors-swatches linkify-product-colors-swatch linkify-product-colors-tooltip {
+				background-color:#e2e2e2cc;
+				color:#000;
+				&::after {
+					border-color: transparent transparent #e2e2e2 transparent;
+				}
+			}
+		}
+		&[data-tooltips-style="2"], &[data-tooltips-style="4"] {
+			linkify-product-colors-swatches linkify-product-colors-swatch linkify-product-colors-tooltip {
+				background-color: #e2e2e2;
+				filter: drop-shadow(0px 0px 3px #00000022);
+			}
+		}
+		/* rect corners*/
+		&[data-tooltips-style="3"], &[data-tooltips-style="4"], &[data-tooltips-style="7"], &[data-tooltips-style="8"] {
+			linkify-product-colors-swatches linkify-product-colors-swatch linkify-product-colors-tooltip {
+				border-radius:0px;
+				padding:calc(var(--tooltips-size, 1) * 7px) calc(var(--tooltips-size, 1) * 10px);
+			}
+		}
+	}
+
+
+	&[data-soldout-style="2"] {
+		linkify-product-colors-swatches linkify-product-colors-swatch[data-soldout] {
+			cursor:not-allowed;
+			opacity:0.5;
+		}
+	}
+	&[data-soldout-style="3"] {
+		linkify-product-colors-swatches linkify-product-colors-swatch[data-soldout] {
+			display:none;
+		}
+	}
+	&[data-soldout-style="4"] {
+		&[data-theme="1"], &[data-theme="2"], &[data-theme="3"], &[data-theme="4"], &[data-theme="5"], &[data-theme="6"] {
+			linkify-product-colors-swatches linkify-product-colors-swatch[data-soldout] {
+				cursor:default;
+				&::before {
+					opacity:0.8;
+				}
+				&::after {
+					content:'';
+					position:absolute;
+					inset:0px;
+					top: 50%;
+					left: 0%;
+					width: 100%;
+					height: 1px;
+					background-color:#FFFFFF;
+					transform: rotate(-45deg);
+					mix-blend-mode: difference;
+					pointer-events: none;
+				}
+			}
+		}
+		&[data-theme="2"], &[data-theme="4"], &[data-theme="6"] {
+			linkify-product-colors-swatches linkify-product-colors-swatch[data-soldout] {
+				&::after {
+					width: 141.42%;
+					left: -20.71%;
+				}
+			}
+		}
+
+		&[data-theme="7"], &[data-theme="8"], &[data-theme="9"], &[data-theme="10"] {
+			linkify-product-colors-swatches linkify-product-colors-swatch[data-soldout] {
+				&::before {
+					opacity:0.8;
+				}
+				linkify-product-colors-tooltip {
+					text-decoration: line-through;
+				}
+			}
+		}
+	}
+
+	&[data-soldout-style="5"] {
+		&[data-theme="1"], &[data-theme="2"], &[data-theme="3"], &[data-theme="4"], &[data-theme="5"], &[data-theme="6"] {
+			linkify-product-colors-swatches linkify-product-colors-swatch[data-soldout] {
+				cursor:default;
+				&::before {
+					opacity:0.8;
+				}
+				&::after {
+					content:'';
+					position:absolute;
+					inset:0px;
+					background-image:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496.096 496.096" xml:space="preserve"><path d="M259.41 247.998 493.754 13.654a8 8 0 0 0 0-11.312 8 8 0 0 0-11.312 0L248.098 236.686 13.754 2.342A8 8 0 0 0 2.442 13.654l234.344 234.344L2.442 482.342a8 8 0 0 0-.196 11.312 8 8 0 0 0 11.508 0L248.098 259.31l234.344 234.344a8 8 0 0 0 11.312-.196 8 8 0 0 0 0-11.116L259.41 247.998z" data-original="%23000000"/></svg>');
+					background-repeat: no-repeat;
+					background-size: 50% 50%;
+					background-position: center;
+				}
+			}
+		}
+
+		&[data-theme="7"], &[data-theme="8"], &[data-theme="9"], &[data-theme="10"] {
+			linkify-product-colors-swatches linkify-product-colors-swatch[data-soldout] {
+				&::before {
+					opacity:0.8;
+				}
+				linkify-product-colors-tooltip {
+					text-decoration: line-through;
+				}
+			}
+		}
+	}
+
+	/* Collection pages */
+	linkify-product-colors-swatch-more {
+		font-weight:bold;
+		opacity:0.7;
+		vertical-align: middle;
+		line-height: 1;
+		pointer-events:none;
+	}
+	&[data-collection] {
+		&:last-child {
+			margin-top:4px;
+		}
+		&:first-child {
+			margin-bottom:4px;
+		}
+		linkify-product-colors-swatch {
+			z-index:1;
+		}
+		linkify-product-colors-tooltip {
+			display:none;
+		}
+	}
+}

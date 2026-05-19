@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="494 178 415 415">
+  <!-- Generator: Adobe Illustrator 30.4.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 226)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+      }
+
+      .st1 {
+        fill: #f4f1ea;
+      }
+
+      .st2 {
+        fill: #58914a;
+      }
+
+      .st3 {
+        fill: #71a75c;
+      }
+
+      .st4, .st5 {
+        fill: #fff;
+      }
+
+      .st6 {
+        fill: red;
+      }
+
+      .st5 {
+        stroke: #30682b;
+        stroke-miterlimit: 10;
+      }
+
+      .st7 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <circle class="st0" cx="701.68" cy="385.58" r="205.7"/>
+    </clipPath>
+  </defs>
+  <circle class="st5" cx="701.68" cy="385.58" r="205.7"/>
+  <g class="st7">
+    <g>
+      <rect class="st3" x="392.38" y="155.04" width="572.5" height="46.11"/>
+      <rect class="st2" x="392.38" y="108.94" width="572.5" height="46.11"/>
+      <rect class="st3" x="392.38" y="247.26" width="572.5" height="46.11"/>
+      <rect class="st2" x="392.38" y="201.15" width="572.5" height="46.11"/>
+      <rect class="st3" x="392.38" y="339.47" width="572.5" height="46.11"/>
+      <rect class="st2" x="392.38" y="293.36" width="572.5" height="46.11"/>
+      <rect class="st3" x="392.38" y="431.68" width="572.5" height="46.11"/>
+      <rect class="st2" x="392.38" y="385.57" width="572.5" height="46.11"/>
+      <rect class="st3" x="392.38" y="523.89" width="572.5" height="46.11"/>
+      <rect class="st2" x="392.38" y="477.78" width="572.5" height="46.11"/>
+      <rect class="st3" x="392.38" y="616.1" width="572.5" height="46.11"/>
+      <rect class="st2" x="392.38" y="570" width="572.5" height="46.11"/>
+    </g>
+  </g>
+  <ellipse class="st4" cx="682.88" cy="486.85" rx="12.44" ry="4.4"/>
+  <path class="st6" d="M758.17,352.55c-5.75-.25-11.01-2-15.7-4.83l-12.89-7.78c-4.16-2.51-8.72-3.94-13.55-4.68-8.97-1.38-17.66,1.37-24.16,7.57-.86.82-2.24,1.06-3.37.66-.81-.28-1.76-1.56-1.76-2.79v-52.71c0-.89.57-2.18,1.15-2.71,9.04-8.28,21.25-11.25,33.14-8.19s17.55,9.22,26.67,13.5c8.46,3.97,18.21,4.8,22.15-3.9.62-1.37,2.13-2.21,3.42-1.93,1.42.3,2.51,1.55,2.51,3.25v53.01c-2.73,7.42-9.45,11.87-17.62,11.51v.02Z"/>
+  <rect class="st1" x="679.31" y="285.52" width="7.43" height="196.93"/>
+</svg>
