@@ -15,6 +15,7 @@ jobs:
     timeout-minutes: 15
     permissions:
       contents: read
+      deployments: write
     steps:
       - uses: actions/checkout@v4
 
@@ -25,7 +26,29 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run deploy
+      - name: Start deployment
+        uses: bobheadxi/deployments@v1
+        id: deployment
+        with:
+          step: start
+          token: ${{ github.token }}
+          env: production
+          ref: ${{ github.ref }}
+
+      - name: Deploy to Cloudflare
+        id: deploy
+        run: npm run deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Finish deployment
+        if: always()
+        uses: bobheadxi/deployments@v1
+        with:
+          step: finish
+          token: ${{ github.token }}
+          status: ${{ steps.deploy.outcome }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env: ${{ steps.deployment.outputs.env }}
+          env_url: https://tourproshop.wyatt-amaral.workers.dev
