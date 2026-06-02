@@ -48,7 +48,12 @@ export type Product = {
   compareAtPrice?: number;
   description: string;
   details: string[];
+  /** Adult size run (the default). Required for every product. */
   sizes: ProductSize[];
+  /** Youth size run when the product offers one. Polos and outerwear get
+   *  filled in by `createProduct` by default; headwear and any future
+   *  adult-only piece leaves this undefined and hides the PDP toggle. */
+  youthSizes?: ProductSize[];
   colorways: { name: string; hex: string }[];
   images: ProductImage[];
   badge?: "New" | "Limited" | "Restock" | "Exclusive";
@@ -64,22 +69,51 @@ const POLO_SIZES: ProductSize[] = ["S", "M", "L", "XL", "XXL"];
 const OUTERWEAR_SIZES: ProductSize[] = ["S", "M", "L", "XL", "XXL"];
 const HEADWEAR_SIZES: ProductSize[] = ["OS"];
 
+/** Youth size runs for the categories that offer them. Headwear stays
+ *  one-size and never gets a youth split. Youth uses the same letter codes
+ *  as adult so the underlying type stays clean; the PDP shows the age range
+ *  below each letter via `YOUTH_AGE_RANGE`. */
+const YOUTH_POLO_SIZES: ProductSize[] = ["XS", "S", "M", "L"];
+const YOUTH_OUTERWEAR_SIZES: ProductSize[] = ["XS", "S", "M", "L"];
+
+/** Maps a youth letter size to the age range we show under it on the PDP
+ *  size picker and in cart-line metadata. */
+export const YOUTH_AGE_RANGE: Partial<Record<ProductSize, string>> = {
+  XS: "5–6",
+  S: "7–8",
+  M: "10–12",
+  L: "14–16",
+};
+
 const DEFAULT_SIZES_BY_CATEGORY: Record<ProductCategory, ProductSize[]> = {
   polos: POLO_SIZES,
   outerwear: OUTERWEAR_SIZES,
   headwear: HEADWEAR_SIZES,
 };
 
+/** Categories that offer a youth-sized run alongside adult. Headwear is
+ *  intentionally absent — the PDP age toggle hides for those. */
+const DEFAULT_YOUTH_SIZES_BY_CATEGORY: Partial<
+  Record<ProductCategory, ProductSize[]>
+> = {
+  polos: YOUTH_POLO_SIZES,
+  outerwear: YOUTH_OUTERWEAR_SIZES,
+};
+
 type ProductTemplateInput = Omit<
   Product,
-  "id" | "sizes" | "colorways" | "images" | "badge"
+  "id" | "sizes" | "youthSizes" | "colorways" | "images" | "badge"
 > &
-  Partial<Pick<Product, "id" | "sizes" | "colorways" | "images" | "badge">>;
+  Partial<
+    Pick<Product, "id" | "sizes" | "youthSizes" | "colorways" | "images" | "badge">
+  >;
 
 function createProduct(product: ProductTemplateInput): Product {
   return {
     id: product.id ?? product.slug,
     sizes: product.sizes ?? DEFAULT_SIZES_BY_CATEGORY[product.category],
+    youthSizes:
+      product.youthSizes ?? DEFAULT_YOUTH_SIZES_BY_CATEGORY[product.category],
     colorways: product.colorways ?? [{ name: "White", hex: "#ffffff" }],
     images:
       product.images && product.images.length > 0
@@ -230,6 +264,7 @@ export const products: Product[] = [
       "Machine wash cold; tumble dry low or hang dry",
     ],
     sizes: POLO_SIZES,
+    youthSizes: YOUTH_POLO_SIZES,
     colorways: [{ name: "Ice Blue", hex: "#c9d6e2" }],
     images: [
       {
@@ -285,6 +320,7 @@ export const products: Product[] = [
       "Embroidered Greyson wolf",
     ],
     sizes: OUTERWEAR_SIZES,
+    youthSizes: YOUTH_OUTERWEAR_SIZES,
     colorways: [
       { name: "Smoke", hex: "#5a5a5a" },
       { name: "Bone", hex: "#ece6d8" },
@@ -335,6 +371,7 @@ export const products: Product[] = [
       "Tour sponsor placements",
     ],
     sizes: POLO_SIZES,
+    youthSizes: YOUTH_POLO_SIZES,
     colorways: [
       { name: "Stone", hex: "#bdb29c" },
       { name: "Navy", hex: "#1f3148" },
@@ -360,6 +397,7 @@ export const products: Product[] = [
       "Tonal sponsor mark at left chest",
     ],
     sizes: OUTERWEAR_SIZES,
+    youthSizes: YOUTH_OUTERWEAR_SIZES,
     colorways: [
       { name: "Camel", hex: "#a98860" },
       { name: "Navy", hex: "#1f3148" },
@@ -494,6 +532,7 @@ export const products: Product[] = [
       "Machine wash cold; tumble dry low or hang dry",
     ],
     sizes: POLO_SIZES,
+    youthSizes: YOUTH_POLO_SIZES,
     colorways: [{ name: "White", hex: "#f7f3ea" }],
     images: [
       {
@@ -555,6 +594,7 @@ export const products: Product[] = [
       "Embroidered PM pennant",
     ],
     sizes: OUTERWEAR_SIZES,
+    youthSizes: YOUTH_OUTERWEAR_SIZES,
     colorways: [
       { name: "Navy", hex: "#1f3148" },
       { name: "Heather Stone", hex: "#a89f8c" },
@@ -611,6 +651,7 @@ export const products: Product[] = [
       "Tour sponsor placements",
     ],
     sizes: POLO_SIZES,
+    youthSizes: YOUTH_POLO_SIZES,
     colorways: [
       { name: "Cream", hex: "#f4f1ea" },
       { name: "Black", hex: "#1a1a1a" },
@@ -635,6 +676,7 @@ export const products: Product[] = [
       "Tour sponsor placements",
     ],
     sizes: OUTERWEAR_SIZES,
+    youthSizes: YOUTH_OUTERWEAR_SIZES,
     colorways: [
       { name: "Bone", hex: "#ece6d8" },
       { name: "Black", hex: "#1a1a1a" },
@@ -748,6 +790,7 @@ export const products: Product[] = [
       "Primo wordmark at chest",
     ],
     sizes: OUTERWEAR_SIZES,
+    youthSizes: YOUTH_OUTERWEAR_SIZES,
     colorways: [
       { name: "Marine", hex: "#284a6b" },
       { name: "Black", hex: "#1a1a1a" },

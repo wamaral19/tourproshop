@@ -114,6 +114,7 @@ export function CartDrawer() {
                       </Link>
                       <p className="eyebrow mt-1 text-brand-ink/60">
                         {line.colorway} · {line.size}
+                        {line.ageGroup === "youth" ? " · Youth" : ""}
                       </p>
                     </div>
                     <span className="text-sm tabular-nums">

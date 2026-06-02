@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useCart } from "@/lib/cart-context";
+import { useCart, type AgeGroup } from "@/lib/cart-context";
 import { formatPrice } from "@/lib/format";
 import { ProductImage } from "./product-image";
 import { ProductCard } from "./product-card";
 import { ImageHotspots } from "./image-hotspots";
 import type { Product, ProductSize } from "@/lib/products";
+import { YOUTH_AGE_RANGE } from "@/lib/products";
 import { getSponsorsByPlayer } from "@/lib/sponsors";
 
 export function ProductDetail({
@@ -19,12 +20,29 @@ export function ProductDetail({
 }) {
   const cart = useCart();
   const [colorway, setColorway] = useState(product.colorways[0]?.name ?? "");
+  /** Default Adult. Toggle only renders when the product carries a youth run. */
+  const [ageGroup, setAgeGroup] = useState<AgeGroup>("adult");
+  const hasYouthSizes = (product.youthSizes?.length ?? 0) > 0;
+  const activeSizes =
+    ageGroup === "youth" && product.youthSizes
+      ? product.youthSizes
+      : product.sizes;
   const [size, setSize] = useState<ProductSize | undefined>(
-    product.sizes.length === 1 ? product.sizes[0] : undefined,
+    activeSizes.length === 1 ? activeSizes[0] : undefined,
   );
   const [qty, setQty] = useState(1);
   const [error, setError] = useState<string | null>(null);
   const sponsors = getSponsorsByPlayer(product.playerSlug);
+
+  // Switching age group invalidates any selected size (Adult M and Youth M are
+  // different cuts). Re-auto-select only when the new run has exactly one
+  // option. activeSizes is derived from ageGroup + product, so depending on
+  // the primitive is enough and avoids re-running on every render.
+  useEffect(() => {
+    setSize(activeSizes.length === 1 ? activeSizes[0] : undefined);
+    setError(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ageGroup, product.id]);
 
   // Filter images by selected colorway. Images without a `colorway` tag are
   // shared across all colorways; images with one only show when their tag
@@ -79,7 +97,7 @@ export function ProductDetail({
       return;
     }
     setError(null);
-    cart.addLine({ product, size, colorway });
+    cart.addLine({ product, size, colorway, ageGroup });
   };
 
   return (
@@ -236,9 +254,50 @@ export function ProductDetail({
             </div>
           ) : null}
 
-          {/* Sizes */}
-          {product.sizes.length > 1 ? (
+          {/* Age group toggle — only when the product carries a youth run. */}
+          {hasYouthSizes ? (
             <div className="mt-8">
+              <div
+                role="radiogroup"
+                aria-label="Size group"
+                className="relative inline-flex h-11 w-full max-w-[280px] items-center rounded-full border border-line bg-brand-cream p-1"
+              >
+                {/* Sliding selection pill — animates between the two halves. */}
+                <span
+                  aria-hidden
+                  className={`absolute top-1 bottom-1 w-[calc(50%-0.25rem)] rounded-full bg-brand-ink transition-transform duration-300 ease-out ${
+                    ageGroup === "adult" ? "translate-x-[calc(100%+0.25rem)]" : "translate-x-0"
+                  }`}
+                />
+                <button
+                  type="button"
+                  role="radio"
+                  aria-checked={ageGroup === "youth"}
+                  onClick={() => setAgeGroup("youth")}
+                  className={`relative z-10 flex-1 font-condensed text-xs uppercase tracking-widest transition-colors ${
+                    ageGroup === "youth" ? "text-brand-cream" : "text-brand-ink/70"
+                  }`}
+                >
+                  Youth
+                </button>
+                <button
+                  type="button"
+                  role="radio"
+                  aria-checked={ageGroup === "adult"}
+                  onClick={() => setAgeGroup("adult")}
+                  className={`relative z-10 flex-1 font-condensed text-xs uppercase tracking-widest transition-colors ${
+                    ageGroup === "adult" ? "text-brand-cream" : "text-brand-ink/70"
+                  }`}
+                >
+                  Adult
+                </button>
+              </div>
+            </div>
+          ) : null}
+
+          {/* Sizes */}
+          {activeSizes.length > 1 ? (
+            <div className={hasYouthSizes ? "mt-5" : "mt-8"}>
               <div className="flex items-center justify-between">
                 <span className="eyebrow text-brand-ink/60">Size</span>
                 <button
@@ -248,24 +307,37 @@ export function ProductDetail({
                   Sizing guide
                 </button>
               </div>
-              <div className="mt-3 grid grid-cols-5 gap-2">
-                {product.sizes.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    onClick={() => {
-                      setSize(s);
-                      setError(null);
-                    }}
-                    className={`flex h-12 items-center justify-center border font-condensed text-sm uppercase tracking-widest transition-colors ${
-                      size === s
-                        ? "border-brand-ink bg-brand-ink text-brand-cream"
-                        : "border-line hover:border-brand-ink"
-                    }`}
-                  >
-                    {s}
-                  </button>
-                ))}
+              <div
+                className={`mt-3 grid gap-2 ${
+                  activeSizes.length >= 5 ? "grid-cols-5" : "grid-cols-4"
+                }`}
+              >
+                {activeSizes.map((s) => {
+                  const ageRange =
+                    ageGroup === "youth" ? YOUTH_AGE_RANGE[s] : undefined;
+                  return (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => {
+                        setSize(s);
+                        setError(null);
+                      }}
+                      className={`flex h-14 flex-col items-center justify-center border font-condensed text-sm uppercase tracking-widest leading-none transition-colors ${
+                        size === s
+                          ? "border-brand-ink bg-brand-ink text-brand-cream"
+                          : "border-line hover:border-brand-ink"
+                      }`}
+                    >
+                      <span>{s}</span>
+                      {ageRange ? (
+                        <span className="mt-1 text-[10px] tracking-wider opacity-80">
+                          {ageRange}
+                        </span>
+                      ) : null}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           ) : null}

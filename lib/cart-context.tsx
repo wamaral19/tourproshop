@@ -10,11 +10,17 @@ import {
 } from "react";
 import type { Product, ProductSize } from "./products";
 
+/** Which size run a line was added against. Defaults to "adult" everywhere
+ *  except headwear (which is sizeless anyway). Tracked on the line so a
+ *  Youth M and an Adult M stay distinct carts rows. */
+export type AgeGroup = "adult" | "youth";
+
 export type CartLine = {
   id: string;
   product: Product;
   size: ProductSize;
   colorway: string;
+  ageGroup: AgeGroup;
   quantity: number;
 };
 
@@ -29,6 +35,7 @@ type CartState = {
     product: Product;
     size: ProductSize;
     colorway: string;
+    ageGroup?: AgeGroup;
     quantity?: number;
   }) => void;
   removeLine: (lineId: string) => void;
@@ -37,8 +44,12 @@ type CartState = {
 
 const CartContext = createContext<CartState | null>(null);
 
-const lineKey = (productId: string, size: string, colorway: string) =>
-  `${productId}::${size}::${colorway}`;
+const lineKey = (
+  productId: string,
+  size: string,
+  colorway: string,
+  ageGroup: AgeGroup,
+) => `${productId}::${ageGroup}::${size}::${colorway}`;
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
@@ -52,22 +63,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
       product,
       size,
       colorway,
+      ageGroup = "adult",
       quantity = 1,
     }: {
       product: Product;
       size: ProductSize;
       colorway: string;
+      ageGroup?: AgeGroup;
       quantity?: number;
     }) => {
       setLines((prev) => {
-        const id = lineKey(product.id, size, colorway);
+        const id = lineKey(product.id, size, colorway, ageGroup);
         const existing = prev.find((l) => l.id === id);
         if (existing) {
           return prev.map((l) =>
             l.id === id ? { ...l, quantity: l.quantity + quantity } : l,
           );
         }
-        return [...prev, { id, product, size, colorway, quantity }];
+        return [
+          ...prev,
+          { id, product, size, colorway, ageGroup, quantity },
+        ];
       });
       setIsOpen(true);
     },
