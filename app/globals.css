@@ -91,6 +91,10 @@ html {
   scroll-snap-type: y mandatory;
 }
 
+.agents-page .eyebrow {
+  font-size: 1.125rem;
+}
+
 /* Subtle grain for hero panels */
 .texture-grain {
   position: relative;
