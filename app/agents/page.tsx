@@ -72,7 +72,7 @@ export default function AgentsLandingPage() {
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <div className="flex flex-col gap-3 border-b border-line pb-8 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="eyebrow text-brand-deep">The math</p>
+              <p className="eyebrow text-brand-deep">The Math for Sponsors</p>
               <h2 className="mt-3 font-sans text-3xl font-semibold leading-tight tracking-tight text-brand-ink md:text-5xl">
                 Model the impression engine.
               </h2>
@@ -94,7 +94,7 @@ export default function AgentsLandingPage() {
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-16">
             <div>
-              <p className="eyebrow text-brand-deep">Built-in upside</p>
+              <p className="eyebrow text-brand-deep">Support the Causes That Matter</p>
               <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight text-brand-ink md:text-5xl">
                 Licensing proceeds go where the player wants them to.
               </h2>
