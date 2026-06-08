@@ -1,0 +1,36 @@
+player_name,Target?,Engaged?,Email Sent,Email Used,Follow Up,Follow Up 2,agency,agent_manager,email
+Max Homa,Yes,FALSE,FALSE,,FALSE,FALSE,Excel Sports,Andrew Kipper,andrew@excelsm.com
+Min Woo Lee,Yes,FALSE,TRUE,tps,FALSE,FALSE,Win Sports Group,Brent Hamilton,bhamilton@winsg.com
+John Keefer,Yes,FALSE,FALSE,,FALSE,FALSE,GSE,Brett Augenstein,baugenstein@gseworldwide.com
+Sam Burns,Yes,FALSE,TRUE,,FALSE,FALSE,GSE,Brett Falkoff,bfalkoff@gseworldwide.com
+Gary Woodland,Yes,FALSE,TRUE,,FALSE,FALSE,Excel Sports,Brittany Elsner,belsner@excelsm.com
+Rickie Fowler,Yes,FALSE,TRUE,,FALSE,FALSE,The Team,Bud Martin,bmartin@the.team
+Cameron Young,Yes,FALSE,TRUE,tps,FALSE,FALSE,Pro Advisory Group,Charlie Danielson,charliegolf24@gmail.com
+David Ford,Yes,FALSE,TRUE,tps,FALSE,FALSE,Pro Advisory Group,Charlie Danielson,charliegolf24@gmail.com
+Russell Henley,Yes,FALSE,TRUE,tps,FALSE,FALSE,Pro Advisory Group,Charlie Danielson,charliegolf24@gmail.com
+Xander Schauffele,Yes,FALSE,FALSE,,FALSE,FALSE,Status Management LLC,Gao-Ya Chen,gchen@statusmanagement.llc
+Viktor Hovland,Yes,FALSE,TRUE,gmail,FALSE,FALSE,The Team,Ian Keenan,ikeenan@the.team
+Ben Griffin,Yes,TRUE,TRUE,gmail,FALSE,FALSE,SPORTFIVE,Jeremy Elliott,jeremy.elliott@sportfive.com
+Brian Harman,Yes,TRUE,TRUE,gmail,FALSE,FALSE,SPORTFIVE,Jeremy Elliott,jeremy.elliott@sportfive.com
+Keith Mitchell,Yes,TRUE,TRUE,gmail,FALSE,FALSE,SPORTFIVE,Jeremy Elliott,jeremy.elliott@sportfive.com
+Billy Horschel,Yes,FALSE,TRUE,,FALSE,FALSE,Excel Sports,Jon Heaton,jheaton@excelsm.com
+Justin Rose,Yes,FALSE,TRUE,tps,FALSE,FALSE,Excel Sports,Kelly Presley,kpresley@excelsm.com
+Matthew Fitzpatrick,Yes,FALSE,TRUE,,FALSE,FALSE,Excel Sports,Kelly Presley,kpresley@excelsm.com
+Ian Holt,Yes,FALSE,FALSE,,FALSE,FALSE,RockEmpire,Kevin Lynch,kevin.lynch@rockempiresports.com
+Justin Thomas,Yes,FALSE,TRUE,gmail,TRUE,FALSE,Excel Sports,Lance Young,lyoung@excelsm.com
+Jake Knapp,Yes,FALSE,TRUE,,FALSE,FALSE,Nexus Sports,Preston Valder,preston@nexus-sports.com
+Patrick Cantlay,Yes,FALSE,TRUE,,FALSE,FALSE,Nexus Sports,Preston Valder,preston@nexus-sports.com
+James Nicholas,Yes,TRUE,TRUE,gmail,FALSE,FALSE,The Familie,Rob Mougey,rob@thefamilie.com
+Wyndham Clark,Yes,TRUE,TRUE,gmail,FALSE,FALSE,The Familie,Rob Mougey,rob@thefamilie.com
+Alistair Docherty,Yes,FALSE,FALSE,,FALSE,FALSE,SPORTFIVE,Sean Riley,sean.riley@sportfive.com
+Blades Brown,Yes,FALSE,FALSE,,FALSE,FALSE,SPORTFIVE,Tommy Riehle,thomas.riehle@sportfive.com
+Si Woo Kim,Yes,FALSE,TRUE,tps,FALSE,FALSE,Hambric Sports,Walker Huddy,whuddy@hambricsports.com
+Max Greyserman,Yes,FALSE,FALSE,,FALSE,FALSE,The Team,Brad Buffoni,bbuffoni@the.team
+Doc Redman,Yes,FALSE,FALSE,,FALSE,FALSE,The Team,Chris Mullhaupt,cmullhaupt@the.team
+Mark Hubbard,Yes,FALSE,FALSE,,FALSE,FALSE,Range Sports,Derek Bohlen,dbohlen@rangemp.com
+Sahith Theegala,Yes,FALSE,FALSE,,FALSE,FALSE,Players Group Management,"Lynn Roach, Jr.",lroach@playersgroupmanagement.com
+Sungjae Im,Yes,FALSE,FALSE,,FALSE,FALSE,Moon Jo,Moon Jo,mjgolf@atsports.co.kr
+Austin Smotherman,Yes,FALSE,FALSE,,FALSE,FALSE,Noble Sports Group-NGMG LLC,Richard Zulick,richard@noblesportsgroup.com
+Aldrich Potgieter,Yes,FALSE,FALSE,,FALSE,FALSE,Entertainment Sports Partners,Rob Goulet,rob@entertainmentsports.com
+Hideki Matsuyama,Yes,FALSE,FALSE,,FALSE,FALSE,"Turner Communications Int'l, Inc.",Robert Turner,tcibobturner@aol.com
+Neal Shipley,Yes,FALSE,FALSE,,FALSE,FALSE,The Team,Terry Reilly,treilly@the.team

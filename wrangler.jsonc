@@ -14,6 +14,13 @@
       "service": "tourproshop"
     }
   ],
+  "d1_databases": [
+    {
+      "binding": "OUTREACH_DB",
+      "database_name": "tourproshop-outreach",
+      "database_id": "5b9a387a-d517-4944-89cb-d5cd18f92200"
+    }
+  ],
   "observability": {
     "enabled": true
   }
