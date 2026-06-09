@@ -34,10 +34,9 @@ export default function AgentsLandingPage() {
                 We help players extend their brand beyond tournament week.
               </h1>
               <p className="mt-6 font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
-                Tour Pro Shop Drive creates player recognition and sponsor value with no additional work.
-                Through licensed merchandise, fans can represent their favorite players in their everyday lives. 
-                Each item reflects the player's unique brand, turning clothing patch sponsorships into everyday wear 
-                for fans while supporting causes that matter to the player.
+                Tour Pro Shop helps players extend their impact beyond tournament week through sponsor inclusive merchandise that fans can wear every day. 
+                Each purchase increases visibility for players and sponsors while supporting charitable causes selected by the player. 
+                The result is year round brand exposure that extends far beyond tournament broadcasts and leaderboard positions.
               </p>
             </div>
             {heroProduct && heroImage ? (
@@ -139,31 +138,30 @@ export default function AgentsLandingPage() {
       </section>
 
       {/* PHILANTHROPY */}
-      <section className="bg-brand-cream py-20 md:py-28">
+      <section className="bg-brand-ink py-20 text-brand-cream md:py-28">
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-16">
             <div>
-              <p className="eyebrow text-brand-deep">Support the Causes That Matter</p>
-              <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight text-brand-ink md:text-5xl">
-                Licensing proceeds go where the player wants them to.
+              <p className="eyebrow text-brand-accent">Support the Causes That Matter</p>
+              <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+                Players give back
               </h2>
-              <p className="mt-6 max-w-xl font-sans text-base leading-relaxed text-brand-ink/70 md:text-lg">
-                Every licensing dollar Tour Pro Shop pays out is directed to a
-                philanthropic cause of the player&apos;s choosing. The player
-                decides where the dollars land — and both the player and the
-                sponsor share credit for the cause they back together.
+              <p className="mt-6 max-w-xl font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">
+                A portion of every sale is directed to a philanthropic cause
+                of the player&apos;s choosing. The player decides where the dollars land,
+                and both the player and the sponsor share credit for giving back.
               </p>
             </div>
-            <div className="rounded-2xl border border-line bg-surface-raised p-8 md:p-10">
-              <p className="eyebrow text-brand-deep">Shared philanthropic credit</p>
-              <ul className="mt-5 space-y-4 font-sans text-base text-brand-ink/80">
+            <div className="rounded-2xl border border-brand-cream/15 p-8 md:p-10">
+              <p className="eyebrow text-brand-accent">Shared philanthropic credit</p>
+              <ul className="mt-5 space-y-4 font-sans text-base text-brand-cream/80">
                 <li className="flex gap-3">
                   <span
                     aria-hidden
-                    className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-brand-primary"
+                    className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-brand-accent"
                   />
                   <span>
-                    <strong className="font-semibold text-brand-ink">
+                    <strong className="font-semibold text-brand-cream">
                       The player directs the dollars
                     </strong>{" "}
                     to a cause that matters to them.
@@ -172,10 +170,10 @@ export default function AgentsLandingPage() {
                 <li className="flex gap-3">
                   <span
                     aria-hidden
-                    className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-brand-primary"
+                    className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-brand-accent"
                   />
                   <span>
-                    <strong className="font-semibold text-brand-ink">
+                    <strong className="font-semibold text-brand-cream">
                       The sponsor shares the story
                     </strong>{" "}
                     — a charitable narrative layered on top of the
@@ -185,10 +183,10 @@ export default function AgentsLandingPage() {
                 <li className="flex gap-3">
                   <span
                     aria-hidden
-                    className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-brand-primary"
+                    className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-brand-accent"
                   />
                   <span>
-                    <strong className="font-semibold text-brand-ink">
+                    <strong className="font-semibold text-brand-cream">
                       Both get credit
                     </strong>{" "}
                     for the philanthropic impact the program creates.

@@ -419,12 +419,22 @@ export function ProductDetail({
           ) : null}
           <details className="border-t border-line py-5">
             <summary className="flex cursor-pointer items-center justify-between font-condensed text-sm uppercase tracking-widest">
+              Giving back
+              <span className="text-lg">+</span>
+            </summary>
+            <p className="mt-4 text-sm leading-relaxed text-brand-ink/80">
+              To be updated. A portion of proceeds from every purchase is
+              donated to charitable organizations selected by the player.
+            </p>
+          </details>
+          <details className="border-t border-line py-5">
+            <summary className="flex cursor-pointer items-center justify-between font-condensed text-sm uppercase tracking-widest">
               Shipping &amp; returns
               <span className="text-lg">+</span>
             </summary>
             <p className="mt-4 text-sm leading-relaxed text-brand-ink/80">
-              Complimentary shipping on orders over $150. Free returns within 30
-              days. Full policy at checkout.
+              Every purchase ships free. Free returns within 30 days for
+              unworn, unused items.
             </p>
           </details>
         </aside>
