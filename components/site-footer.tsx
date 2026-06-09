@@ -10,7 +10,6 @@ const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
       { label: "Polos", href: "/shop?category=polos" },
       { label: "Outerwear", href: "/shop?category=outerwear" },
       { label: "Headwear", href: "/shop?category=headwear" },
-      { label: "Accessories", href: "/shop?category=accessories" },
     ],
   },
   {

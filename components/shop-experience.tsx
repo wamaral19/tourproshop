@@ -36,19 +36,27 @@ export function ShopExperience() {
   const params = useSearchParams();
   const router = useRouter();
 
-  const initialCategory = (params.get("category") ?? "all") as
+  const category = (params.get("category") ?? "all") as
     | CatalogProductCategory
     | "all";
-  const initialPlayer = params.get("player") ?? "all";
-  const initialBrand = params.get("brand") ?? "all";
+  const player = params.get("player") ?? "all";
+  const brand = params.get("brand") ?? "all";
 
-  const [category, setCategory] = useState<CatalogProductCategory | "all">(
-    initialCategory,
-  );
-  const [player, setPlayer] = useState<string>(initialPlayer);
-  const [brand, setBrand] = useState<string>(initialBrand);
   const [sort, setSort] = useState<SortKey>("featured");
   const [filtersOpen, setFiltersOpen] = useState(false);
+
+  const updateParam = (key: string, value: string) => {
+    const next = new URLSearchParams(params.toString());
+    if (value === "all") next.delete(key);
+    else next.set(key, value);
+    const qs = next.toString();
+    router.replace(qs ? `/shop?${qs}` : "/shop", { scroll: false });
+  };
+
+  const setCategory = (v: CatalogProductCategory | "all") =>
+    updateParam("category", v);
+  const setPlayer = (v: string) => updateParam("player", v);
+  const setBrand = (v: string) => updateParam("brand", v);
 
   // If someone landed here filtered to a player we don't carry, hand them off
   // to that player's landing page instead of dropping an empty grid on them.
@@ -101,9 +109,7 @@ export function ShopExperience() {
       : "All Apparel";
 
   const resetAll = () => {
-    setCategory("all");
-    setPlayer("all");
-    setBrand("all");
+    router.replace("/shop", { scroll: false });
     setSort("featured");
   };
   const activeFilterCount =
