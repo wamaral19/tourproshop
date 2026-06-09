@@ -31,24 +31,27 @@ export default function AgentsLandingPage() {
             <div>
               <p className="eyebrow text-brand-deep">For agents</p>
               <h1 className="mt-4 font-sans text-4xl font-semibold leading-[1.05] tracking-tight text-brand-ink md:text-6xl lg:text-7xl">
-                Drive player recognition and sponsor value with no additional work.
+                We help players extend their brand beyond tournament week.
               </h1>
               <p className="mt-6 font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
-                Tour Pro Shop creates hundreds of thousands of real-world brand
-                exposure events among affluent golf consumers who voluntarily paid
-                to become walking brand ambassadors through licensed merchandise.
+                Tour Pro Shop Drive creates player recognition and sponsor value with no additional work.
+                Through licensed merchandise, fans can represent their favorite players in their everyday lives. 
+                Each item reflects the player's unique brand, turning clothing patch sponsorships into everyday wear 
+                for fans while supporting causes that matter to the player.
               </p>
             </div>
             {heroProduct && heroImage ? (
               <figure className="md:justify-self-end md:w-full md:max-w-md">
-                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line">
-                  <ProductImage
-                    product={heroProduct}
-                    image={heroImage}
-                    sizes="(max-width: 768px) 100vw, 40vw"
-                    className="absolute inset-0 h-full w-full"
-                    priority
-                  />
+                <div className="relative aspect-[4/5]">
+                  <div className="absolute inset-0 overflow-hidden rounded-2xl border border-line">
+                    <ProductImage
+                      product={heroProduct}
+                      image={heroImage}
+                      sizes="(max-width: 768px) 100vw, 40vw"
+                      className="absolute inset-0 h-full w-full"
+                      priority
+                    />
+                  </div>
                   {heroImage.hotspots && heroImage.hotspots.length > 0 ? (
                     <ImageHotspots
                       hotspots={heroImage.hotspots}
