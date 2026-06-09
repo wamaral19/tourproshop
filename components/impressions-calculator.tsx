@@ -31,11 +31,11 @@ const FIELDS: Field[] = [
   },
 ];
 
-const DEFAULTS = {
-  unitsSold: 1000,
-  wearsPerYear: 20,
-  lifespan: 4,
-  impressionsPerWear: 250,
+const DEFAULTS: Record<Field["key"], string> = {
+  unitsSold: "1000",
+  wearsPerYear: "25",
+  lifespan: "4",
+  impressionsPerWear: "250",
 };
 
 function format(n: number) {
@@ -44,11 +44,17 @@ function format(n: number) {
 }
 
 export function ImpressionsCalculator() {
-  const [values, setValues] = useState(DEFAULTS);
+  const [inputs, setInputs] = useState(DEFAULTS);
 
-  const wearsPerUnit =
-    values.unitsSold * values.wearsPerYear * values.lifespan;
-  const impressions = wearsPerUnit * values.impressionsPerWear;
+  const nums = {
+    unitsSold: Number(inputs.unitsSold) || 0,
+    wearsPerYear: Number(inputs.wearsPerYear) || 0,
+    lifespan: Number(inputs.lifespan) || 0,
+    impressionsPerWear: Number(inputs.impressionsPerWear) || 0,
+  };
+
+  const wearsPerUnit = nums.unitsSold * nums.wearsPerYear * nums.lifespan;
+  const impressions = wearsPerUnit * nums.impressionsPerWear;
 
   return (
     <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:gap-12">
@@ -66,16 +72,20 @@ export function ImpressionsCalculator() {
                   {f.label}
                 </span>
                 <input
-                  type="number"
+                  type="text"
                   inputMode="numeric"
-                  min={0}
-                  value={values[f.key]}
+                  pattern="[0-9]*"
+                  value={inputs[f.key]}
                   onChange={(e) => {
-                    const n = Number(e.target.value);
-                    setValues((v) => ({
-                      ...v,
-                      [f.key]: Number.isFinite(n) && n >= 0 ? n : 0,
-                    }));
+                    const raw = e.target.value;
+                    if (raw === "" || /^\d+$/.test(raw)) {
+                      setInputs((v) => ({ ...v, [f.key]: raw }));
+                    }
+                  }}
+                  onBlur={() => {
+                    if (inputs[f.key] === "") {
+                      setInputs((v) => ({ ...v, [f.key]: "0" }));
+                    }
                   }}
                   className="w-28 rounded-md border border-line bg-brand-cream px-3 py-1.5 text-right font-sans text-base font-semibold tabular-nums text-brand-ink outline-none focus:border-brand-deep"
                 />
@@ -91,7 +101,7 @@ export function ImpressionsCalculator() {
       {/* OUTPUTS */}
       <div className="flex flex-col justify-between gap-6 rounded-2xl bg-brand-ink p-6 text-brand-cream md:p-10">
         <div>
-          <p className="eyebrow text-brand-accent">Wears per unit</p>
+          <p className="eyebrow text-brand-accent">Wears per style</p>
           <p className="mt-2 font-sans text-3xl font-semibold tabular-nums tracking-tight md:text-4xl">
             {format(wearsPerUnit)}
           </p>

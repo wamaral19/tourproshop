@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ImpressionsCalculator } from "@/components/impressions-calculator";
+import { ImageHotspots } from "@/components/image-hotspots";
+import { ProductImage } from "@/components/product-image";
+import { getProductBySlug } from "@/lib/products";
+import { getSponsorsByPlayer } from "@/lib/sponsors";
 
 export const metadata: Metadata = {
   title: "For Agents — Drive recognition and sponsor value",
@@ -9,20 +14,63 @@ export const metadata: Metadata = {
 };
 
 export default function AgentsLandingPage() {
+  const heroProduct = getProductBySlug("cameron-young-polo");
+  const heroImage = heroProduct?.images.find((img) =>
+    img.src.includes("Sponsor Logo Flatlay"),
+  );
+  const heroSponsors = heroProduct
+    ? getSponsorsByPlayer(heroProduct.playerSlug)
+    : [];
+
   return (
     <div className="agents-page">
       {/* HERO */}
       <section className="border-b border-line bg-brand-cream">
         <div className="mx-auto max-w-[1400px] px-4 pb-12 pt-16 md:px-8 md:pb-20 md:pt-24">
-          <p className="eyebrow text-brand-deep">For agents</p>
-          <h1 className="mt-4 max-w-4xl font-sans text-4xl font-semibold leading-[1.05] tracking-tight text-brand-ink md:text-6xl lg:text-7xl">
-            Drive player recognition and sponsor value with no additional work.
-          </h1>
-          <p className="mt-6 max-w-3xl font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
-            Tour Pro Shop creates hundreds of thousands of real-world brand
-            exposure events among affluent golf consumers who voluntarily paid
-            to become walking brand ambassadors through licensed merchandise.
-          </p>
+          <div className="grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:items-center md:gap-14">
+            <div>
+              <p className="eyebrow text-brand-deep">For agents</p>
+              <h1 className="mt-4 font-sans text-4xl font-semibold leading-[1.05] tracking-tight text-brand-ink md:text-6xl lg:text-7xl">
+                Drive player recognition and sponsor value with no additional work.
+              </h1>
+              <p className="mt-6 font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
+                Tour Pro Shop creates hundreds of thousands of real-world brand
+                exposure events among affluent golf consumers who voluntarily paid
+                to become walking brand ambassadors through licensed merchandise.
+              </p>
+            </div>
+            {heroProduct && heroImage ? (
+              <figure className="md:justify-self-end md:w-full md:max-w-md">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line">
+                  <ProductImage
+                    product={heroProduct}
+                    image={heroImage}
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                    className="absolute inset-0 h-full w-full"
+                    priority
+                  />
+                  {heroImage.hotspots && heroImage.hotspots.length > 0 ? (
+                    <ImageHotspots
+                      hotspots={heroImage.hotspots}
+                      sponsors={heroSponsors}
+                    />
+                  ) : null}
+                </div>
+                <figcaption className="mt-3 text-center font-condensed text-[11px] uppercase tracking-widest text-brand-ink/55">
+                  Tap a callout to see each sponsor
+                </figcaption>
+                <div className="mt-4 text-center">
+                  <Link
+                    href={`/products/${heroProduct.slug}`}
+                    className="inline-flex items-center gap-1.5 font-sans text-sm font-medium text-brand-deep underline decoration-brand-deep/30 underline-offset-4 transition hover:decoration-brand-deep"
+                  >
+                    View the {heroProduct.name}
+                    <span aria-hidden>→</span>
+                  </Link>
+                </div>
+              </figure>
+            ) : null}
+          </div>
         </div>
       </section>
 
@@ -33,19 +81,17 @@ export default function AgentsLandingPage() {
             <div>
               <p className="eyebrow text-brand-accent">No lift on your side</p>
               <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
-                We handle the work. We carry the risk.
+                You benefit from the growth. We take on the risk.
               </h2>
             </div>
             <div className="space-y-5 font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">
               <p>
-                Tour Pro Shop sources the product, manages the supply chain,
-                fronts the inventory, runs the storefront, ships the orders,
-                and handles customer service.
+                Our partners benefit from increased brand exposure. We promote products
+                through paid advertising, grassroots marketing, and fan engagement initiatives
+                that benefit both players and sponsors.
               </p>
               <p>
-                Tour Pro Shop runs social and grassroots marketing efforts to
-                drive sales and organic social media growth for players and
-                brands. No participation is necessary from players.
+                 From inventory through fulfillment and customer service, we handle every aspect of the business.
               </p>
               <ul className="grid grid-cols-2 gap-3 pt-3 font-sans text-sm text-brand-cream/70">
                 {[

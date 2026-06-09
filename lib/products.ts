@@ -144,7 +144,7 @@ export const products: Product[] = [
     category: "polos",
     playerSlug: "ben-griffin",
     brand: "Holderness & Bourne",
-    price: 138,
+    price: 112,
     description:
       "A staple look for Ben Griffin from inside the ropes. The Anderson polo from Holderness & Bourne with Ben's sponsor logos. The Anderson is a crisp polo crafted from Holderness & Bourne's jersey knit performance fabric with stretch, moisture wicking, and a soft hand.",
     details: [
@@ -251,7 +251,7 @@ export const products: Product[] = [
     category: "polos",
     playerSlug: "james-nicholas",
     brand: "Greyson Clothiers",
-    price: 138,
+    price: 120,
     description:
       "A staple look for James Nicholas inside the ropes. A printed performance polo from Greyson Clothiers with James's sponsor logos — built on Greyson's signature jersey, with their iconic wolf mark at the chest and a two-tone striped collar.",
     details: [
@@ -519,7 +519,7 @@ export const products: Product[] = [
     category: "polos",
     playerSlug: "cameron-young",
     brand: "Peter Millar",
-    price: 128,
+    price: 135,
     description:
       "Cameron Young's tournament look — Peter Millar's solid performance jersey polo with Cam's full sponsor lineup intact, including the unmistakable MLB mark on the right collar that nods to his Westchester roots and lifelong Yankees fandom.",
     details: [
@@ -541,11 +541,11 @@ export const products: Product[] = [
         fit: "contain",
         bgColor: "#ecebeb",
         hotspots: [
-          { x: 43, y: 22, sponsorName: "MLB" },
-          { x: 57, y: 22, sponsorName: "Mastercard" },
-          { x: 37, y: 35, sponsorName: "Mutual of Omaha" },
-          { x: 63, y: 35, sponsorName: "iCapital" },
-          { x: 17, y: 36, sponsorName: "Cisco" },
+          { x: 43, y: 23, sponsorName: "MLB" },
+          { x: 58, y: 23, sponsorName: "Mastercard" },
+          { x: 36, y: 37, sponsorName: "Mutual of Omaha" },
+          { x: 65, y: 37, sponsorName: "iCapital" },
+          { x: 15, y: 40, sponsorName: "Cisco" },
         ],
       },
       {
@@ -722,7 +722,7 @@ export const products: Product[] = [
     category: "polos",
     playerSlug: "si-woo-kim",
     brand: "Primo",
-    price: 128,
+    price: 89,
     description:
       "Primo's Echo Classic Collar Polo in Si Woo's tournament spec — a textured grayscale print on Primo's signature performance jersey, finished with a contrast graphite collar, three-button placket, and Si Woo's full sponsor lineup intact, headlined by the CJ Group lockup of bibigo and CJ Logistics.",
     details: [
@@ -831,7 +831,7 @@ export const products: Product[] = [
     category: "outerwear",
     playerSlug: "min-woo-lee",
     brand: "Lululemon",
-    price: 198,
+    price: 188,
     description:
       "Cook up one of Min Woo's many unique looks with Lululemon's oversized track jacket — the retro colorblocked layer he reaches for on cool mornings inside the ropes. Lightweight nylon shell, stand collar, full-zip front, and a relaxed cut built to throw on over a polo.",
     details: [
