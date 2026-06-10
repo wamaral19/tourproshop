@@ -9,10 +9,12 @@ redirect to the agents lander (or any per-slug target URL).
   the existing Next.js deploy pipeline covers it. No separate worker.
 - **D1 lookup + insert:** `lib/outreach.ts`. The insert is deferred with
   `ctx.waitUntil` so the redirect isn't blocked.
-- **Admin:** `app/api/outreach/route.ts` — bearer-token-protected JSON.
-- **Schema:** `migrations/0001_outreach.sql`. Seed: `migrations/0002_outreach_seed.sql`
-  (regenerate with `node scripts/generate-outreach-seed.mjs` after editing
-  `data/outreach.csv`).
+- **Admin dashboard:** `app/admin/outreach/page.tsx` — token-gated UI for
+  viewing clicks and managing agents.
+- **Admin API:** `app/api/outreach/route.ts` — bearer-token-protected JSON.
+- **Schema:** `migrations/0001_outreach.sql` (tables),
+  `migrations/0002_outreach_seed.sql` (initial agent list, frozen snapshot),
+  `migrations/0003_outreach_emails_sent.sql` (per-agent email counter).
 
 Unknown slugs are still logged (with `is_known = 0`) and redirected to `/agents`,
 so typos in outreach emails don't produce broken links.
@@ -27,10 +29,10 @@ npx wrangler d1 create tourproshop-outreach
 #    REPLACE_WITH_D1_ID_FROM_WRANGLER_D1_CREATE.
 
 # 3. Apply schema + seed locally and remotely.
-npx wrangler d1 execute tourproshop-outreach --local  --file=migrations/0001_outreach.sql
-npx wrangler d1 execute tourproshop-outreach --local  --file=migrations/0002_outreach_seed.sql
-npx wrangler d1 execute tourproshop-outreach --remote --file=migrations/0001_outreach.sql
-npx wrangler d1 execute tourproshop-outreach --remote --file=migrations/0002_outreach_seed.sql
+for f in migrations/000*.sql; do
+  npx wrangler d1 execute tourproshop-outreach --local  --file="$f"
+  npx wrangler d1 execute tourproshop-outreach --remote --file="$f"
+done
 
 # 4. Set the admin token (runtime secret, not GitHub Actions).
 npx wrangler secret put OUTREACH_ADMIN_TOKEN
@@ -96,10 +98,16 @@ npx wrangler d1 execute tourproshop-outreach --remote --command \
 
 ## Adding a new agent later
 
-1. Append a row to `data/outreach.csv`.
-2. `node scripts/generate-outreach-seed.mjs` rewrites `migrations/0002_outreach_seed.sql`.
-3. `npx wrangler d1 execute tourproshop-outreach --remote --file=migrations/0002_outreach_seed.sql`
-   — `INSERT OR IGNORE` makes re-runs safe.
+Visit `/admin/outreach`, enter the admin token, and use the **Add agent** form
+at the top. The slug is derived from the agent's name and the `/r/<slug>` link
+works immediately. Agents are written straight to D1 — there is no longer a
+CSV or seed-regeneration step.
+
+## Tracking outreach emails sent
+
+The `outreach_links` table has an `emails_sent` column. Each row in the admin
+dashboard has an inline editable counter — bump it whenever you send a new
+email so the running total in the header stat reflects reality.
 
 ## What gets logged per click
 

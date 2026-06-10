@@ -8,6 +8,15 @@ export type OutreachLink = {
   target_url: string;
 };
 
+export function slugify(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 type Env = {
   OUTREACH_DB?: D1Database;
   OUTREACH_ADMIN_TOKEN?: string;

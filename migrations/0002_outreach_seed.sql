@@ -29,3 +29,4 @@ INSERT OR IGNORE INTO outreach_links (slug, agent_name, agency, email, target_ur
 INSERT OR IGNORE INTO outreach_links (slug, agent_name, agency, email, target_url) VALUES ('rob-goulet', 'Rob Goulet', 'Entertainment Sports Partners', 'rob@entertainmentsports.com', '/agents');
 INSERT OR IGNORE INTO outreach_links (slug, agent_name, agency, email, target_url) VALUES ('robert-turner', 'Robert Turner', 'Turner Communications Int''l, Inc.', 'tcibobturner@aol.com', '/agents');
 INSERT OR IGNORE INTO outreach_links (slug, agent_name, agency, email, target_url) VALUES ('terry-reilly', 'Terry Reilly', 'The Team', 'treilly@the.team', '/agents');
+INSERT OR IGNORE INTO outreach_links (slug, agent_name, agency, email, target_url) VALUES ('mike-creasy', 'Mike Creasy', 'GSE', 'mcreasy@gseworldwide.com', '/agents');
