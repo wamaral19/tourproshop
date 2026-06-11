@@ -91,8 +91,9 @@ html {
   scroll-snap-type: y mandatory;
 }
 
-.agents-page .eyebrow {
-  font-size: 1.125rem;
+.agents-page .eyebrow,
+.sponsors-page .eyebrow {
+  font-size: 1.25rem;
 }
 
 /* Subtle grain for hero panels */

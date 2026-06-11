@@ -4,12 +4,83 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart-context";
 
-const NAV: { href: string; label: string }[] = [
+type NavLink = { href: string; label: string };
+type NavGroup = { label: string; children: NavLink[] };
+type NavItem = NavLink | NavGroup;
+
+const NAV: NavItem[] = [
   { href: "/shop", label: "Shop" },
   { href: "/players", label: "Players" },
   { href: "/players?tier=exclusive", label: "TPS Exclusives" },
-  { href: "/journal", label: "Journal" },
+  {
+    label: "Partners",
+    children: [
+      { href: "/agents", label: "Agents" },
+      { href: "/sponsors", label: "Sponsors" },
+    ],
+  },
 ];
+
+function isNavGroup(item: NavItem): item is NavGroup {
+  return "children" in item;
+}
+
+function DesktopNavGroup({ item }: { item: NavGroup }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        type="button"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        onFocus={() => setOpen(true)}
+        onBlur={(e) => {
+          if (!e.currentTarget.parentElement?.contains(e.relatedTarget as Node)) {
+            setOpen(false);
+          }
+        }}
+        className="flex items-center gap-1 font-condensed text-sm uppercase text-brand-ink/85 transition-colors hover:text-brand-deep"
+      >
+        {item.label}
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden
+          className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+      {open ? (
+        <div
+          role="menu"
+          className="absolute left-1/2 top-full z-50 min-w-[180px] -translate-x-1/2 pt-3"
+        >
+          <div className="rounded-md border border-line bg-brand-cream py-2 shadow-md">
+            {item.children.map((child) => (
+              <Link
+                key={child.href}
+                href={child.href}
+                role="menuitem"
+                onClick={() => setOpen(false)}
+                className="block px-4 py-2 font-condensed text-sm uppercase text-brand-ink/85 transition-colors hover:bg-brand-ink/5 hover:text-brand-deep"
+              >
+                {child.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
 
 function CartButton({
   onOpen,
@@ -120,15 +191,19 @@ export function SiteHeader() {
         <Wordmark className="text-[1.5rem]" />
 
         <nav className="flex items-center gap-8">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="font-condensed text-sm uppercase text-brand-ink/85 transition-colors hover:text-brand-deep"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {NAV.map((item) =>
+            isNavGroup(item) ? (
+              <DesktopNavGroup key={item.label} item={item} />
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="font-condensed text-sm uppercase text-brand-ink/85 transition-colors hover:text-brand-deep"
+              >
+                {item.label}
+              </Link>
+            ),
+          )}
         </nav>
 
         <div className="flex items-center gap-2">
@@ -171,16 +246,39 @@ export function SiteHeader() {
       {mobileOpen ? (
         <div className="md:hidden border-t border-line">
           <nav className="flex flex-col px-4 py-2">
-            {NAV.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMobileOpen(false)}
-                className="font-display text-2xl py-3 border-b border-line/60 last:border-b-0"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {NAV.map((item) =>
+              isNavGroup(item) ? (
+                <div
+                  key={item.label}
+                  className="border-b border-line/60 py-3 last:border-b-0"
+                >
+                  <div className="font-condensed text-xs uppercase tracking-widest text-brand-ink/55">
+                    {item.label}
+                  </div>
+                  <div className="mt-1 flex flex-col">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="font-display text-2xl py-2"
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="font-display text-2xl py-3 border-b border-line/60 last:border-b-0"
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
           </nav>
         </div>
       ) : null}
