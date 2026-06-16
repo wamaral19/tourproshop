@@ -541,6 +541,7 @@ export const products: Product[] = [
         fit: "contain",
         bgColor: "#ecebeb",
         hotspots: [
+          { x: 51, y:13, sponsorName: "Peter Millar" },
           { x: 43, y: 23, sponsorName: "MLB" },
           { x: 58, y: 23, sponsorName: "Mastercard" },
           { x: 36, y: 37, sponsorName: "Mutual of Omaha" },
@@ -743,6 +744,7 @@ export const products: Product[] = [
         fit: "contain",
         bgColor: "#e9e8e6",
         hotspots: [
+          { x: 49.5, y: 12, sponsorName: "Primo" },
           { x: 14, y: 37, sponsorName: "NetJets" },
           { x: 40, y: 27, sponsorName: "Bibigo" },
           { x: 63, y: 22, sponsorName: "Brock" },
