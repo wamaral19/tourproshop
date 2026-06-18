@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import { getCfEnv } from "@/lib/outreach";
-import { addSponsor, updateSponsorEmailsSent } from "./actions";
+import { addApparelBrand, updateApparelEmailsSent } from "./actions";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Sponsor outreach dashboard",
+  title: "Apparel outreach dashboard",
   robots: { index: false, follow: false },
 };
 
 type SummaryRow = {
   slug: string;
-  sponsor_name: string | null;
-  company: string | null;
+  contact_name: string | null;
+  brand: string | null;
   email: string | null;
   emails_sent: number;
   clicks: number;
@@ -22,7 +22,7 @@ type SummaryRow = {
 type ClickRow = {
   ts: number;
   slug: string;
-  sponsor_name: string | null;
+  contact_name: string | null;
   country: string | null;
   city: string | null;
   user_agent: string | null;
@@ -40,7 +40,7 @@ function truncate(s: string | null, n: number): string {
   return s.length > n ? s.slice(0, n - 1) + "…" : s;
 }
 
-export default async function SponsorOutreachDashboard({
+export default async function ApparelOutreachDashboard({
   searchParams,
 }: {
   searchParams: Promise<{ token?: string }>;
@@ -53,7 +53,7 @@ export default async function SponsorOutreachDashboard({
   if (!expected) {
     return (
       <main className="mx-auto max-w-3xl p-8 font-mono text-sm">
-        <h1 className="text-xl font-bold">Sponsor outreach dashboard</h1>
+        <h1 className="text-xl font-bold">Apparel outreach dashboard</h1>
         <p className="mt-4 text-red-600">OUTREACH_ADMIN_TOKEN is not configured.</p>
       </main>
     );
@@ -62,7 +62,7 @@ export default async function SponsorOutreachDashboard({
   if (!token || token !== expected) {
     return (
       <main className="mx-auto max-w-md p-8 font-mono text-sm">
-        <h1 className="mb-6 text-xl font-bold">Sponsor outreach dashboard</h1>
+        <h1 className="mb-6 text-xl font-bold">Apparel outreach dashboard</h1>
         <form method="get" className="flex flex-col gap-3">
           <label htmlFor="token" className="text-xs uppercase tracking-wider">
             Admin token
@@ -91,7 +91,7 @@ export default async function SponsorOutreachDashboard({
   if (!db) {
     return (
       <main className="mx-auto max-w-3xl p-8 font-mono text-sm">
-        <h1 className="text-xl font-bold">Sponsor outreach dashboard</h1>
+        <h1 className="text-xl font-bold">Apparel outreach dashboard</h1>
         <p className="mt-4 text-red-600">OUTREACH_DB binding is missing.</p>
       </main>
     );
@@ -99,23 +99,23 @@ export default async function SponsorOutreachDashboard({
 
   const summaryRes = await db
     .prepare(
-      `SELECT l.slug, l.sponsor_name, l.company, l.email, l.emails_sent,
+      `SELECT l.slug, l.contact_name, l.brand, l.email, l.emails_sent,
               COUNT(c.id) AS clicks,
               MAX(c.ts)   AS last_click
-         FROM sponsor_outreach_links l
-         LEFT JOIN sponsor_outreach_clicks c ON c.slug = l.slug
+         FROM apparel_outreach_links l
+         LEFT JOIN apparel_outreach_clicks c ON c.slug = l.slug
          GROUP BY l.slug
-         ORDER BY clicks DESC, l.sponsor_name ASC`,
+         ORDER BY clicks DESC, l.contact_name ASC`,
     )
     .all<SummaryRow>();
   const summary = summaryRes.results ?? [];
 
   const recentRes = await db
     .prepare(
-      `SELECT c.ts, c.slug, l.sponsor_name, c.country, c.city,
+      `SELECT c.ts, c.slug, l.contact_name, c.country, c.city,
               c.user_agent, c.referrer, c.is_known
-         FROM sponsor_outreach_clicks c
-         LEFT JOIN sponsor_outreach_links l ON l.slug = c.slug
+         FROM apparel_outreach_clicks c
+         LEFT JOIN apparel_outreach_links l ON l.slug = c.slug
          ORDER BY c.ts DESC
          LIMIT 50`,
     )
@@ -124,15 +124,15 @@ export default async function SponsorOutreachDashboard({
 
   const totalClicks = summary.reduce((s, r) => s + r.clicks, 0);
   const totalEmails = summary.reduce((s, r) => s + (r.emails_sent ?? 0), 0);
-  const sponsorsClicked = summary.filter((r) => r.clicks > 0).length;
-  const totalSponsors = summary.length;
+  const brandsClicked = summary.filter((r) => r.clicks > 0).length;
+  const totalBrands = summary.length;
   const knownClicks = recent.filter((r) => r.is_known === 1).length;
   const unknownClicks = recent.filter((r) => r.is_known === 0).length;
 
   return (
     <main className="mx-auto max-w-[1400px] p-6 font-mono text-sm">
       <header className="mb-6 flex items-baseline justify-between">
-        <h1 className="text-xl font-bold">Sponsor outreach dashboard</h1>
+        <h1 className="text-xl font-bold">Apparel outreach dashboard</h1>
         <div className="flex items-center gap-4 text-xs">
           <a
             href={`/admin/outreach?token=${encodeURIComponent(token)}`}
@@ -141,13 +141,13 @@ export default async function SponsorOutreachDashboard({
             agents →
           </a>
           <a
-            href={`/admin/apparel?token=${encodeURIComponent(token)}`}
+            href={`/admin/sponsors?token=${encodeURIComponent(token)}`}
             className="underline"
           >
-            apparel →
+            sponsors →
           </a>
           <a
-            href={`/admin/sponsors?token=${encodeURIComponent(token)}`}
+            href={`/admin/apparel?token=${encodeURIComponent(token)}`}
             className="underline"
           >
             refresh
@@ -159,8 +159,8 @@ export default async function SponsorOutreachDashboard({
         <Stat label="Total clicks" value={totalClicks} />
         <Stat label="Emails sent" value={totalEmails} />
         <Stat
-          label="Sponsors clicked"
-          value={`${sponsorsClicked} / ${totalSponsors}`}
+          label="Brands clicked"
+          value={`${brandsClicked} / ${totalBrands}`}
         />
         <Stat label="Known (last 50)" value={knownClicks} />
         <Stat label="Unknown (last 50)" value={unknownClicks} />
@@ -168,19 +168,19 @@ export default async function SponsorOutreachDashboard({
 
       <section className="mb-8 rounded border border-neutral-300 bg-white p-4">
         <h2 className="mb-3 text-xs uppercase tracking-wider text-neutral-600">
-          Add sponsor
+          Add apparel brand
         </h2>
         <form
-          action={addSponsor}
+          action={addApparelBrand}
           className="grid grid-cols-1 gap-3 md:grid-cols-[1fr_1fr_1fr_auto]"
         >
           <input type="hidden" name="token" value={token} />
           <label className="flex flex-col gap-1">
             <span className="text-xs uppercase tracking-wider text-neutral-500">
-              Sponsor contact name
+              Contact name
             </span>
             <input
-              name="sponsor_name"
+              name="contact_name"
               required
               placeholder="Jane Doe"
               className="rounded border border-neutral-400 bg-white px-2 py-1.5"
@@ -188,11 +188,11 @@ export default async function SponsorOutreachDashboard({
           </label>
           <label className="flex flex-col gap-1">
             <span className="text-xs uppercase tracking-wider text-neutral-500">
-              Company
+              Brand
             </span>
             <input
-              name="company"
-              placeholder="Acme Spirits"
+              name="brand"
+              placeholder="Peter Millar"
               className="rounded border border-neutral-400 bg-white px-2 py-1.5"
             />
           </label>
@@ -203,7 +203,7 @@ export default async function SponsorOutreachDashboard({
             <input
               name="email"
               type="email"
-              placeholder="jane@acme.com"
+              placeholder="jane@brand.com"
               className="rounded border border-neutral-400 bg-white px-2 py-1.5"
             />
           </label>
@@ -216,20 +216,20 @@ export default async function SponsorOutreachDashboard({
         </form>
         <p className="mt-2 text-xs text-neutral-500">
           Slug is auto-derived from the contact name. Tracking link will be
-          /s/&lt;slug&gt;.
+          /a/&lt;slug&gt;.
         </p>
       </section>
 
       <section className="mb-12">
         <h2 className="mb-3 text-xs uppercase tracking-wider text-neutral-600">
-          Clicks by sponsor
+          Clicks by brand
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-xs">
             <thead>
               <tr className="border-b-2 border-neutral-800 text-left">
                 <Th>Contact</Th>
-                <Th>Company</Th>
+                <Th>Brand</Th>
                 <Th>Slug</Th>
                 <Th>Email</Th>
                 <Th className="text-right">Emails sent</Th>
@@ -244,13 +244,13 @@ export default async function SponsorOutreachDashboard({
                   key={r.slug}
                   className={r.clicks > 0 ? "bg-yellow-50" : ""}
                 >
-                  <Td>{r.sponsor_name ?? "—"}</Td>
-                  <Td>{r.company ?? "—"}</Td>
+                  <Td>{r.contact_name ?? "—"}</Td>
+                  <Td>{r.brand ?? "—"}</Td>
                   <Td className="text-neutral-500">{r.slug}</Td>
                   <Td className="text-neutral-500">{r.email ?? "—"}</Td>
                   <Td className="text-right">
                     <form
-                      action={updateSponsorEmailsSent}
+                      action={updateApparelEmailsSent}
                       className="inline-flex items-center gap-1"
                     >
                       <input type="hidden" name="token" value={token} />
@@ -275,18 +275,18 @@ export default async function SponsorOutreachDashboard({
                   <Td>
                     <a
                       className="underline"
-                      href={`https://tourpro.shop/s/${r.slug}`}
+                      href={`https://tourpro.shop/a/${r.slug}`}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      /s/{r.slug}
+                      /a/{r.slug}
                     </a>
                   </Td>
                 </tr>
               ))}
               <tr className="border-t-2 border-neutral-800 bg-neutral-100 font-bold">
                 <Td>TOTAL</Td>
-                <Td>{totalSponsors} sponsors</Td>
+                <Td>{totalBrands} brands</Td>
                 <Td>—</Td>
                 <Td>—</Td>
                 <Td className="text-right">{totalEmails}</Td>
@@ -324,7 +324,7 @@ export default async function SponsorOutreachDashboard({
                 {recent.map((r, i) => (
                   <tr key={i} className="border-b border-neutral-200">
                     <Td>{fmtTs(r.ts)}</Td>
-                    <Td>{r.sponsor_name ?? "—"}</Td>
+                    <Td>{r.contact_name ?? "—"}</Td>
                     <Td className="text-neutral-500">{r.slug}</Td>
                     <Td>{r.country ?? "—"}</Td>
                     <Td>{r.city ?? "—"}</Td>

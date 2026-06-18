@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ImpressionsCalculator } from "@/components/impressions-calculator";
 import { ImageHotspots } from "@/components/image-hotspots";
@@ -7,7 +8,7 @@ import { getProductBySlug } from "@/lib/products";
 import { getSponsorsByPlayer } from "@/lib/sponsors";
 
 export const metadata: Metadata = {
-  title: "For Agents — Drive recognition and sponsor value",
+  title: "Make your players more valuable to sponsors",
   description:
     "Tour Pro Shop turns licensed merchandise into hundreds of thousands of real-world brand exposure events — with no extra work for the player or their team.",
   robots: { index: false, follow: false },
@@ -31,12 +32,16 @@ export default function AgentsLandingPage() {
             <div>
               <p className="eyebrow text-brand-deep">For agents</p>
               <h1 className="mt-4 font-sans text-4xl font-semibold leading-[1.05] tracking-tight text-brand-ink md:text-6xl lg:text-7xl">
-                We help players extend their brand beyond tournament week.
+                Strengthen your players brand without any work. 
               </h1>
               <p className="mt-6 font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
-                Tour Pro Shop helps players extend their impact beyond tournament week through sponsor inclusive merchandise that fans can wear every day. 
-                Each purchase increases visibility for players and sponsors while supporting charitable causes selected by the player. 
-                The result is year round brand exposure that extends far beyond tournament broadcasts and leaderboard positions.
+                We turn tour players into digital pro shops.
+                <br />
+                <br />
+                By offering sponsor-inclusive versions of the gear fans see on TV, we help players extend their impact beyond tournament week, strengthen fan loyalty, and create measurable value for sponsors through additional brand exposure.
+                <br />
+                <br />
+                No inventory, no logistics, no operational burden. Tour Pro Shop handles everything. We just need your approval.
               </p>
             </div>
             {heroProduct && heroImage ? (
@@ -76,17 +81,39 @@ export default function AgentsLandingPage() {
         </div>
       </section>
 
-      {/* WE DO THE WORK */}
+      {/* CALCULATOR */}
       <section className="bg-brand-ink py-20 text-brand-cream md:py-28">
+        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
+          <div className="flex flex-col gap-3 border-b border-brand-cream/15 pb-8 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="eyebrow text-brand-accent">The Math for Sponsors</p>
+              <h2 className="mt-3 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+                Model the impression engine.
+              </h2>
+            </div>
+            <p className="max-w-md font-sans text-base text-brand-cream/70">
+              Adjust the inputs to see what a licensed run can generate over the
+              life of the product.
+            </p>
+          </div>
+
+          <div className="mt-10 md:mt-14">
+            <ImpressionsCalculator tone="dark" />
+          </div>
+        </div>
+      </section>
+
+      {/* WE DO THE WORK */}
+      <section className="bg-brand-cream py-20 text-brand-ink md:py-28">
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:gap-16">
             <div>
-              <p className="eyebrow text-brand-accent">No lift on your side</p>
+              <p className="eyebrow text-brand-deep">No lift on your side</p>
               <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
                 You benefit from the growth. We take on the risk.
               </h2>
             </div>
-            <div className="space-y-5 font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">
+            <div className="space-y-5 font-sans text-base leading-relaxed text-brand-ink/70 md:text-lg">
               <p>
                 Our partners benefit from increased brand exposure. We promote products
                 through paid advertising, grassroots marketing, and fan engagement initiatives
@@ -95,7 +122,7 @@ export default function AgentsLandingPage() {
               <p>
                  From inventory through fulfillment and customer service, we handle every aspect of the business.
               </p>
-              <ul className="grid grid-cols-2 gap-3 pt-3 font-sans text-sm text-brand-cream/70">
+              <ul className="grid grid-cols-2 gap-3 pt-3 font-sans text-sm text-brand-ink/65">
                 {[
                   "Sourcing & licensing",
                   "Inventory financed by us",
@@ -104,35 +131,13 @@ export default function AgentsLandingPage() {
                 ].map((item) => (
                   <li
                     key={item}
-                    className="rounded-xl border border-brand-cream/15 px-4 py-3"
+                    className="rounded-xl border border-line px-4 py-3"
                   >
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CALCULATOR */}
-      <section className="bg-brand-cream py-16 md:py-24">
-        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <div className="flex flex-col gap-3 border-b border-line pb-8 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="eyebrow text-brand-deep">The Math for Sponsors</p>
-              <h2 className="mt-3 font-sans text-3xl font-semibold leading-tight tracking-tight text-brand-ink md:text-5xl">
-                Model the impression engine.
-              </h2>
-            </div>
-            <p className="max-w-md font-sans text-base text-brand-ink/65">
-              Adjust the inputs to see what a licensed run can generate over the
-              life of the product.
-            </p>
-          </div>
-
-          <div className="mt-10 md:mt-14">
-            <ImpressionsCalculator />
           </div>
         </div>
       </section>
@@ -193,6 +198,47 @@ export default function AgentsLandingPage() {
                   </span>
                 </li>
               </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PROVEN ECOSYSTEM */}
+      <section className="bg-brand-cream py-20 text-brand-ink md:py-28">
+        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
+          <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center md:gap-16">
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
+              <figure className="overflow-hidden rounded-2xl border border-line">
+                <div className="relative aspect-[4/5] w-full">
+                  <Image
+                    src="/Sponsor Images/Lando Norris Logo Shirt.jpg"
+                    alt="Lando Norris in a McLaren sponsor-logo shirt — sponsor logos worn like a uniform"
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover"
+                  />
+                </div>
+              </figure>
+              <figure className="overflow-hidden rounded-2xl border border-line">
+                <div className="relative aspect-[4/5] w-full">
+                  <Image
+                    src="/Sponsor Images/Liverpool Jersey.webp"
+                    alt="Liverpool kit with Standard Chartered sponsor — Premier League fans wearing sponsored jerseys as everyday gear"
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover"
+                  />
+                </div>
+              </figure>
+            </div>
+            <div>
+              <p className="eyebrow text-brand-deep">A proven playbook</p>
+              <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+                A proven ecosystem outside of the golf world.
+              </h2>
+              <p className="mt-6 font-sans text-base leading-relaxed text-brand-ink/70 md:text-lg">
+                Across Formula 1, soccer, and cycling, the logos are the uniform. Fans wear what their athletes wear and sponsor brands reap the benefits. We’re bringing a proven model to the golf ecosystem.
+              </p>
             </div>
           </div>
         </div>

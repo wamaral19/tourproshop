@@ -16,6 +16,14 @@ export type SponsorOutreachLink = {
   target_url: string;
 };
 
+export type ApparelOutreachLink = {
+  slug: string;
+  contact_name: string | null;
+  brand: string | null;
+  email: string | null;
+  target_url: string;
+};
+
 export function slugify(s: string): string {
   return s
     .toLowerCase()
@@ -32,8 +40,10 @@ type Env = {
 
 export const DEFAULT_TARGET = "/agents";
 export const SPONSOR_DEFAULT_TARGET = "/sponsors";
+export const APPAREL_DEFAULT_TARGET = "/apparel";
 export const COOKIE_NAME = "tps_ref";
 export const SPONSOR_COOKIE_NAME = "tps_sref";
+export const APPAREL_COOKIE_NAME = "tps_aref";
 export const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 90; // 90 days
 
 const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,63}$/;
@@ -80,6 +90,19 @@ export async function lookupSponsorLink(
   return row ?? null;
 }
 
+export async function lookupApparelLink(
+  db: D1Database,
+  slug: string,
+): Promise<ApparelOutreachLink | null> {
+  const row = await db
+    .prepare(
+      "SELECT slug, contact_name, brand, email, target_url FROM apparel_outreach_links WHERE slug = ?",
+    )
+    .bind(slug)
+    .first<ApparelOutreachLink>();
+  return row ?? null;
+}
+
 export type ClickRecord = {
   slug: string;
   user_agent: string | null;
@@ -121,6 +144,29 @@ export async function recordSponsorClick(
   await db
     .prepare(
       `INSERT INTO sponsor_outreach_clicks
+         (slug, user_agent, referrer, ip, country, region, city, is_known)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    )
+    .bind(
+      click.slug,
+      click.user_agent,
+      click.referrer,
+      click.ip,
+      click.country,
+      click.region,
+      click.city,
+      click.is_known ? 1 : 0,
+    )
+    .run();
+}
+
+export async function recordApparelClick(
+  db: D1Database,
+  click: ClickRecord,
+): Promise<void> {
+  await db
+    .prepare(
+      `INSERT INTO apparel_outreach_clicks
          (slug, user_agent, referrer, ip, country, region, city, is_known)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
     )

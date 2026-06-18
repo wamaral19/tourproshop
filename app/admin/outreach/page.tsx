@@ -141,6 +141,12 @@ export default async function OutreachDashboard({
             sponsors →
           </a>
           <a
+            href={`/admin/apparel?token=${encodeURIComponent(token)}`}
+            className="underline"
+          >
+            apparel →
+          </a>
+          <a
             href={`/admin/outreach?token=${encodeURIComponent(token)}`}
             className="underline"
           >
