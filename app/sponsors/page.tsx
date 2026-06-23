@@ -170,11 +170,11 @@ export default function SponsorsLandingPage() {
             <div>
               <p className="eyebrow text-brand-accent">Support the Causes That Matter</p>
               <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
-                Players give back
+                Sponsors give back
               </h2>
               <p className="mt-6 max-w-xl font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">
                 A portion of every sale is directed to a philanthropic cause
-                of the player&apos;s choosing. The player decides where the dollars land,
+                of the sponsor&apos;s choosing. The sponsor decides where the dollars land,
                 and both the player and the sponsor share credit for giving back.
               </p>
             </div>
@@ -188,7 +188,7 @@ export default function SponsorsLandingPage() {
                   />
                   <span>
                     <strong className="font-semibold text-brand-cream">
-                      The player directs the dollars
+                      The sponsors direct the dollars
                     </strong>{" "}
                     to a cause that matters to them.
                   </span>
@@ -200,7 +200,7 @@ export default function SponsorsLandingPage() {
                   />
                   <span>
                     <strong className="font-semibold text-brand-cream">
-                      The sponsor shares the story
+                      The sponsors and player share the story
                     </strong>{" "}
                     — a charitable narrative layered on top of the
                     impressions above.

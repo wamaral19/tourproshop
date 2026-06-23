@@ -83,12 +83,11 @@ export default function ApparelLandingPage() {
             <div>
               <p className="eyebrow text-brand-accent">A new-age retail partner</p>
               <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
-                A new customer acquisition channel.
+                Turn fans into known customers
               </h2>
               <p className="mt-6 max-w-xl font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">
-                Tour Pro Shop lets customers opt in to marketing communications
-                directly from apparel partners, creating a new customer
-                acquisition channel for your brand. We&apos;re not just another
+                Customers are opted into marketing communications with apparel partners by default. Tour Pro Shop lets customers opt in to marketing communications
+                We create a new customer acquisition channel for your brand. We&apos;re not just another
                 wholesale account — we&apos;re a new-age retail partner that hands
                 you the relationship, not just the sale.
               </p>
@@ -103,9 +102,9 @@ export default function ApparelLandingPage() {
                   />
                   <span>
                     <strong className="font-semibold text-brand-cream">
-                      Direct-to-customer permission
+                      Get the customer, not just the sale
                     </strong>{" "}
-                    — fans opt in to hear from your brand, not just from us.
+                    — receive individual purchaser data similar to a direct-to-consumer transaction.
                   </span>
                 </li>
                 <li className="flex gap-3">
@@ -117,7 +116,7 @@ export default function ApparelLandingPage() {
                     <strong className="font-semibold text-brand-cream">
                       Ambassador programs that sell
                     </strong>{" "}
-                    — your existing player deals become a revenue channel.
+                    — turn player affinity into product purchases and long-term brand loyalty.
                   </span>
                 </li>
                 <li className="flex gap-3">
@@ -127,10 +126,9 @@ export default function ApparelLandingPage() {
                   />
                   <span>
                     <strong className="font-semibold text-brand-cream">
-                      Net-new customers
+                      Reach new audiences
                     </strong>{" "}
-                    — golf fans who discover your brand through the players they
-                    follow.
+                    — introduce your brand to highly engaged golf fans through the players they trust.
                   </span>
                 </li>
               </ul>
@@ -190,12 +188,12 @@ export default function ApparelLandingPage() {
             <div>
               <p className="eyebrow text-brand-accent">Support the Causes That Matter</p>
               <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
-                Players give back
+                Sponsors give back
               </h2>
               <p className="mt-6 max-w-xl font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">
                 A portion of every sale is directed to a philanthropic cause
-                of the player&apos;s choosing. The player decides where the dollars land,
-                and both the player and the apparel partner share credit for giving back.
+                of the sponsor&apos;s choosing. The sponsor decides where the dollars land,
+                and both the sponsors and the player share credit for giving back.
               </p>
             </div>
             <div className="rounded-2xl border border-brand-cream/15 p-8 md:p-10">
@@ -208,7 +206,7 @@ export default function ApparelLandingPage() {
                   />
                   <span>
                     <strong className="font-semibold text-brand-cream">
-                      The player directs the dollars
+                      The sponsors direct the dollars
                     </strong>{" "}
                     to a cause that matters to them.
                   </span>
@@ -220,7 +218,7 @@ export default function ApparelLandingPage() {
                   />
                   <span>
                     <strong className="font-semibold text-brand-cream">
-                      The apparel partner shares the story
+                      The sponsors and player share the story
                     </strong>{" "}
                     — a charitable narrative layered on top of the brand exposure.
                   </span>

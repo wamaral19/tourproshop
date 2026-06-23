@@ -35,13 +35,10 @@ export default function AgentsLandingPage() {
                 Strengthen your players brand without any work. 
               </h1>
               <p className="mt-6 font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
-                We turn tour players into digital pro shops.
+                We create hundreds of thousands of dollars worth of brand exposure for sponsors by offering the same sponsor-inclusive apparel players compete in to fans.
                 <br />
                 <br />
-                By offering sponsor-inclusive versions of the gear fans see on TV, we help players extend their impact beyond tournament week, strengthen fan loyalty, and create measurable value for sponsors through additional brand exposure.
-                <br />
-                <br />
-                No inventory, no logistics, no operational burden. Tour Pro Shop handles everything. We just need your approval.
+               Tour Pro Shop handles everything, including coordinating with sponsors for approval. No inventory, no logistics, no operational burden. We do the work. Your player extends their brand beyond tournament week, creating more value for sponsors and more leverage in future negotiations.
               </p>
             </div>
             {heroProduct && heroImage ? (
@@ -88,12 +85,11 @@ export default function AgentsLandingPage() {
             <div>
               <p className="eyebrow text-brand-accent">The Math for Sponsors</p>
               <h2 className="mt-3 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
-                Model the impression engine.
+                Apparel creates a new value component for brands.
               </h2>
             </div>
             <p className="max-w-md font-sans text-base text-brand-cream/70">
-              Adjust the inputs to see what a licensed run can generate over the
-              life of the product.
+              Adjust the inputs to see a ballpark of what merchandise is worth to brands through increased exposure.
             </p>
           </div>
 
@@ -149,11 +145,11 @@ export default function AgentsLandingPage() {
             <div>
               <p className="eyebrow text-brand-accent">Support the Causes That Matter</p>
               <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
-                Players give back
+                Sponsors give back
               </h2>
               <p className="mt-6 max-w-xl font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">
                 A portion of every sale is directed to a philanthropic cause
-                of the player&apos;s choosing. The player decides where the dollars land,
+                of the sponsor&apos;s choosing. The sponsor decides where the dollars land,
                 and both the player and the sponsor share credit for giving back.
               </p>
             </div>
@@ -167,7 +163,7 @@ export default function AgentsLandingPage() {
                   />
                   <span>
                     <strong className="font-semibold text-brand-cream">
-                      The player directs the dollars
+                      The sponsors direct the dollars
                     </strong>{" "}
                     to a cause that matters to them.
                   </span>
@@ -179,7 +175,7 @@ export default function AgentsLandingPage() {
                   />
                   <span>
                     <strong className="font-semibold text-brand-cream">
-                      The sponsor shares the story
+                      The sponsors and player share the story
                     </strong>{" "}
                     — a charitable narrative layered on top of the
                     impressions above.
