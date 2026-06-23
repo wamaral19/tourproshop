@@ -31,14 +31,14 @@ export default function AgentsLandingPage() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:items-center md:gap-14">
             <div>
               <p className="eyebrow text-brand-deep">For agents</p>
-              <h1 className="mt-4 font-sans text-4xl font-semibold leading-[1.05] tracking-tight text-brand-ink md:text-6xl lg:text-7xl">
-                Strengthen your players brand without any work. 
+              <h1 className="mt-4 font-sans text-4xl font-semibold leading-[1.05] tracking-tight text-brand-ink md:text-5xl lg:text-5xl">
+                Increase the value of your player's sponsorship inventory.
               </h1>
               <p className="mt-6 font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
-                We create hundreds of thousands of dollars worth of brand exposure for sponsors by offering the same sponsor-inclusive apparel players compete in to fans.
+                We create a new sponsorship asset by offering fans the same sponsor-inclusive apparel your players wear in competition.
                 <br />
                 <br />
-               Tour Pro Shop handles everything, including coordinating with sponsors for approval. No inventory, no logistics, no operational burden. We do the work. Your player extends their brand beyond tournament week, creating more value for sponsors and more leverage in future negotiations.
+               Tour Pro Shop handles everything, including coordinating with sponsors for approval. No inventory, no logistics, no operational burden. We unlock additional sponsorship value while creating zero additional work for agents.
               </p>
             </div>
             {heroProduct && heroImage ? (
@@ -83,9 +83,9 @@ export default function AgentsLandingPage() {
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <div className="flex flex-col gap-3 border-b border-brand-cream/15 pb-8 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="eyebrow text-brand-accent">The Math for Sponsors</p>
-              <h2 className="mt-3 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
-                Apparel creates a new value component for brands.
+              <p className="eyebrow text-brand-accent">Quantifying Sponsor Value</p>
+              <h2 className="mt-3 font-sans text-2xl font-semibold leading-tight tracking-tight md:text-4xl">
+                Calculate the exposure generated when sponsorships move from the course into everyday life.
               </h2>
             </div>
             <p className="max-w-md font-sans text-base text-brand-cream/70">
