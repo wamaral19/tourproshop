@@ -75,7 +75,7 @@ export default function JJSpaunPitchPage() {
                 <p>Other sports have jerseys. Golf doesn&apos;t. You can be the first.</p>
                 <p>
                   You&apos;re already a fan favorite, but you&apos;ll get even
-                  more support once you have supporters wearing your gear at
+                  more love once you have supporters wearing your gear at
                   events.
                 </p>
               </div>
