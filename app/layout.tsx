@@ -3,9 +3,7 @@ import { Bebas_Neue, Gemunu_Libre } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { CartProvider } from "@/lib/cart-context";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
-import { CartDrawer } from "@/components/cart-drawer";
+import { SiteChrome } from "@/components/site-chrome";
 
 const bebas = Bebas_Neue({
   variable: "--font-bebas",
@@ -58,10 +56,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen flex flex-col bg-brand-cream text-brand-ink">
         <CartProvider>
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
-          <CartDrawer />
+          <SiteChrome>{children}</SiteChrome>
         </CartProvider>
       </body>
     </html>
