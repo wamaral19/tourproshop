@@ -27,10 +27,13 @@ export default function JJSpaunPitchPage() {
               </h1>
               <div className="mt-4 space-y-3 font-sans text-sm leading-relaxed text-brand-ink/70 md:text-base">
                 <p>
-                  Today, there are kids out there practicing lag putts imagining they're you standing over a 64-footer to win the U.S. Open. In their head they need two putts to win, but they're hoping it only takes one.
+                  You have fans who watch you compete, follow you weekly, and root for your success. Today they have no way of showing that support.
                 </p>
                 <p>
-                  They're your fans, but they have no way of showing it today. We want to give them the chance to make their support visible and make the imaginary moments more real by giving fans access to the same sponsor-inclusive gear they see you wearing in competition.
+                  We want to change that by giving fans access to the same sponsor-inclusive gear they see you wearing in competition.
+                </p>
+                <p>
+                  The next time a kid is practicing 60-footers imagining they need two putts to win the U.S. Open, we hope they make it, just like you did. We also hope they're wearing your shirt.
                 </p>
               </div>
             </div>
