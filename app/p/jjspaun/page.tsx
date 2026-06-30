@@ -72,18 +72,33 @@ export default function JJSpaunPitchPage() {
               <p className="eyebrow text-brand-accent">Be the first</p>
               <div className="mt-4 space-y-3 font-sans text-sm leading-relaxed text-brand-cream/80 md:text-base">
                 <p>Be the first player to have fans show support with sponsors.</p>
-                <p>Other sports have jerseys. Golf doesn&apos;t.</p>
+                <p>Other sports have jerseys. Golf doesn&apos;t. You can be the first.</p>
+                <p>
+                  You&apos;re already a fan favorite, but you&apos;ll get even
+                  more support once you have supporters wearing your gear at
+                  events.
+                </p>
               </div>
             </div>
 
             <div className="rounded-2xl border border-brand-cream/15 p-5 md:p-6">
-              <p className="eyebrow text-brand-accent">Become part of lifelong memories</p>
+              <p className="eyebrow text-brand-accent">Support the causes you care about</p>
               <div className="mt-4 space-y-3 font-sans text-sm leading-relaxed text-brand-cream/80 md:text-base">
                 <p>
-                  Whether it&apos;s a junior winning their first tournament or someone
-                  making their first hole-in-one - if someone is wearing your
-                  shirt for a memorable life moment they&apos;ll never forget it.
+                  A portion of every sale will be directed to Breakthrough T1D
+                  on your behalf.
                 </p>
+                <div className="mx-auto w-fit rounded-xl bg-white px-5 py-3">
+                  <div className="relative h-[3.75rem] w-[16.5rem]">
+                    <Image
+                      src="/product images/JJ Spaun Polo/Breakthrough_T1D_logo.svg.webp"
+                      alt="Breakthrough T1D (formerly JDRF)"
+                      fill
+                      sizes="264px"
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -123,21 +138,14 @@ export default function JJSpaunPitchPage() {
 
             <div>
               <h2 className="font-sans text-xl font-semibold leading-tight tracking-tight text-brand-ink md:text-2xl">
-                Support the causes you care about.
+                Become part of lifelong memories.
               </h2>
               <p className="mt-4 max-w-md font-sans text-sm leading-relaxed text-brand-ink/70 md:text-base">
-                A portion of every sale will be directed to Breakthrough T1D on
-                your behalf.
+                Whether it&apos;s a junior winning their first tournament or
+                someone making their first hole-in-one - if someone is wearing
+                your shirt for a memorable life moment they&apos;ll never forget
+                it.
               </p>
-              <div className="relative mx-auto mt-5 h-[3.75rem] w-[16.5rem]">
-                <Image
-                  src="/product images/JJ Spaun Polo/Breakthrough_T1D_logo.svg.webp"
-                  alt="Breakthrough T1D (formerly JDRF)"
-                  fill
-                  sizes="264px"
-                  className="object-contain"
-                />
-              </div>
             </div>
           </div>
         </div>
