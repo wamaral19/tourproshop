@@ -102,6 +102,13 @@ export function ProductDetail({
 
   return (
     <article className="bg-brand-cream pb-24">
+      {/* Demo banner — sits directly below the site header on every PDP. */}
+      <div className="bg-brand-deep px-4 py-2.5 text-center">
+        <p className="font-condensed uppercase tracking-[0.18em] text-sm text-white">
+          For demo purposes only — exclusives coming soon
+        </p>
+      </div>
+
       {/* Breadcrumb */}
       <div className="mx-auto max-w-[1400px] px-4 pt-6 md:px-8 md:pt-10">
         <nav
