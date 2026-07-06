@@ -83,14 +83,11 @@ export default function AgentsLandingPage() {
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <div className="flex flex-col gap-3 border-b border-brand-cream/15 pb-8 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="eyebrow text-brand-accent">Quantifying Sponsor Value</p>
+              <p className="eyebrow text-brand-accent">Here's the math</p>
               <h2 className="mt-3 font-sans text-2xl font-semibold leading-tight tracking-tight md:text-4xl">
-                Calculate the exposure generated when sponsorships move from the course into everyday life.
+                Estimate the additional sponsor value created when fans wear the same sponsor-inclusive apparel as your player.
               </h2>
             </div>
-            <p className="max-w-md font-sans text-base text-brand-cream/70">
-              Adjust the inputs to see a ballpark of what merchandise is worth to brands through increased exposure.
-            </p>
           </div>
 
           <div className="mt-10 md:mt-14">
