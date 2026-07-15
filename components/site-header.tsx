@@ -15,6 +15,7 @@ const NAV: NavItem[] = [
   {
     label: "Partners",
     children: [
+      { href: "/for-players", label: "For Players" },
       { href: "/agents", label: "Agents" },
       { href: "/sponsors", label: "Corporate Sponsors" },
       { href: "/apparel", label: "Apparel Sponsors" },
