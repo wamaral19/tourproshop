@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Gemunu_Libre } from "next/font/google";
+import { Gemunu_Libre } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { CartProvider } from "@/lib/cart-context";
 import { SiteChrome } from "@/components/site-chrome";
-
-const bebas = Bebas_Neue({
-  variable: "--font-bebas",
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
 
 const switzer = localFont({
   variable: "--font-switzer",
@@ -52,7 +45,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bebas.variable} ${switzer.variable} ${gemunu.variable} antialiased`}
+      className={`${switzer.variable} ${gemunu.variable} antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-brand-cream text-brand-ink">
         <CartProvider>

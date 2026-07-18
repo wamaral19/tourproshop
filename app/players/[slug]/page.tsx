@@ -90,7 +90,7 @@ export default async function PlayerLandingPage({
                   .join(" · ")}
               </p>
             ) : null}
-            <h1 className="font-sans mt-3 text-5xl font-semibold leading-[0.95] tracking-tight text-brand-cream md:text-7xl">
+            <h1 className="font-display mt-3 text-5xl leading-[0.95] tracking-tight text-brand-cream md:text-7xl">
               {player.name}
             </h1>
           </div>
@@ -144,7 +144,7 @@ export default async function PlayerLandingPage({
                     href={apparel.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-3 inline-flex h-12 items-center rounded-full bg-brand-ink px-6 font-sans text-sm font-medium uppercase tracking-wider text-brand-cream transition-colors hover:bg-brand-accent hover:text-brand-ink"
+                    className="mt-3 inline-flex h-12 items-center rounded-full bg-brand-ink px-6 font-sans text-sm font-medium uppercase tracking-wider text-brand-cream transition-colors hover:bg-brand-accent hover:text-brand-cream"
                   >
                     {apparel.vendor} →
                   </a>

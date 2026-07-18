@@ -162,7 +162,7 @@ export function ImpressionsCalculator({
       >
         <div>
           <p className="eyebrow text-brand-accent">Estimated media value</p>
-          <p className="mt-3 font-sans text-6xl font-semibold tabular-nums leading-none tracking-tight text-brand-accent md:text-7xl lg:text-8xl">
+          <p className="mt-3 font-display text-6xl tabular-nums leading-none tracking-tight text-brand-accent md:text-7xl lg:text-8xl">
             {formatUSD(mediaValue)}
           </p>
           <p className="mt-3 font-sans text-sm text-brand-cream/60">
@@ -172,7 +172,7 @@ export function ImpressionsCalculator({
 
         <div className="border-t border-brand-cream/15 pt-6">
           <p className="eyebrow text-brand-accent">Impressions generated</p>
-          <p className="mt-3 font-sans text-4xl font-semibold tabular-nums leading-none tracking-tight md:text-5xl lg:text-6xl">
+          <p className="mt-3 font-display text-4xl tabular-nums leading-none tracking-tight md:text-5xl lg:text-6xl">
             {format(impressions)}
           </p>
           <p className="mt-3 font-sans text-sm text-brand-cream/60">
@@ -182,7 +182,7 @@ export function ImpressionsCalculator({
 
         <div className="border-t border-brand-cream/15 pt-6">
           <p className="eyebrow text-brand-accent">Wears per style</p>
-          <p className="mt-2 font-sans text-3xl font-semibold tabular-nums tracking-tight md:text-4xl">
+          <p className="mt-2 font-display text-3xl tabular-nums tracking-tight md:text-4xl">
             {format(wearsPerUnit)}
           </p>
           <p className="mt-1 font-sans text-sm text-brand-cream/60">

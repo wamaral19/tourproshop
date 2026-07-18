@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
@@ -16,9 +17,14 @@ function BareHeader() {
   return (
     <header className="border-b border-line bg-brand-cream">
       <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-center px-4 md:h-20 md:px-8">
-        <span className="font-wordmark whitespace-nowrap text-[1.25rem] font-bold uppercase leading-none tracking-[0.18em] text-brand-ink md:text-[1.5rem]">
-          Tour Pro Shop
-        </span>
+        <Image
+          src="/logo-wordmark.svg"
+          alt="Tour Pro Shop"
+          width={249}
+          height={26}
+          priority
+          className="h-4 w-auto md:h-5"
+        />
       </div>
     </header>
   );

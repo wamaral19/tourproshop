@@ -17,7 +17,7 @@ export default function ForPlayersPage() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:items-center md:gap-14">
             <div>
               <p className="eyebrow text-brand-deep">For players</p>
-              <h1 className="mt-4 font-sans text-4xl font-semibold leading-[1.05] tracking-tight text-brand-ink md:text-5xl">
+              <h1 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight text-brand-ink md:text-5xl">
                 Fans already support you. Let them show it.
               </h1>
               <div className="mt-6 space-y-5 font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
@@ -40,7 +40,7 @@ export default function ForPlayersPage() {
                   priority
                 />
               </div>
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-[#ecebeb]">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-surface-raised">
                 <Image
                   src="/product images/Cam Young Polo/Cam Young Polo Sponsor Logo Flatlay 01.jpg"
                   alt="Cameron Young's Peter Millar polo with his tour sponsor placements"
@@ -60,7 +60,7 @@ export default function ForPlayersPage() {
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <div className="grid gap-10 md:grid-cols-2 md:gap-16">
             <div>
-              <h2 className="font-sans text-3xl font-semibold leading-tight tracking-tight md:text-4xl">
+              <h2 className="font-display text-3xl leading-tight tracking-tight md:text-4xl">
                 What do we need from you?
               </h2>
               <ul className="mt-6 space-y-4 font-sans text-base text-brand-cream/80 md:text-lg">
@@ -87,7 +87,7 @@ export default function ForPlayersPage() {
             </div>
 
             <div>
-              <h2 className="font-sans text-3xl font-semibold leading-tight tracking-tight md:text-4xl">
+              <h2 className="font-display text-3xl leading-tight tracking-tight md:text-4xl">
                 Become part of lifelong memories.
               </h2>
               <p className="mt-6 max-w-xl font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">
@@ -104,7 +104,7 @@ export default function ForPlayersPage() {
       {/* BUILD YOUR LEGACY */}
       <section className="border-b border-line bg-brand-cream py-20 text-brand-ink md:py-28">
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <h2 className="font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+          <h2 className="font-display text-3xl leading-tight tracking-tight md:text-5xl">
             Build your legacy
           </h2>
 
@@ -145,7 +145,7 @@ export default function ForPlayersPage() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:items-center md:gap-14">
             <div>
               <p className="eyebrow text-brand-accent">More sponsorship value</p>
-              <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+              <h2 className="mt-4 font-display text-3xl leading-tight tracking-tight md:text-5xl">
                 Increase your value to sponsors.
               </h2>
               <div className="mt-6 space-y-5 font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">
@@ -162,7 +162,7 @@ export default function ForPlayersPage() {
               </div>
             </div>
             <figure className="grid w-full grid-cols-2 gap-4 md:justify-self-end md:max-w-md">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-[#e5e3e4]">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-surface-raised">
                 <Image
                   src="/product images/Min Woo Lee Track Jacket/Lululemon Track Jacket Logo Flatlay.png"
                   alt="Min Woo Lee's Lululemon pullover with sponsor placements"
@@ -215,7 +215,7 @@ export default function ForPlayersPage() {
             </div>
             <div>
               <p className="eyebrow text-brand-deep">A proven playbook</p>
-              <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+              <h2 className="mt-4 font-display text-3xl leading-tight tracking-tight md:text-5xl">
                 A proven ecosystem outside of the golf world.
               </h2>
               <p className="mt-6 font-sans text-base leading-relaxed text-brand-ink/70 md:text-lg">

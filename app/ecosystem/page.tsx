@@ -15,7 +15,7 @@ export default function EcosystemPage() {
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <p className="eyebrow text-brand-deep">The ecosystem</p>
-            <h1 className="mt-3 font-sans text-4xl font-semibold leading-tight tracking-tight text-brand-ink md:text-6xl">
+            <h1 className="mt-3 font-display text-4xl leading-tight tracking-tight text-brand-ink md:text-6xl">
               One product. Value on every side.
             </h1>
             <p className="mt-4 font-sans text-base leading-relaxed text-brand-ink/65 md:text-lg">

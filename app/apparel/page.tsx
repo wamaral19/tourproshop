@@ -30,7 +30,7 @@ export default function ApparelLandingPage() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:items-center md:gap-14">
             <div>
               <p className="eyebrow text-brand-deep">For apparel sponsors</p>
-              <h1 className="mt-4 font-sans text-4xl font-semibold leading-[1.05] tracking-tight text-brand-ink md:text-6xl lg:text-7xl">
+              <h1 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight text-brand-ink md:text-6xl lg:text-7xl">
                 Access a new wholesale channel.
               </h1>
               <p className="mt-6 font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
@@ -82,7 +82,7 @@ export default function ApparelLandingPage() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-16">
             <div>
               <p className="eyebrow text-brand-accent">A new-age retail partner</p>
-              <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+              <h2 className="mt-4 font-display text-3xl leading-tight tracking-tight md:text-5xl">
                 Turn fans into known customers
               </h2>
               <p className="mt-6 max-w-xl font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">
@@ -167,7 +167,7 @@ export default function ApparelLandingPage() {
             </div>
             <div>
               <p className="eyebrow text-brand-deep">A proven playbook</p>
-              <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+              <h2 className="mt-4 font-display text-3xl leading-tight tracking-tight md:text-5xl">
                 A proven playbook outside of the golf world.
               </h2>
               <p className="mt-6 font-sans text-base leading-relaxed text-brand-ink/70 md:text-lg">
@@ -187,7 +187,7 @@ export default function ApparelLandingPage() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-16">
             <div>
               <p className="eyebrow text-brand-accent">Support the Causes That Matter</p>
-              <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+              <h2 className="mt-4 font-display text-3xl leading-tight tracking-tight md:text-5xl">
                 Sponsors give back
               </h2>
               <p className="mt-6 max-w-xl font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">

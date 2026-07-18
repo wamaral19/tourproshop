@@ -15,7 +15,7 @@ export default function JournalComingSoonPage() {
         <div className="grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:items-start md:gap-14">
           <div>
             <p className="eyebrow text-brand-deep">The Journal</p>
-            <h1 className="mt-4 font-sans text-4xl font-semibold leading-[1.05] tracking-tight text-brand-ink md:text-6xl lg:text-7xl">
+            <h1 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight text-brand-ink md:text-6xl lg:text-7xl">
               Coming soon.
             </h1>
             <p className="mt-6 max-w-xl font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">

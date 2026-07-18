@@ -22,7 +22,7 @@ export default function JJSpaunPitchPage() {
         <div className="mx-auto max-w-[1200px] px-4 pb-6 pt-6 md:px-8 md:pb-8 md:pt-8">
           <div className="grid gap-6 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:items-center md:gap-10">
             <div>
-              <h1 className="font-sans text-2xl font-semibold leading-[1.1] tracking-tight text-brand-ink md:text-3xl">
+              <h1 className="font-display text-2xl leading-[1.1] tracking-tight text-brand-ink md:text-3xl">
                 Fans already support you. Let them show it.
               </h1>
               <div className="mt-4 space-y-3 font-sans text-sm leading-relaxed text-brand-ink/70 md:text-base">
@@ -66,7 +66,7 @@ export default function JJSpaunPitchPage() {
       {/* BUILD YOUR LEGACY */}
       <section className="bg-brand-ink py-6 text-brand-cream md:py-8">
         <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-          <h2 className="font-sans text-xl font-semibold leading-tight tracking-tight md:text-2xl">
+          <h2 className="font-display text-xl leading-tight tracking-tight md:text-2xl">
             Build your legacy
           </h2>
 
@@ -113,7 +113,7 @@ export default function JJSpaunPitchPage() {
         <div className="mx-auto max-w-[1200px] px-4 md:px-8">
           <div className="grid gap-6 md:grid-cols-2 md:gap-12">
             <div>
-              <h2 className="font-sans text-xl font-semibold leading-tight tracking-tight text-brand-ink md:text-2xl">
+              <h2 className="font-display text-xl leading-tight tracking-tight text-brand-ink md:text-2xl">
                 What do we need from you?
               </h2>
               <ul className="mt-5 space-y-3 font-sans text-sm text-brand-ink/75 md:text-base">
@@ -140,7 +140,7 @@ export default function JJSpaunPitchPage() {
             </div>
 
             <div>
-              <h2 className="font-sans text-xl font-semibold leading-tight tracking-tight text-brand-ink md:text-2xl">
+              <h2 className="font-display text-xl leading-tight tracking-tight text-brand-ink md:text-2xl">
                 Become part of lifelong memories.
               </h2>
               <p className="mt-4 max-w-md font-sans text-sm leading-relaxed text-brand-ink/70 md:text-base">

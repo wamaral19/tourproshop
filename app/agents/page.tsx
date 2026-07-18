@@ -23,6 +23,76 @@ export default function AgentsLandingPage() {
     ? getSponsorsByPlayer(heroProduct.playerSlug)
     : [];
 
+  const ownerMeta = {
+    player: {
+      label: "Player",
+      place: "col-start-1",
+      wrap: "mx-auto w-fit",
+      dot: "bg-brand-primary",
+      card: "border-brand-primary/50 bg-brand-primary/20 text-brand-cream",
+      pill: "border-brand-cream/25 text-brand-cream/80",
+    },
+    shop: {
+      label: "Tour Pro Shop",
+      place: "col-start-2",
+      wrap: "mx-auto w-fit",
+      dot: "bg-brand-cream",
+      card: "border-brand-cream/20 bg-surface-raised text-brand-ink/80",
+      pill: "border-line text-brand-ink/60",
+    },
+    sponsor: {
+      label: "Sponsor",
+      place: "col-start-3",
+      wrap: "mx-auto w-fit",
+      dot: "bg-brand-sponsor",
+      card: "border-brand-sponsor/50 bg-brand-sponsor/25 text-brand-cream",
+      pill: "border-brand-cream/25 text-brand-cream/80",
+    },
+    all: {
+      label: "All three",
+      place: "col-span-3",
+      wrap: "w-full justify-center",
+      dot: "bg-brand-primary",
+      card: "border-line bg-surface-raised text-brand-ink",
+      pill: "border-line text-brand-ink/70",
+    },
+  } as const;
+
+  const stages: {
+    title: string;
+    steps: { step: string; owner: keyof typeof ownerMeta }[];
+  }[] = [
+    {
+      title: "Approvals",
+      steps: [
+        { step: "Player approval", owner: "player" },
+        { step: "Select charity", owner: "player" },
+        { step: "Introduce to sponsor", owner: "player" },
+        { step: "Obtain sponsor approval", owner: "shop" },
+        { step: "Approve logo usage", owner: "sponsor" },
+      ],
+    },
+    {
+      title: "Launch",
+      steps: [
+        { step: "Wholesale purchases", owner: "shop" },
+        { step: "Embroidery", owner: "shop" },
+        { step: "Marketing", owner: "shop" },
+        { step: "Store launch", owner: "shop" },
+      ],
+    },
+    {
+      title: "Ongoing management",
+      steps: [
+        { step: "Fulfillment", owner: "shop" },
+        { step: "Customer support", owner: "shop" },
+        { step: "Returns", owner: "shop" },
+        { step: "Reporting", owner: "shop" },
+        { step: "Charity administration", owner: "shop" },
+      ],
+    },
+  ];
+
   return (
     <div className="agents-page">
       {/* HERO */}
@@ -31,7 +101,7 @@ export default function AgentsLandingPage() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:items-center md:gap-14">
             <div>
               <p className="eyebrow text-brand-deep">For agents</p>
-              <h1 className="mt-4 font-sans text-4xl font-semibold leading-[1.05] tracking-tight text-brand-ink md:text-5xl lg:text-5xl">
+              <h1 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight text-brand-ink md:text-5xl lg:text-5xl">
                 Increase the value of your player's sponsorship inventory.
               </h1>
               <p className="mt-6 font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
@@ -78,31 +148,146 @@ export default function AgentsLandingPage() {
         </div>
       </section>
 
-      {/* CALCULATOR */}
+      {/* RESPONSIBILITY TIMELINE */}
       <section className="bg-brand-ink py-20 text-brand-cream md:py-28">
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <div className="flex flex-col gap-3 border-b border-brand-cream/15 pb-8 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="eyebrow text-brand-accent">Here's the math</p>
-              <h2 className="mt-3 font-sans text-2xl font-semibold leading-tight tracking-tight md:text-4xl">
-                Estimate the additional sponsor value created when fans wear the same sponsor-inclusive apparel as your player.
-              </h2>
-            </div>
+          {/* RESPONSIBILITY TIMELINE */}
+          <div className="mb-8 max-w-2xl md:mb-10">
+            <p className="eyebrow text-brand-accent">Who does what</p>
+            <h2 className="mt-3 font-display text-2xl leading-tight tracking-tight md:text-3xl">
+              A clear division of responsibility.
+            </h2>
+            <p className="mt-4 font-sans text-base leading-relaxed text-brand-cream/70">
+              The player and their team make a few key approvals. Tour Pro
+              Shop runs everything else, end to end.
+            </p>
           </div>
 
-          <div className="mt-10 md:mt-14">
-            <ImpressionsCalculator tone="dark" />
+          {/* Mobile: stages stacked, each with its steps */}
+          <div className="space-y-8 md:hidden">
+            {stages.map((stage, si) => (
+              <div key={stage.title}>
+                <p className="mb-3 font-condensed text-[13px] uppercase tracking-widest text-brand-accent">
+                  Stage {si + 1} · {stage.title}
+                </p>
+                <ol className="relative space-y-2.5 border-l border-brand-cream/20 pl-5">
+                  {stage.steps.map((r) => {
+                    const m = ownerMeta[r.owner];
+                    return (
+                      <li key={r.step} className="relative">
+                        <span
+                          aria-hidden
+                          className={`absolute -left-[1.55rem] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full ring-4 ring-brand-ink ${m.dot}`}
+                        />
+                        <div
+                          className={`flex items-center justify-between gap-3 rounded-xl border px-3.5 py-2.5 font-sans text-sm ${m.card}`}
+                        >
+                          <span className="font-medium">{r.step}</span>
+                          <span
+                            className={`shrink-0 rounded-full border px-2 py-0.5 font-condensed text-[10px] uppercase tracking-wider ${m.pill}`}
+                          >
+                            {m.label}
+                          </span>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: horizontal left-to-right timeline */}
+          <div className="hidden md:block">
+            {/* Color legend */}
+            <div className="mb-8 flex flex-wrap items-center gap-x-7 gap-y-2">
+              {(
+                [
+                  ["player", "Player & Agent"],
+                  ["shop", "Tour Pro Shop"],
+                  ["sponsor", "Sponsor"],
+                ] as const
+              ).map(([owner, label]) => (
+                <span
+                  key={owner}
+                  className="inline-flex items-center gap-2 font-condensed text-[13px] uppercase tracking-widest text-brand-cream/60"
+                >
+                  <span
+                    aria-hidden
+                    className={`h-2.5 w-2.5 rounded-full ${ownerMeta[owner].dot}`}
+                  />
+                  {label}
+                </span>
+              ))}
+            </div>
+
+            {/* Timeline — one row per stage, steps flowing left-to-right */}
+            <div className="space-y-10">
+              {stages.map((stage, si) => (
+                <div key={stage.title}>
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className="font-condensed text-[13px] uppercase tracking-widest text-brand-accent">
+                      Stage {si + 1} · {stage.title}
+                    </span>
+                    <span aria-hidden className="h-px flex-1 bg-brand-cream/15" />
+                  </div>
+                  <ol className="grid grid-cols-5 gap-x-0">
+                    {stage.steps.map((r, i) => {
+                      const m = ownerMeta[r.owner];
+                      const isLast = i === stage.steps.length - 1;
+                      return (
+                        <li
+                          key={r.step}
+                          className="relative flex flex-col items-center px-2"
+                        >
+                          {/* connector to the next step in this stage */}
+                          {!isLast ? (
+                            <span
+                              aria-hidden
+                              className="absolute left-1/2 top-[6px] h-px w-full bg-brand-cream/20"
+                            />
+                          ) : null}
+                          <span
+                            aria-hidden
+                            className={`relative z-10 h-3 w-3 rounded-full ring-4 ring-brand-ink ${m.dot}`}
+                          />
+                          <div
+                            className={`mt-4 w-full rounded-xl border px-3 py-2.5 text-center font-sans text-[13px] font-medium leading-snug ${m.card}`}
+                          >
+                            {r.step}
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* WE DO THE WORK */}
+      {/* CALCULATOR + WE DO THE WORK */}
       <section className="bg-brand-cream py-20 text-brand-ink md:py-28">
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:gap-16">
+          {/* CALCULATOR */}
+          <div className="flex flex-col gap-3 border-b border-line pb-8 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="eyebrow text-brand-deep">Here's the math</p>
+              <h2 className="mt-3 font-display text-2xl leading-tight tracking-tight md:text-4xl">
+                Estimate the additional sponsor value created when fans wear the same sponsor-inclusive apparel as your player.
+              </h2>
+            </div>
+          </div>
+          <div className="mt-10 md:mt-14">
+            <ImpressionsCalculator tone="light" />
+          </div>
+
+          {/* WE DO THE WORK */}
+          <div className="mt-16 grid gap-10 border-t border-line pt-14 md:mt-20 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:gap-16 md:pt-20">
             <div>
               <p className="eyebrow text-brand-deep">No lift on your side</p>
-              <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+              <h2 className="mt-4 font-display text-3xl leading-tight tracking-tight md:text-5xl">
                 You benefit from the growth. We take on the risk.
               </h2>
             </div>
@@ -141,7 +326,7 @@ export default function AgentsLandingPage() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-16">
             <div>
               <p className="eyebrow text-brand-accent">Support the Causes That Matter</p>
-              <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+              <h2 className="mt-4 font-display text-3xl leading-tight tracking-tight md:text-5xl">
                 Sponsors give back
               </h2>
               <p className="mt-6 max-w-xl font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">
@@ -226,7 +411,7 @@ export default function AgentsLandingPage() {
             </div>
             <div>
               <p className="eyebrow text-brand-deep">A proven playbook</p>
-              <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+              <h2 className="mt-4 font-display text-3xl leading-tight tracking-tight md:text-5xl">
                 A proven ecosystem outside of the golf world.
               </h2>
               <p className="mt-6 font-sans text-base leading-relaxed text-brand-ink/70 md:text-lg">

@@ -59,8 +59,8 @@ export function ProductImage({
     );
   }
 
-  const colorway = product.colorways[0]?.hex ?? "#f4f1ea";
-  const accent = product.colorways[1]?.hex ?? "#30682b";
+  const colorway = product.colorways[0]?.hex ?? "#f5f1e9";
+  const accent = product.colorways[1]?.hex ?? "#17501d";
   const monogram = product.name
     .split(" ")
     .map((w) => w[0])

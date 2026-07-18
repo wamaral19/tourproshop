@@ -50,7 +50,7 @@ export function PlayerInterestForm({
       className="rounded-2xl border border-line bg-brand-cream/60 p-6"
     >
       <p className="eyebrow text-brand-ink/60">Tell us</p>
-      <h3 className="mt-2 font-sans text-2xl font-semibold leading-tight tracking-tight text-brand-ink md:text-3xl">
+      <h3 className="mt-2 font-display text-2xl leading-tight tracking-tight text-brand-ink md:text-3xl">
         Let {playerFirstName} know you want his gear.
       </h3>
       <p className="mt-2 max-w-xl text-sm text-brand-ink/70">
@@ -72,7 +72,7 @@ export function PlayerInterestForm({
         <button
           type="submit"
           disabled={state === "submitting"}
-          className="inline-flex h-12 shrink-0 items-center justify-center rounded-full bg-brand-ink px-6 font-sans text-sm font-medium uppercase tracking-wider text-brand-cream transition-colors hover:bg-brand-accent hover:text-brand-ink disabled:opacity-60"
+          className="inline-flex h-12 shrink-0 items-center justify-center rounded-full bg-brand-ink px-6 font-sans text-sm font-medium uppercase tracking-wider text-brand-cream transition-colors hover:bg-brand-accent hover:text-brand-cream disabled:opacity-60"
         >
           {state === "submitting" ? "Sending…" : "Notify me"}
         </button>

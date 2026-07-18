@@ -46,7 +46,7 @@ export default async function PlayersPage({
       {isExclusivesView ? (
         <section className="border-b border-line bg-brand-cream">
           <div className="mx-auto max-w-[1400px] px-4 pb-8 pt-14 md:px-8 md:pb-12 md:pt-20">
-            <h1 className="font-sans font-semibold text-5xl leading-tight tracking-tight text-brand-ink md:text-6xl">
+            <h1 className="font-display text-5xl leading-tight tracking-tight text-brand-ink md:text-6xl">
               Exclusives
             </h1>
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-brand-ink/75 md:text-xl">
@@ -63,7 +63,7 @@ export default async function PlayersPage({
       ) : (
         <section className="border-b border-line bg-brand-cream">
           <div className="mx-auto max-w-[1400px] px-4 pb-6 pt-12 md:px-8 md:pb-10 md:pt-16">
-            <h1 className="font-sans font-semibold text-5xl leading-tight tracking-tight text-brand-ink md:text-6xl">
+            <h1 className="font-display text-5xl leading-tight tracking-tight text-brand-ink md:text-6xl">
               Players
             </h1>
             <p className="mt-3 max-w-2xl text-base leading-relaxed text-brand-ink/70 md:text-lg">
@@ -115,7 +115,7 @@ export default async function PlayersPage({
           <div className="mx-auto max-w-[1400px] px-4 md:px-8">
             <div className="flex items-end justify-between gap-4 border-t border-line pt-12 md:pt-16">
               <div>
-                <h2 className="font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+                <h2 className="font-display text-3xl leading-tight tracking-tight md:text-5xl">
                   The full roster
                 </h2>
               </div>
@@ -173,7 +173,7 @@ function PlayerExclusiveTile({
           aria-hidden
           className="absolute inset-0 bg-gradient-to-t from-brand-ink/65 via-brand-ink/0 to-brand-ink/0"
         />
-        <span className="absolute left-3 top-3 rounded-full bg-brand-accent px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-widest text-brand-ink">
+        <span className="absolute left-3 top-3 rounded-full bg-brand-accent px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-widest text-brand-cream">
           TPS Exclusive
         </span>
         <div className="absolute inset-x-3 bottom-3 flex items-end justify-between gap-2 text-brand-cream">

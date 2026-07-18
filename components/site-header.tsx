@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart-context";
 
@@ -133,9 +134,16 @@ function Wordmark({ className }: { className?: string }) {
     <Link
       href="/"
       aria-label="Tour Pro Shop — home"
-      className={`font-wordmark whitespace-nowrap font-bold uppercase leading-none tracking-[0.18em] text-brand-ink ${className ?? ""}`}
+      className={`inline-flex items-center ${className ?? ""}`}
     >
-      Tour Pro Shop
+      <Image
+        src="/logo-wordmark.svg"
+        alt="Tour Pro Shop"
+        width={249}
+        height={26}
+        priority
+        className="h-full w-auto"
+      />
     </Link>
   );
 }
@@ -181,7 +189,7 @@ export function SiteHeader() {
         </button>
 
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <Wordmark className="text-[1.1rem] pointer-events-auto" />
+          <Wordmark className="h-4 pointer-events-auto" />
         </div>
 
         <div className="absolute right-2 top-1/2 -translate-y-1/2">
@@ -191,7 +199,7 @@ export function SiteHeader() {
 
       {/* DESKTOP LAYOUT */}
       <div className="hidden md:flex h-20 mx-auto max-w-[1400px] items-center justify-between px-8">
-        <Wordmark className="text-[1.5rem]" />
+        <Wordmark className="h-5" />
 
         <nav className="flex items-center gap-8">
           {NAV.map((item) =>

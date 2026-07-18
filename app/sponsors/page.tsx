@@ -53,7 +53,7 @@ export default function SponsorsLandingPage() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:items-center md:gap-14">
             <div>
               <p className="eyebrow text-brand-deep text-xl md:text-3xl">For corporate sponsors</p>
-              <h1 className="mt-4 font-sans text-4xl font-semibold leading-[1.05] tracking-tight text-brand-ink md:text-6xl lg:text-7xl">
+              <h1 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight text-brand-ink md:text-6xl lg:text-7xl">
                 Get more out of your sponsorships with zero work.
               </h1>
               <p className="mt-6 font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
@@ -100,7 +100,7 @@ export default function SponsorsLandingPage() {
             <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="eyebrow text-brand-deep">The math</p>
-                <h2 className="mt-3 font-sans text-3xl font-semibold leading-tight tracking-tight text-brand-ink md:text-5xl">
+                <h2 className="mt-3 font-display text-3xl leading-tight tracking-tight text-brand-ink md:text-5xl">
                   Model the impression engine.
                 </h2>
               </div>
@@ -116,7 +116,7 @@ export default function SponsorsLandingPage() {
 
           <div className="mt-8 border-t border-line pt-8 md:mt-12 md:pt-10">
             <p className="eyebrow text-brand-deep">The proof</p>
-            <h2 className="mt-3 font-sans text-3xl font-semibold leading-tight tracking-tight text-brand-ink md:text-5xl">
+            <h2 className="mt-3 font-display text-3xl leading-tight tracking-tight text-brand-ink md:text-5xl">
               We make sponsorships drive value all the time,
               <br />
               not just when a player contends.
@@ -169,7 +169,7 @@ export default function SponsorsLandingPage() {
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-16">
             <div>
               <p className="eyebrow text-brand-accent">Support the Causes That Matter</p>
-              <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+              <h2 className="mt-4 font-display text-3xl leading-tight tracking-tight md:text-5xl">
                 Sponsors give back
               </h2>
               <p className="mt-6 max-w-xl font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">
@@ -254,7 +254,7 @@ export default function SponsorsLandingPage() {
             </div>
             <div>
               <p className="eyebrow text-brand-deep">A proven playbook</p>
-              <h2 className="mt-4 font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+              <h2 className="mt-4 font-display text-3xl leading-tight tracking-tight md:text-5xl">
                 A proven ecosystem outside of the golf world.
               </h2>
               <p className="mt-6 font-sans text-base leading-relaxed text-brand-ink/70 md:text-lg">

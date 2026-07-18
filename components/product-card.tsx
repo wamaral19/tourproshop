@@ -26,7 +26,7 @@ export function ProductCard({
           className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         />
         {product.badge ? (
-          <span className="eyebrow absolute left-3 top-3 rounded-full bg-brand-cream/95 px-2.5 py-1 text-brand-ink">
+          <span className="eyebrow absolute left-3 top-3 rounded-full bg-brand-deep px-2.5 py-1 text-brand-cream">
             {product.badge}
           </span>
         ) : null}

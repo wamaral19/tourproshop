@@ -23,7 +23,7 @@ export function PlayerPortrait({
   const imageUrl = getPlayerImageUrl(player.slug);
   const badge =
     showBadge && player.relationship === "exclusive" ? (
-      <span className="eyebrow absolute left-3 top-3 rounded-full bg-brand-accent px-2.5 py-1 text-brand-ink">
+      <span className="eyebrow absolute left-3 top-3 rounded-full bg-brand-accent px-2.5 py-1 text-brand-cream">
         TPS Exclusive
       </span>
     ) : null;
@@ -72,12 +72,12 @@ export function PlayerPortrait({
       >
         <defs>
           <linearGradient id={`pg-${player.slug}`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#30682b" />
-            <stop offset="1" stopColor="#1a1a1a" />
+            <stop offset="0" stopColor="#17501d" />
+            <stop offset="1" stopColor="#0a0907" />
           </linearGradient>
         </defs>
         <rect width="400" height="500" fill={`url(#pg-${player.slug})`} />
-        <g fill="none" stroke="#71a75c" strokeWidth="0.5" opacity="0.25">
+        <g fill="none" stroke="#29612d" strokeWidth="0.5" opacity="0.25">
           {Array.from({ length: 14 }).map((_, i) => (
             <line key={i} x1={0} y1={36 * i} x2={400} y2={36 * i} />
           ))}
@@ -89,7 +89,7 @@ export function PlayerPortrait({
           fontFamily="var(--font-fraunces), Georgia, serif"
           fontSize="180"
           fontWeight="500"
-          fill="#f4f1ea"
+          fill="#f5f1e9"
           opacity="0.92"
           letterSpacing="0.02em"
         >

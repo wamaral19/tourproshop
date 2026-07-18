@@ -43,7 +43,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <div className="flex items-end justify-between gap-6">
             <div>
-              <h2 className="font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+              <h2 className="font-display text-3xl leading-tight tracking-tight md:text-5xl">
                 Browse the roster
               </h2>
               <p className="mt-2 max-w-xl text-base leading-relaxed text-brand-ink/65 md:text-lg">
@@ -81,7 +81,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <div className="flex items-end justify-between gap-6 border-t border-line pt-12 md:pt-16">
             <div>
-              <h2 className="font-sans text-3xl font-semibold leading-tight tracking-tight md:text-5xl">
+              <h2 className="font-display text-3xl leading-tight tracking-tight md:text-5xl">
                 Shop by category
               </h2>
             </div>
@@ -132,7 +132,7 @@ export default async function HomePage() {
                   className="absolute inset-0 bg-gradient-to-t from-brand-ink/80 to-transparent"
                 />
                 <div className="relative z-10 flex w-full items-end justify-between">
-                  <span className="font-sans text-2xl font-semibold leading-none md:text-3xl">
+                  <span className="font-display text-2xl leading-none md:text-3xl">
                     {categoryLabels[cat]}
                   </span>
                   <svg

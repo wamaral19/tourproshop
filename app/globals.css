@@ -1,29 +1,38 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand palette — sourced from logo SVG */
-  --color-brand-primary: #58914a;
-  --color-brand-accent: #71a75c;
-  --color-brand-deep: #30682b;
-  --color-brand-cream: #f4f1ea;
-  --color-brand-flag: #d8302a;
-  --color-brand-ink: #1a1a1a;
+  /* Brand palette — Strokes Game design system (muted forest greens, warm cream, ink) */
+  --color-brand-primary: oklch(38% 0.1 145); /* green-700 */
+  --color-brand-accent: oklch(44% 0.1 145); /* green-600 */
+  --color-brand-deep: oklch(33% 0.09 145); /* green-800 — banner/deep */
+  --color-brand-cream: oklch(96% 0.012 85); /* cream-100 */
+  --color-brand-flag: oklch(42% 0.17 25); /* red-700 */
+  --color-brand-ink: oklch(14% 0.005 85); /* ink-900 */
+
+  /* Sponsor accent — light purple, outside the core forest palette */
+  --color-brand-sponsor: oklch(58% 0.13 300); /* purple */
+  --color-brand-sponsor-deep: oklch(42% 0.13 300); /* purple, text weight */
+
+  /* Extended palette tokens (design-system semantic surfaces) */
+  --color-brand-green-100: oklch(91% 0.04 145); /* positive bg */
+  --color-brand-ink-secondary: oklch(46% 0.008 85); /* ink-600 */
 
   /* Surface tokens */
-  --color-surface: #f4f1ea;
-  --color-surface-raised: #ffffff;
-  --color-surface-deep: #1a1a1a;
-  --color-line: rgba(26, 26, 26, 0.12);
-  --color-line-strong: rgba(26, 26, 26, 0.24);
+  --color-surface: oklch(96% 0.012 85); /* cream-100 — page */
+  --color-surface-raised: oklch(98% 0.006 85); /* cream-50 — warm card surface */
+  --color-surface-deep: oklch(14% 0.005 85); /* ink-900 */
+  --color-line: color-mix(in oklch, oklch(14% 0.005 85) 12%, transparent);
+  --color-line-strong: color-mix(in oklch, oklch(14% 0.005 85) 24%, transparent);
 
-  /* Typography — wired up via next/font in app/layout.tsx */
-  --font-condensed: var(--font-bebas);
+  /* Typography — wired up via next/font in app/layout.tsx.
+     Design system: display = Gemunu Libre, UI/body = Switzer (two families only). */
+  --font-condensed: var(--font-gemunu);
   --font-sans: var(--font-switzer);
   --font-wordmark: var(--font-gemunu);
 
   /* Editorial tracking */
-  --tracking-condensed: 0.08em;
-  --tracking-eyebrow: 0.18em;
+  --tracking-condensed: -0.02em;
+  --tracking-eyebrow: 0.07em;
 }
 
 :root {
@@ -44,9 +53,9 @@ body {
 }
 
 .font-display {
-  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.025em;
+  font-family: var(--font-wordmark), "Arial Narrow", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .font-condensed {
@@ -55,14 +64,15 @@ body {
 }
 
 .font-wordmark {
-  font-family: var(--font-wordmark), "Bebas Neue", "Arial Narrow", sans-serif;
+  font-family: var(--font-wordmark), "Arial Narrow", sans-serif;
 }
 
 .eyebrow {
-  font-family: var(--font-condensed), sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   line-height: 1;
 }
 

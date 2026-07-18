@@ -166,7 +166,7 @@ export function HomeExclusivesRail({ players }: { players: RailPlayer[] }) {
           <div className="flex items-center gap-2">
             <Link
               href="/players?tier=exclusive"
-              className="inline-flex h-11 items-center rounded-full bg-brand-cream px-5 font-sans text-sm font-medium uppercase tracking-wider text-brand-ink hover:bg-brand-accent"
+              className="inline-flex h-11 items-center rounded-full bg-brand-cream px-5 font-sans text-sm font-medium uppercase tracking-wider text-brand-ink hover:bg-brand-accent hover:text-brand-cream"
             >
               Shop Exclusives
             </Link>
@@ -246,7 +246,7 @@ function ExclusiveTile({
 
         {/* Top-left chip */}
         <div className="absolute left-4 top-4 flex items-center gap-2 md:left-8 md:top-8">
-          <span className="rounded-full bg-brand-accent px-3 py-1.5 font-sans text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-ink">
+          <span className="rounded-full bg-brand-accent px-3 py-1.5 font-sans text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-cream">
             Tour Pro Shop Exclusive
           </span>
           <span className="font-sans text-xs font-medium tabular-nums text-brand-cream/75">
@@ -261,14 +261,14 @@ function ExclusiveTile({
             <p className="font-sans text-[11px] font-medium uppercase tracking-[0.2em] text-brand-cream/65">
               {player.country}
             </p>
-            <h2 className="font-sans mt-3 text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl">
+            <h2 className="font-display mt-3 text-5xl leading-[0.95] tracking-tight md:text-7xl">
               {player.name}
             </h2>
           </div>
           <div className="flex items-center gap-3">
             <Link
               href={getPlayerShopHref(player.slug)}
-              className="inline-flex h-12 items-center rounded-full bg-brand-cream px-6 font-sans text-sm font-medium uppercase tracking-wider text-brand-ink transition-colors hover:bg-brand-accent"
+              className="inline-flex h-12 items-center rounded-full bg-brand-cream px-6 font-sans text-sm font-medium uppercase tracking-wider text-brand-ink transition-colors hover:bg-brand-accent hover:text-brand-cream"
             >
               Shop {first}
             </Link>
