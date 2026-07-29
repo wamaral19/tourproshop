@@ -146,6 +146,104 @@ const SPONSORS_BY_PLAYER: Record<string, Sponsor[]> = {
         "One of the world's largest airlines and an increasingly active golf sponsor. Griffin's relationship with Delta centers on the travel demands of the PGA Tour lifestyle, later tying him into broader premium-travel partnerships like Wheels Up.",
     },
   ],
+  "jackson-koivun": [
+    {
+      name: "Malbon Golf",
+      blurb:
+        "The streetwear-inflected golf label that blends lifestyle cool with tour-grade performance fabrics. Malbon anchors Jackson's on-course look as he steps into the pro ranks — the Buckets script and modern silhouettes a natural fit for one of the game's most hyped young talents.",
+    },
+    {
+      name: "Delta Air Lines",
+      blurb:
+        "One of the world's largest airlines and an increasingly active golf sponsor. Delta backs Jackson as he takes on a full tour schedule — a partnership built around the constant travel that defines a rising pro's life on the road.",
+    },
+    {
+      name: "Betterment",
+      blurb:
+        "The automated investing and cash-management platform built to help a new generation grow wealth. Betterment's pairing with Jackson leans into his emergence as a young pro — smart, long-term, and just getting started.",
+    },
+    {
+      name: "Omni Hotels & Resorts",
+      blurb:
+        "The luxury hotel and resort collection with a deep golf portfolio, including championship host resorts on the PGA Tour. Omni's partnership with Jackson connects its tournament-caliber properties to one of golf's brightest young stars.",
+    },
+    {
+      name: "Old Republic",
+      blurb:
+        "A Fortune 500 insurance holding company with a long history of backing the game. Old Republic's mark on Jackson's sleeve reflects a steady, long-game partnership as he builds his professional career.",
+    },
+  ],
+  "wyndham-clark": [
+    {
+      name: "Municipal",
+      blurb:
+        "The performance golf and lifestyle brand co-founded by Mark Wahlberg. Municipal outfits Wyndham in its Sportcross line — tour-tested fabrics and clean, understated design that match his no-frills, all-power game.",
+    },
+    {
+      name: "SoFi",
+      blurb:
+        "The digital personal-finance company and one of golf's fastest-rising sponsors. SoFi's front-and-center placement backs a major champion whose breakout aligns with the brand's own ascent.",
+    },
+    {
+      name: "Power Design",
+      blurb:
+        "A national design-build firm specializing in electrical, mechanical, and technology systems for large-scale projects. Power Design's partnership with Wyndham ties its building expertise to one of the tour's biggest hitters.",
+    },
+  ],
+  "sam-burns": [
+    {
+      name: "Peter Millar",
+      blurb:
+        "The North Carolina-founded performance and lifestyle brand that anchors Sam's on-course look. Peter Millar's Albatross piqué and tailored silhouettes are a staple of Burns's tournament rotation.",
+    },
+    {
+      name: "Mastercard",
+      blurb:
+        "One of the most active brands in pro golf and a long-running PGA Tour partner. Mastercard's Priceless platform pairs with players of championship pedigree — Burns's steady, repeat-winning game fits the bill.",
+    },
+    {
+      name: "Raising Cane's",
+      blurb:
+        "The Louisiana-born chicken-finger chain with a cult following and a golf-obsessed founder in Todd Graves. Raising Cane's backs fellow Louisianan Sam Burns — a hometown partnership through and through.",
+    },
+    {
+      name: "ADP",
+      blurb:
+        "The global human-capital-management company and a prominent PGA Tour sponsor. ADP's front-chest mark reflects a partnership built around consistency and performance — on the course and in the workplace.",
+    },
+    {
+      name: "Topgolf",
+      blurb:
+        "The tech-driven driving-range and entertainment brand that's grown the game for a whole new audience. Topgolf's partnership with Burns connects one of golf's most accessible experiences to a proven Tour winner.",
+    },
+    {
+      name: "RBC",
+      blurb:
+        "The Royal Bank of Canada, one of pro golf's most prolific patrons with a deep Team RBC roster and title sponsorships across the Tour. Burns carries the RBC shield as part of that lineup.",
+    },
+  ],
+  "jj-spaun": [
+    {
+      name: "PUMA",
+      blurb:
+        "The global sportswear giant whose PUMA Golf line anchors JJ's tournament look. The MATTR Brigade polo pairs moisture-wicking performance fabric with bold pattern — a fit for the reigning U.S. Open champion's breakout run.",
+    },
+    {
+      name: "NICE",
+      blurb:
+        "A global software company specializing in customer-experience and AI-driven analytics. NICE's front-chest placement backs JJ as a marquee ambassador following his major breakthrough.",
+    },
+    {
+      name: "Tradeweb",
+      blurb:
+        "The electronic marketplace for fixed-income and derivatives trading, and an active golf sponsor. Tradeweb's mark on JJ's sleeve reflects a partnership rooted in precision and steadiness under pressure.",
+    },
+    {
+      name: "Amerisure",
+      blurb:
+        "The Michigan-based commercial property-and-casualty insurer. Amerisure's partnership with JJ leans into reliability and the long game — values shared on the course and in risk management.",
+    },
+  ],
 };
 
 export function getSponsorsByPlayer(playerSlug: string): Sponsor[] {

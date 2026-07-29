@@ -890,6 +890,250 @@ export const products: Product[] = [
     ],
     visible: true,
   }),
+
+  // ─── Jackson Koivun · Malbon Golf ──────────────────────────────────────────
+  createProduct({
+    id: "jk-polo",
+    slug: "jackson-koivun-polo",
+    name: "Jackson Koivun Polo",
+    category: "polos",
+    playerSlug: "jackson-koivun",
+    brand: "Malbon Golf",
+    price: 108,
+    description:
+      "Jackson Koivun's on-course look as he turns pro — Malbon's Performance Mesh Paneled Polo in white, with his full sponsor lineup intact. Built from a breathable poly jacquard with mesh paneling at the collar and back, it pairs Malbon's street-informed style with tour-grade performance.",
+    details: [
+      "91% polyester / 9% spandex poly jacquard with all-over print",
+      "Interior collar and back mesh paneling for breathability",
+      "Relaxed fit",
+      "Printed Malbon M-script at left chest",
+      "Tour sponsor placements: Delta, Betterment, Omni Hotels, Old Republic",
+      "Machine wash cold; hang dry",
+    ],
+    colorways: [{ name: "White", hex: "#f7f3ea" }],
+    images: [
+      {
+        src: "/product images/Jackson Koivun Polo/Jackson Koivun Flatlay GPT.webp",
+        alt: "Jackson Koivun Malbon polo — flatlay showing sponsor placements",
+        fit: "contain",
+        bgColor: "#f6f6f6",
+        hotspots: [
+          { x: 38, y: 22, sponsorName: "Betterment" },
+          { x: 63, y: 22, sponsorName: "Delta Air Lines" },
+          { x: 65, y: 32, sponsorName: "Malbon Golf" },
+          { x: 13, y: 38, sponsorName: "Omni Hotels & Resorts" },
+          { x: 86, y: 35, sponsorName: "Old Republic" },
+        ],
+      },
+      {
+        src: "/product images/Jackson Koivun Polo/Jackson Koivun 3.webp",
+        alt: "Jackson Koivun Malbon polo — on-course lifestyle shot",
+      },
+      {
+        src: "/product images/Jackson Koivun Polo/Jackson Koivun 4.webp",
+        alt: "Jackson Koivun Malbon polo — front lifestyle look",
+      },
+      {
+        src: "/product images/Jackson Koivun Polo/Jackson Koivun 5.webp",
+        alt: "Jackson Koivun Malbon polo — back view",
+      },
+      {
+        src: "/product images/Jackson Koivun Polo/Jackson Koivun 1.webp",
+        alt: "Jackson Koivun Malbon polo — front view",
+      },
+      {
+        src: "/product images/Jackson Koivun Polo/Jackson Koivun 2.webp",
+        alt: "Jackson Koivun Malbon polo — placket and chest detail",
+      },
+    ],
+    badge: "New",
+    featured: true,
+    visible: true,
+  }),
+
+  // ─── Wyndham Clark · Municipal ─────────────────────────────────────────────
+  createProduct({
+    id: "wc-polo",
+    slug: "wyndham-clark-polo",
+    name: "Wyndham Clark Polo",
+    category: "polos",
+    playerSlug: "wyndham-clark",
+    brand: "Municipal",
+    price: 99,
+    description:
+      "Wyndham Clark's tournament polo — Municipal's premium Sportcross QL in white, carrying his SoFi and Power Design placements. A luxury poly-elastane interlock that wicks sweat and dries fast, cut clean with a single-button, understated design.",
+    details: [
+      "85% polyester / 15% elastane interlock, quick-dry",
+      "Moisture-wicking with a soft, stretchy hand",
+      "Single-button placket",
+      "Raised heat-transfer M-Dot logo at left chest",
+      "Tour sponsor placements: SoFi, Power Design",
+      "Machine wash cold; tumble dry low",
+    ],
+    colorways: [{ name: "White", hex: "#f7f3ea" }],
+    images: [
+      {
+        src: "/product images/Wyndham Clark/Wyndham Clark Flatlay GPT.png",
+        alt: "Wyndham Clark Municipal polo — flatlay showing sponsor placements",
+        fit: "contain",
+        bgColor: "#dad9dd",
+        hotspots: [
+          { x: 50, y: 12, sponsorName: "Municipal" },
+          { x: 33, y: 40, sponsorName: "Power Design" },
+          { x: 60, y: 40, sponsorName: "SoFi" },
+        ],
+      },
+      {
+        src: "/product images/Wyndham Clark/municipal-apparel_sportcross-ql-polo_white_MMSHI042_front_1.webp",
+        alt: "Wyndham Clark Municipal Sportcross QL polo — front view on model",
+      },
+      {
+        src: "/product images/Wyndham Clark/municipal-apparel_sportcross-ql-polo_white_MMSHI042_outfit_d8409295-7984-49af-9d2a-94ad3bda391e.webp",
+        alt: "Wyndham Clark Municipal Sportcross QL polo — full outfit look",
+      },
+      {
+        src: "/product images/Wyndham Clark/municipal-apparel_sportcross-ql-polo_white_MMSHI042_back_fc421144-ef72-4fd4-90a4-86c78d0058c5.webp",
+        alt: "Municipal Sportcross QL polo — back view",
+      },
+      {
+        src: "/product images/Wyndham Clark/municipal-apparel_sportcross-ql-polo_white_MMSHI042_flat.webp",
+        alt: "Municipal Sportcross QL polo — flat product view",
+      },
+      {
+        src: "/product images/Wyndham Clark/municipal-apparel_sportcross-ql-polo_white_MMSHI042_detail_7fe68785-2b2b-463e-b470-da844f7a49fb.jpg",
+        alt: "Municipal Sportcross QL polo — fabric and placket detail",
+      },
+    ],
+    badge: "New",
+    featured: true,
+    visible: true,
+  }),
+
+  // ─── Sam Burns · Peter Millar ──────────────────────────────────────────────
+  createProduct({
+    id: "sb-polo",
+    slug: "sam-burns-polo",
+    name: "Sam Burns Polo",
+    category: "polos",
+    playerSlug: "sam-burns",
+    brand: "Peter Millar",
+    price: 138,
+    description:
+      "Sam Burns's Sunday look — Peter Millar's Albatross piqué polo in white, with his full sponsor lineup intact from Mastercard to Raising Cane's. The perfect blend of traditional and technical: a pima cotton base brings softness and classic texture, while blended performance yarns add four-way stretch. Designed in an Oxford piqué knit and detailed with mother-of-pearl buttons.",
+    details: [
+      "62% pima cotton / 32% polyester / 6% spandex Oxford piqué knit",
+      "Four-way stretch, moisture-wicking, easy-care, and odor-resistant",
+      "Edwin spread collar with two-button placket",
+      "Mother-of-pearl buttons",
+      "Tailored fit",
+      "Tour sponsor placements: Mastercard, ADP, Topgolf, RBC, Raising Cane's",
+      "Machine wash cold with colors; tumble dry low. Do not iron or dry clean",
+    ],
+    colorways: [{ name: "White", hex: "#f7f3ea" }],
+    images: [
+      {
+        src: "/product images/Sam Burns Polo/Sam Burns Polo Flatlay GPT.png",
+        alt: "Sam Burns Peter Millar polo — flatlay showing sponsor placements",
+        fit: "contain",
+        bgColor: "#f4f3f1",
+        hotspots: [
+          { x: 50, y: 9, sponsorName: "Peter Millar" },
+          { x: 37, y: 19, sponsorName: "Raising Cane's" },
+          { x: 59, y: 18, sponsorName: "Mastercard" },
+          { x: 42, y: 37, sponsorName: "ADP" },
+          { x: 16, y: 44, sponsorName: "Topgolf" },
+          { x: 80, y: 44, sponsorName: "RBC" },
+        ],
+      },
+      {
+        src: "/product images/Sam Burns Polo/Sam Burns Open Shirt.avif",
+        alt: "Sam Burns Peter Millar polo — on-course lifestyle shot",
+      },
+      {
+        src: "/product images/Sam Burns Polo/MF26XK55E_WHT_ALT_1.webp",
+        alt: "Peter Millar Albatross piqué polo — front view on model",
+      },
+      {
+        src: "/product images/Sam Burns Polo/MF26XK55E_WHT_ALT_2.webp",
+        alt: "Peter Millar Albatross piqué polo — alternate angle",
+      },
+      {
+        src: "/product images/Sam Burns Polo/MF26XK55E_WHT_ALT_3.webp",
+        alt: "Peter Millar Albatross piqué polo — detail view",
+      },
+      {
+        src: "/product images/Sam Burns Polo/MF26XK55E_WHT_ALT_4.webp",
+        alt: "Peter Millar Albatross piqué polo — back view",
+      },
+    ],
+    badge: "New",
+    featured: true,
+    visible: true,
+  }),
+
+  // ─── JJ Spaun · PUMA ───────────────────────────────────────────────────────
+  createProduct({
+    id: "js-polo",
+    slug: "jj-spaun-polo",
+    name: "JJ Spaun Polo",
+    category: "polos",
+    playerSlug: "jj-spaun",
+    brand: "PUMA",
+    price: 70,
+    description:
+      "The reigning U.S. Open champion's tournament polo — PUMA's MATTR Brigade 2.0 with JJ Spaun's sponsor lineup intact. Moisture-wicking MATTR fabric in an all-over jacquard, built to move and breathe through four rounds.",
+    details: [
+      "MATTR moisture-wicking performance fabric",
+      "All-over jacquard pattern",
+      "Self-fabric collar with three-button placket",
+      "Embroidered PUMA cat at right chest",
+      "Tour sponsor placements: NICE, Tradeweb, Amerisure",
+      "Machine wash cold; tumble dry low",
+    ],
+    colorways: [
+      { name: "Blue", hex: "#a0aee7" },
+      { name: "White", hex: "#f7f3ea" },
+    ],
+    images: [
+      {
+        src: "/product images/JJ Spaun Polo/JJ Spaun Polo Logo GPT.png",
+        alt: "JJ Spaun PUMA MATTR Brigade polo in blue — flatlay showing sponsor placements",
+        fit: "contain",
+        bgColor: "#ffffff",
+        colorway: "Blue",
+        hotspots: [
+          { x: 43, y: 33, sponsorName: "NICE" },
+          { x: 57, y: 34, sponsorName: "PUMA" },
+          { x: 14, y: 40, sponsorName: "Tradeweb" },
+          { x: 80, y: 40, sponsorName: "Amerisure" },
+        ],
+      },
+      {
+        src: "/product images/JJ Spaun Polo/Puma Raw Product Image.webp",
+        alt: "PUMA MATTR Brigade polo in blue — front view",
+        fit: "contain",
+        bgColor: "#ffffff",
+        colorway: "Blue",
+      },
+      {
+        src: "/product images/JJ Spaun Polo/JJ Spaun White Polo GPT.png",
+        alt: "JJ Spaun PUMA MATTR Brigade polo in white — flatlay showing sponsor placements",
+        fit: "contain",
+        bgColor: "#ffffff",
+        colorway: "White",
+      },
+      {
+        src: "/product images/JJ Spaun Polo/Puma Raw White Polo.webp",
+        alt: "PUMA MATTR Brigade polo in white — front view",
+        fit: "contain",
+        bgColor: "#ffffff",
+        colorway: "White",
+      },
+    ],
+    badge: "New",
+    featured: true,
+    visible: true,
+  }),
 ];
 
 export const featuredProducts = products.filter((p) => p.featured);

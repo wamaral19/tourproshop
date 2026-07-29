@@ -97,8 +97,6 @@ export function HomeExclusivesRail({ players }: { players: RailPlayer[] }) {
           <ExclusiveTile
             key={player.slug}
             player={player}
-            index={idx}
-            total={players.length}
             priority={idx < 2}
           />
         ))}
@@ -158,10 +156,6 @@ export function HomeExclusivesRail({ players }: { players: RailPlayer[] }) {
             <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-cream/60">
               Tour Pro Shop Exclusives
             </span>
-            <span className="font-sans text-sm tabular-nums text-brand-cream/85">
-              {String(activeIndex + 1).padStart(2, "0")} /{" "}
-              {String(players.length).padStart(2, "0")}
-            </span>
           </div>
           <div className="flex items-center gap-2">
             <Link
@@ -195,13 +189,9 @@ export function HomeExclusivesRail({ players }: { players: RailPlayer[] }) {
 
 function ExclusiveTile({
   player,
-  index,
-  total,
   priority,
 }: {
   player: RailPlayer;
-  index: number;
-  total: number;
   priority?: boolean;
 }) {
   const first = getDisplayFirstName(player);
@@ -248,10 +238,6 @@ function ExclusiveTile({
         <div className="absolute left-4 top-4 flex items-center gap-2 md:left-8 md:top-8">
           <span className="rounded-full bg-brand-accent px-3 py-1.5 font-sans text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-cream">
             Tour Pro Shop Exclusive
-          </span>
-          <span className="font-sans text-xs font-medium tabular-nums text-brand-cream/75">
-            {String(index + 1).padStart(2, "0")} /{" "}
-            {String(total).padStart(2, "0")}
           </span>
         </div>
 

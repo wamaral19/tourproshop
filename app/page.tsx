@@ -8,6 +8,7 @@ import { PlayerCard } from "@/components/player-card";
 import { HomeExclusivesRail } from "@/components/home-exclusives-rail";
 
 const HOME_EXCLUSIVE_ORDER = [
+  "jackson-koivun",
   "ben-griffin",
   "cameron-young",
   "james-nicholas",

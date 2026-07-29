@@ -1,6 +1,6 @@
 {
   "$schema": "./owgr.schema.json",
-  "updatedAt": "2026-05-17",
+  "updatedAt": "2026-07-28",
   "source": "https://www.owgr.com/current-world-ranking",
   "players": [
     {
@@ -63,7 +63,7 @@
       "freeAgent": true
     },
     {
-      "owgrRank": 5,
+      "owgrRank": 11,
       "slug": "justin-rose",
       "name": "Justin Rose",
       "country": "England",
@@ -78,7 +78,7 @@
       ]
     },
     {
-      "owgrRank": 6,
+      "owgrRank": 8,
       "slug": "collin-morikawa",
       "name": "Collin Morikawa",
       "country": "United States",
@@ -93,7 +93,7 @@
       ]
     },
     {
-      "owgrRank": 7,
+      "owgrRank": 6,
       "slug": "tommy-fleetwood",
       "name": "Tommy Fleetwood",
       "country": "England",
@@ -106,7 +106,7 @@
       "freeAgent": true
     },
     {
-      "owgrRank": 8,
+      "owgrRank": 15,
       "slug": "xander-schauffele",
       "name": "Xander Schauffele",
       "country": "United States",
@@ -121,7 +121,7 @@
       ]
     },
     {
-      "owgrRank": 9,
+      "owgrRank": 14,
       "slug": "jj-spaun",
       "name": "JJ Spaun",
       "country": "United States",
@@ -130,13 +130,13 @@
       "turnedPro": 2012,
       "signatureWin": "2025 U.S. Open",
       "bio": "The Sunday Oakmont closer who refused to flinch with a major on the line.",
-      "relationship": "linked",
+      "relationship": "exclusive",
       "vendorLinks": [
-        { "vendor": "PUMA", "url": "https://www.cobragolf.com/collections/apparel-men", "kind": "apparel" }
+        { "vendor": "PUMA", "url": "https://www.pumagolf.com/", "kind": "apparel" }
       ]
     },
     {
-      "owgrRank": 10,
+      "owgrRank": 7,
       "slug": "chris-gotterup",
       "name": "Chris Gotterup",
       "country": "United States",
@@ -151,7 +151,7 @@
       ]
     },
     {
-      "owgrRank": 11,
+      "owgrRank": 5,
       "slug": "russell-henley",
       "name": "Russell Henley",
       "country": "United States",
@@ -179,7 +179,7 @@
       "vendorLinks": []
     },
     {
-      "owgrRank": 13,
+      "owgrRank": 16,
       "slug": "ludvig-aberg",
       "name": "Ludvig Åberg",
       "country": "Sweden",
@@ -194,7 +194,7 @@
       ]
     },
     {
-      "owgrRank": 14,
+      "owgrRank": 17,
       "slug": "robert-macintyre",
       "name": "Robert MacIntyre",
       "country": "Scotland",
@@ -209,7 +209,7 @@
       ]
     },
     {
-      "owgrRank": 15,
+      "owgrRank": 20,
       "slug": "aaron-rai",
       "name": "Aaron Rai",
       "relationship": "linked",
@@ -218,7 +218,7 @@
       ]
     },
     {
-      "owgrRank": 16,
+      "owgrRank": 22,
       "slug": "justin-thomas",
       "name": "Justin Thomas",
       "country": "United States",
@@ -231,7 +231,7 @@
       "freeAgent": true
     },
     {
-      "owgrRank": 17,
+      "owgrRank": 19,
       "slug": "ben-griffin",
       "name": "Ben Griffin",
       "country": "United States",
@@ -246,7 +246,7 @@
       ]
     },
     {
-      "owgrRank": 18,
+      "owgrRank": 26,
       "slug": "sepp-straka",
       "name": "Sepp Straka",
       "country": "Austria",
@@ -261,7 +261,7 @@
       ]
     },
     {
-      "owgrRank": 19,
+      "owgrRank": 25,
       "slug": "hideki-matsuyama",
       "name": "Hideki Matsuyama",
       "country": "Japan",
@@ -276,7 +276,7 @@
       ]
     },
     {
-      "owgrRank": 20,
+      "owgrRank": 27,
       "slug": "alex-noren",
       "name": "Alex Norén",
       "relationship": "linked",
@@ -285,7 +285,7 @@
       ]
     },
     {
-      "owgrRank": 22,
+      "owgrRank": 34,
       "slug": "harris-english",
       "name": "Harris English",
       "country": "United States",
@@ -300,7 +300,7 @@
       ]
     },
     {
-      "owgrRank": 23,
+      "owgrRank": 31,
       "slug": "jacob-bridgeman",
       "name": "Jacob Bridgeman",
       "relationship": "linked",
@@ -309,7 +309,7 @@
       ]
     },
     {
-      "owgrRank": 24,
+      "owgrRank": 18,
       "slug": "si-woo-kim",
       "name": "Si Woo Kim",
       "country": "South Korea",
@@ -324,7 +324,7 @@
       ]
     },
     {
-      "owgrRank": 26,
+      "owgrRank": 32,
       "slug": "akshay-bhatia",
       "name": "Akshay Bhatia",
       "relationship": "linked",
@@ -333,7 +333,7 @@
       ]
     },
     {
-      "owgrRank": 28,
+      "owgrRank": 38,
       "slug": "nicolai-hojgaard",
       "name": "Nicolai Højgaard",
       "relationship": "linked",
@@ -342,7 +342,7 @@
       ]
     },
     {
-      "owgrRank": 29,
+      "owgrRank": 37,
       "slug": "kurt-kitayama",
       "name": "Kurt Kitayama",
       "relationship": "linked",
@@ -351,7 +351,7 @@
       ]
     },
     {
-      "owgrRank": 30,
+      "owgrRank": 13,
       "slug": "viktor-hovland",
       "name": "Viktor Hovland",
       "relationship": "linked",
@@ -360,7 +360,7 @@
       ]
     },
     {
-      "owgrRank": 31,
+      "owgrRank": 29,
       "slug": "min-woo-lee",
       "name": "Min Woo Lee",
       "country": "Australia",
@@ -375,7 +375,7 @@
       ]
     },
     {
-      "owgrRank": 32,
+      "owgrRank": 33,
       "slug": "bryson-dechambeau",
       "name": "Bryson DeChambeau",
       "country": "United States",
@@ -388,32 +388,38 @@
       "vendorLinks": []
     },
     {
-      "owgrRank": 33,
+      "owgrRank": 39,
       "slug": "patrick-cantlay",
       "name": "Patrick Cantlay",
       "relationship": "linked",
       "freeAgent": true
     },
     {
-      "owgrRank": 34,
+      "owgrRank": 42,
       "slug": "maverick-mcnealy",
       "name": "Maverick McNealy",
       "relationship": "linked",
       "vendorLinks": [
-        { "vendor": "TravisMathew", "url": "https://www.travismathew.com/tm/shop-all-golf/c/2000000000000000144", "kind": "apparel" }
+        { "vendor": "Vuori", "url": "https://vuoriclothing.com/collections/mens-golf", "kind": "apparel" }
       ]
     },
     {
-      "owgrRank": 35,
+      "owgrRank": 10,
       "slug": "sam-burns",
       "name": "Sam Burns",
-      "relationship": "linked",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 29,
+      "turnedPro": 2017,
+      "signatureWin": "2023 WGC-Dell Technologies Match Play",
+      "bio": "Louisiana-bred, ice in his veins on the greens — a multi-time Tour winner with one of the best putters in the game.",
+      "relationship": "exclusive",
       "vendorLinks": [
         { "vendor": "Peter Millar", "url": "https://www.petermillar.com/c/golf/mens-golf-apparel/", "kind": "apparel" }
       ]
     },
     {
-      "owgrRank": 36,
+      "owgrRank": 44,
       "slug": "keegan-bradley",
       "name": "Keegan Bradley",
       "relationship": "linked",
@@ -422,7 +428,7 @@
       ]
     },
     {
-      "owgrRank": 37,
+      "owgrRank": 24,
       "slug": "ryan-gerard",
       "name": "Ryan Gerard",
       "relationship": "linked",
@@ -431,7 +437,7 @@
       ]
     },
     {
-      "owgrRank": 39,
+      "owgrRank": 47,
       "slug": "jake-knapp",
       "name": "Jake Knapp",
       "relationship": "linked",
@@ -440,7 +446,7 @@
       ]
     },
     {
-      "owgrRank": 40,
+      "owgrRank": 48,
       "slug": "shane-lowry",
       "name": "Shane Lowry",
       "relationship": "linked",
@@ -449,7 +455,7 @@
       ]
     },
     {
-      "owgrRank": 41,
+      "owgrRank": 59,
       "slug": "jason-day",
       "name": "Jason Day",
       "relationship": "linked",
@@ -458,7 +464,7 @@
       ]
     },
     {
-      "owgrRank": 44,
+      "owgrRank": 54,
       "slug": "daniel-berger",
       "name": "Daniel Berger",
       "relationship": "linked",
@@ -467,7 +473,7 @@
       ]
     },
     {
-      "owgrRank": 45,
+      "owgrRank": 55,
       "slug": "michael-kim",
       "name": "Michael Kim",
       "relationship": "linked",
@@ -476,7 +482,7 @@
       ]
     },
     {
-      "owgrRank": 46,
+      "owgrRank": 67,
       "slug": "matt-mccarty",
       "name": "Matt McCarty",
       "relationship": "linked",
@@ -485,7 +491,7 @@
       ]
     },
     {
-      "owgrRank": 48,
+      "owgrRank": 43,
       "slug": "gary-woodland",
       "name": "Gary Woodland",
       "relationship": "linked",
@@ -494,7 +500,7 @@
       ]
     },
     {
-      "owgrRank": 50,
+      "owgrRank": 56,
       "slug": "nico-echavarria",
       "name": "Nico Echavarria",
       "relationship": "linked",
@@ -503,7 +509,7 @@
       ]
     },
     {
-      "owgrRank": 51,
+      "owgrRank": 53,
       "slug": "sam-stevens",
       "name": "Sam Stevens",
       "relationship": "linked",
@@ -512,7 +518,7 @@
       ]
     },
     {
-      "owgrRank": 52,
+      "owgrRank": 50,
       "slug": "corey-conners",
       "name": "Corey Conners",
       "relationship": "linked",
@@ -521,7 +527,7 @@
       ]
     },
     {
-      "owgrRank": 55,
+      "owgrRank": 58,
       "slug": "brian-harman",
       "name": "Brian Harman",
       "relationship": "linked",
@@ -530,7 +536,7 @@
       ]
     },
     {
-      "owgrRank": 56,
+      "owgrRank": 60,
       "slug": "michael-brennan",
       "name": "Michael Brennan",
       "relationship": "linked",
@@ -539,7 +545,7 @@
       ]
     },
     {
-      "owgrRank": 72,
+      "owgrRank": 79,
       "slug": "sungjae-im",
       "name": "Sungjae Im",
       "country": "South Korea",
@@ -552,7 +558,7 @@
       "vendorLinks": []
     },
     {
-      "owgrRank": 108,
+      "owgrRank": 71,
       "slug": "keith-mitchell",
       "name": "Keith Mitchell",
       "country": "United States",
@@ -565,7 +571,7 @@
       "vendorLinks": []
     },
     {
-      "owgrRank": 281,
+      "owgrRank": 300,
       "slug": "james-nicholas",
       "name": "James Nicholas",
       "country": "United States",
@@ -575,6 +581,36 @@
       "bio": "A Yale grad with a whip-smart short game and one of the easiest swings on Tour.",
       "relationship": "exclusive",
       "vendorLinks": []
+    },
+    {
+      "owgrRank": 9,
+      "slug": "wyndham-clark",
+      "name": "Wyndham Clark",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 31,
+      "turnedPro": 2017,
+      "signatureWin": "2023 U.S. Open",
+      "bio": "A major champion who plays with the throttle wide open — big drives, bigger belief.",
+      "relationship": "exclusive",
+      "vendorLinks": [
+        { "vendor": "Municipal", "url": "https://municipal.com/collections/mens-golf", "kind": "apparel" }
+      ]
+    },
+    {
+      "owgrRank": 73,
+      "slug": "jackson-koivun",
+      "name": "Jackson Koivun",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 20,
+      "turnedPro": 2025,
+      "signatureWin": "Back-to-back Jack Nicklaus Award (Duke)",
+      "bio": "The most decorated amateur of his class turned pro — a two-time National Player of the Year with a game already built for Tour.",
+      "relationship": "exclusive",
+      "vendorLinks": [
+        { "vendor": "Malbon Golf", "url": "https://malbon.com/collections/mens", "kind": "apparel" }
+      ]
     }
   ]
 }
