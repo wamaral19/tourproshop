@@ -192,14 +192,11 @@ export default function GraveyardSignalsPage() {
             <p className="font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
               <strong className="font-semibold text-brand-ink">The Graveyard</strong>{" "}
               is the merch that deserves to die: bootleg tees, meme hats, and
-              print-on-demand junk. It&rsquo;s what fans are stuck with because
-              there&rsquo;s no real way to buy the players they love.
+              print-on-demand junk. It&rsquo;s what fans are stuck with for now.
             </p>
             <p className="font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
               <strong className="font-semibold text-brand-ink">The Signals</strong>{" "}
-              are the proof the market is already here: fans begging for the real
-              thing, players reposting them, and sponsors already paying millions
-              for the exact look we make possible.
+              are the proof that consumers want the real deal. Some of the asks are explicit, others show that there's enough demand to take whatever product they can get their hands on.
             </p>
           </div>
         </div>
