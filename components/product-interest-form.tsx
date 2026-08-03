@@ -89,7 +89,7 @@ export function ProductInterestForm({
         <button
           type="submit"
           disabled={state === "submitting"}
-          className="flex h-14 shrink-0 items-center justify-center rounded-full bg-brand-ink px-8 font-condensed text-sm uppercase tracking-widest text-brand-cream transition-colors hover:bg-brand-deep disabled:opacity-60 sm:w-auto"
+          className="flex h-14 shrink-0 items-center justify-center rounded-full bg-brand-primary px-8 font-condensed text-sm uppercase tracking-widest text-brand-cream transition-colors hover:bg-brand-accent disabled:opacity-60 sm:w-auto"
         >
           {state === "submitting" ? "Sending…" : "Notify me"}
         </button>
