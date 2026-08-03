@@ -2,14 +2,16 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useCart, type AgeGroup } from "@/lib/cart-context";
+import { type AgeGroup } from "@/lib/cart-context";
 import { formatPrice } from "@/lib/format";
 import { ProductImage } from "./product-image";
 import { ProductCard } from "./product-card";
 import { ImageHotspots } from "./image-hotspots";
+import { ProductInterestForm } from "./product-interest-form";
 import type { Product, ProductSize } from "@/lib/products";
 import { YOUTH_AGE_RANGE } from "@/lib/products";
 import { getSponsorsByPlayer } from "@/lib/sponsors";
+import { getPlayerBySlug, getDisplayFirstName } from "@/lib/players";
 
 export function ProductDetail({
   product,
@@ -18,7 +20,10 @@ export function ProductDetail({
   product: Product;
   related: Product[];
 }) {
-  const cart = useCart();
+  const player = getPlayerBySlug(product.playerSlug);
+  const playerFirstName = getDisplayFirstName(
+    player ?? { slug: product.playerSlug, name: product.name },
+  );
   const [colorway, setColorway] = useState(product.colorways[0]?.name ?? "");
   /** Default Adult. Toggle only renders when the product carries a youth run. */
   const [ageGroup, setAgeGroup] = useState<AgeGroup>("adult");
@@ -30,8 +35,6 @@ export function ProductDetail({
   const [size, setSize] = useState<ProductSize | undefined>(
     activeSizes.length === 1 ? activeSizes[0] : undefined,
   );
-  const [qty, setQty] = useState(1);
-  const [error, setError] = useState<string | null>(null);
   const sponsors = getSponsorsByPlayer(product.playerSlug);
 
   // Switching age group invalidates any selected size (Adult M and Youth M are
@@ -40,7 +43,6 @@ export function ProductDetail({
   // the primitive is enough and avoids re-running on every render.
   useEffect(() => {
     setSize(activeSizes.length === 1 ? activeSizes[0] : undefined);
-    setError(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ageGroup, product.id]);
 
@@ -90,15 +92,6 @@ export function ProductDetail({
     el.addEventListener("scroll", onScroll, { passive: true });
     return () => el.removeEventListener("scroll", onScroll);
   }, [galleryImages.length]);
-
-  const handleAdd = () => {
-    if (!size) {
-      setError("Choose a size to continue.");
-      return;
-    }
-    setError(null);
-    cart.addLine({ product, size, colorway, ageGroup });
-  };
 
   return (
     <article className="bg-brand-cream pb-24">
@@ -326,10 +319,7 @@ export function ProductDetail({
                     <button
                       key={s}
                       type="button"
-                      onClick={() => {
-                        setSize(s);
-                        setError(null);
-                      }}
+                      onClick={() => setSize(s)}
                       className={`flex h-14 flex-col items-center justify-center border font-condensed text-sm uppercase tracking-widest leading-none transition-colors ${
                         size === s
                           ? "border-brand-ink bg-brand-ink text-brand-cream"
@@ -349,45 +339,15 @@ export function ProductDetail({
             </div>
           ) : null}
 
-          {/* Quantity */}
-          <div className="mt-8 flex items-center gap-4">
-            <span className="eyebrow text-brand-ink/60">Qty</span>
-            <div className="inline-flex items-center rounded-full border border-line">
-              <button
-                type="button"
-                aria-label="Decrease"
-                onClick={() => setQty((q) => Math.max(1, q - 1))}
-                className="flex h-10 w-10 items-center justify-center"
-              >
-                −
-              </button>
-              <span className="min-w-[2rem] text-center text-sm tabular-nums">
-                {qty}
-              </span>
-              <button
-                type="button"
-                aria-label="Increase"
-                onClick={() => setQty((q) => q + 1)}
-                className="flex h-10 w-10 items-center justify-center"
-              >
-                +
-              </button>
-            </div>
-          </div>
-
-          {/* Add to bag */}
-          <button
-            type="button"
-            onClick={() => {
-              for (let i = 0; i < qty; i++) handleAdd();
-            }}
-            className="mt-8 flex h-14 w-full items-center justify-center rounded-full bg-brand-ink font-condensed text-sm uppercase tracking-widest text-brand-cream transition-colors hover:bg-brand-deep"
-          >
-            Add to Bag · {formatPrice(product.price * qty)}
-          </button>
-          {error ? (
-            <p className="mt-2 text-sm text-brand-flag">{error}</p>
-          ) : null}
+          {/* Not live to buy yet — capture interest instead of Add to Bag. */}
+          <ProductInterestForm
+            productSlug={product.slug}
+            productName={product.name}
+            playerSlug={product.playerSlug}
+            playerFirstName={playerFirstName}
+            size={size}
+            colorway={product.colorways.length > 1 ? colorway : undefined}
+          />
 
           {/* Details */}
           <details className="mt-10 border-t border-line py-5">

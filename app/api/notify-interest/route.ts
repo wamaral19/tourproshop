@@ -3,64 +3,123 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { getPlayerBySlug } from "@/lib/players";
 
 /**
- * Captures interest in a player whose gear we don't yet carry. Each submission
- * is posted to the Discord channel configured via DISCORD_WEBHOOK_URL — set it
- * in .dev.vars for local dev and `wrangler secret put DISCORD_WEBHOOK_URL` for
- * production. The value is read off the Cloudflare worker env via
- * `getCloudflareContext`, not `process.env`, because OpenNext's Cloudflare
- * adapter routes secrets through the worker bindings in both runtimes.
- * Webhook failures are logged but never fail the user's signup.
+ * Captures interest for two cases, both posted to the Discord channel
+ * configured via DISCORD_WEBHOOK_URL:
+ *   - a player whose gear we don't yet carry (footer subscribe / player page)
+ *   - an exclusive product that isn't live to buy yet (PDP "notify me")
+ *
+ * Set DISCORD_WEBHOOK_URL in .dev.vars for local dev and
+ * `wrangler secret put DISCORD_WEBHOOK_URL` for production. Values are read off
+ * the Cloudflare worker env via `getCloudflareContext`, not `process.env`,
+ * because OpenNext's Cloudflare adapter routes secrets through the worker
+ * bindings in both runtimes.
+ *
+ * Product signups are worth reacting to fast, so they ping. The mention is
+ * configurable via DISCORD_INTEREST_MENTION (e.g. `@here`, or a role mention
+ * like `<@&123456789>`); it defaults to `@here`. Set it to an empty string to
+ * silence the ping. Webhook failures are logged but never fail the signup.
  */
 
 export const dynamic = "force-dynamic";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const DEFAULT_MENTION = "@here";
 
-async function readWebhookUrl(): Promise<string | undefined> {
+async function readEnv(key: string): Promise<string | undefined> {
   try {
     const ctx = await getCloudflareContext({ async: true });
-    const env = ctx.env as { DISCORD_WEBHOOK_URL?: string } | undefined;
-    if (env?.DISCORD_WEBHOOK_URL) return env.DISCORD_WEBHOOK_URL;
+    const env = ctx.env as unknown as
+      | Record<string, string | undefined>
+      | undefined;
+    if (env && typeof env[key] === "string") return env[key];
   } catch {
     // getCloudflareContext can throw outside the worker runtime — fall through.
   }
-  return process.env.DISCORD_WEBHOOK_URL;
+  return process.env[key];
 }
 
-async function postToDiscord(args: {
-  email: string;
-  source:
-    | { kind: "player"; slug: string; name: string }
-    | { kind: "general" };
-}) {
-  const url = await readWebhookUrl();
+type InterestSource =
+  | { kind: "player"; slug: string; name: string }
+  | { kind: "general" }
+  | {
+      kind: "product";
+      playerSlug: string;
+      playerName: string;
+      productSlug: string;
+      productName: string;
+      size?: string;
+      colorway?: string;
+    };
+
+async function postToDiscord(args: { email: string; source: InterestSource }) {
+  const url = await readEnv("DISCORD_WEBHOOK_URL");
   if (!url) {
     console.warn("[notify-interest] DISCORD_WEBHOOK_URL not set");
     return;
   }
+
+  const { source } = args;
   const title =
-    args.source.kind === "player" ? "New waitlist signup" : "New subscriber";
-  const sourceValue =
-    args.source.kind === "player"
-      ? `${args.source.name} (\`${args.source.slug}\`)`
-      : "General interest (footer subscribe)";
+    source.kind === "product"
+      ? "New product interest"
+      : source.kind === "player"
+        ? "New waitlist signup"
+        : "New subscriber";
+
+  const fields: { name: string; value: string; inline?: boolean }[] = [];
+  if (source.kind === "product") {
+    fields.push(
+      { name: "Product", value: source.productName, inline: true },
+      { name: "Player", value: source.playerName, inline: true },
+    );
+    if (source.colorway) {
+      fields.push({ name: "Color", value: source.colorway, inline: true });
+    }
+    if (source.size) {
+      fields.push({ name: "Size", value: source.size, inline: true });
+    }
+  } else if (source.kind === "player") {
+    fields.push({
+      name: "Source",
+      value: `${source.name} (\`${source.slug}\`)`,
+      inline: true,
+    });
+  } else {
+    fields.push({
+      name: "Source",
+      value: "General interest (footer subscribe)",
+      inline: true,
+    });
+  }
+  fields.push({ name: "Email", value: args.email, inline: true });
+
+  // Only product interest pings — waitlist/general stay quiet.
+  const mention =
+    source.kind === "product"
+      ? ((await readEnv("DISCORD_INTEREST_MENTION")) ?? DEFAULT_MENTION)
+      : "";
+
+  const payload: Record<string, unknown> = {
+    embeds: [
+      {
+        title,
+        color: 0x1f2a44,
+        fields,
+        timestamp: new Date().toISOString(),
+      },
+    ],
+  };
+  if (mention) {
+    payload.content = mention;
+    // Webhooks don't ping unless the mention type is explicitly allowed.
+    payload.allowed_mentions = { parse: ["everyone", "roles", "users"] };
+  }
+
   try {
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        embeds: [
-          {
-            title,
-            color: 0x1f2a44,
-            fields: [
-              { name: "Source", value: sourceValue, inline: true },
-              { name: "Email", value: args.email, inline: true },
-            ],
-            timestamp: new Date().toISOString(),
-          },
-        ],
-      }),
+      body: JSON.stringify(payload),
     });
     if (!res.ok) {
       console.error(
@@ -83,9 +142,14 @@ export async function POST(req: Request) {
     );
   }
 
-  const { email, playerSlug } = (body ?? {}) as {
+  const { email, playerSlug, productSlug, productName, size, colorway } = (body ??
+    {}) as {
     email?: unknown;
     playerSlug?: unknown;
+    productSlug?: unknown;
+    productName?: unknown;
+    size?: unknown;
+    colorway?: unknown;
   };
 
   if (typeof email !== "string" || !EMAIL_RE.test(email)) {
@@ -95,7 +159,36 @@ export async function POST(req: Request) {
     );
   }
 
-  if (typeof playerSlug === "string" && playerSlug.length > 0) {
+  const hasPlayer = typeof playerSlug === "string" && playerSlug.length > 0;
+
+  if (
+    typeof productSlug === "string" &&
+    productSlug.length > 0 &&
+    typeof productName === "string" &&
+    productName.length > 0 &&
+    hasPlayer
+  ) {
+    const player = getPlayerBySlug(playerSlug);
+    const playerName = player?.name ?? playerSlug;
+    console.log(
+      `[notify-interest] ${email} wants ${productSlug} (${playerSlug})`,
+    );
+    await postToDiscord({
+      email,
+      source: {
+        kind: "product",
+        playerSlug,
+        playerName,
+        productSlug,
+        productName,
+        size: typeof size === "string" && size.length > 0 ? size : undefined,
+        colorway:
+          typeof colorway === "string" && colorway.length > 0
+            ? colorway
+            : undefined,
+      },
+    });
+  } else if (hasPlayer) {
     const player = getPlayerBySlug(playerSlug);
     const playerName = player?.name ?? playerSlug;
     console.log(`[notify-interest] ${email} wants gear from ${playerSlug}`);
