@@ -23,17 +23,17 @@ type State = "idle" | "submitting" | "done" | "error";
 /** Query param that flags ad traffic; its value becomes the campaign tag. */
 const AD_PARAM = "ad";
 const DEFAULT_CAMPAIGN = "instagram-ad";
+/** Hold the popup back briefly so the shopper sees the product first. */
+const POPUP_DELAY_MS = 1500;
 
 export function AdLanderModal({
   productSlug,
   productName,
   playerSlug,
-  playerFirstName,
 }: {
   productSlug: string;
   productName: string;
   playerSlug: string;
-  playerFirstName: string;
 }) {
   const [campaign, setCampaign] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
@@ -42,16 +42,17 @@ export function AdLanderModal({
 
   // Read the ad param on mount only. Using window.location keeps this fully
   // client-side so the PDP stays statically rendered (no useSearchParams
-  // Suspense boundary, no forced-dynamic page).
+  // Suspense boundary, no forced-dynamic page). Hold the popup back by
+  // POPUP_DELAY_MS so the shopper lands on the product before it appears.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (!params.has(AD_PARAM)) return;
     const value = params.get(AD_PARAM)?.trim();
-    // Syncing state from the URL, which is only readable client-side (the page
-    // is statically prerendered, so this can't run during render).
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setCampaign(value && value.length > 0 ? value : DEFAULT_CAMPAIGN);
-    setOpen(true);
+    const timer = setTimeout(() => {
+      setCampaign(value && value.length > 0 ? value : DEFAULT_CAMPAIGN);
+      setOpen(true);
+    }, POPUP_DELAY_MS);
+    return () => clearTimeout(timer);
   }, []);
 
   // Lock body scroll and wire up Escape-to-close while the popup is open.
@@ -130,17 +131,17 @@ export function AdLanderModal({
         {state === "done" ? (
           <div className="text-center">
             <p className="font-condensed text-xs uppercase tracking-widest text-brand-deep">
-              You&apos;re on the list
+              Talk soon
             </p>
             <h2
               id="ad-lander-title"
               className="font-display mt-3 text-2xl leading-tight sm:text-3xl"
             >
-              First in line.
+              Thanks — I&apos;ll be in touch.
             </h2>
             <p className="mt-3 text-base leading-relaxed text-brand-ink/80">
-              We&apos;ll email you the moment {playerFirstName}&apos;s exclusive
-              drops. Take a look around while you&apos;re here.
+              I&apos;ll reach out personally. Take a look around while
+              you&apos;re here.
             </p>
             <button
               type="button"
@@ -153,17 +154,17 @@ export function AdLanderModal({
         ) : (
           <>
             <p className="font-condensed text-xs uppercase tracking-widest text-brand-deep">
-              Exclusive drop
+              Let&apos;s chat
             </p>
             <h2
               id="ad-lander-title"
               className="font-display mt-3 text-2xl leading-tight sm:text-3xl"
             >
-              Get first access.
+              Interested in our products?
             </h2>
             <p className="mt-3 text-base leading-relaxed text-brand-ink/80">
-              Drop your email and we&apos;ll let you know the moment{" "}
-              {playerFirstName}&apos;s exclusive is live to buy.
+              I started Tour Pro Shop and I want to chat. Drop your email and
+              I&apos;ll reach out.
             </p>
             <form onSubmit={onSubmit} className="mt-6">
               <label className="block">
@@ -183,7 +184,7 @@ export function AdLanderModal({
                 disabled={state === "submitting"}
                 className="mt-3 flex h-14 w-full items-center justify-center rounded-full bg-brand-primary px-8 font-condensed text-sm uppercase tracking-widest text-brand-cream transition-colors hover:bg-brand-accent disabled:opacity-60"
               >
-                {state === "submitting" ? "Sending…" : "Notify me"}
+                {state === "submitting" ? "Sending…" : "Let's chat"}
               </button>
               {state === "error" ? (
                 <p className="mt-3 text-center text-sm text-brand-flag">

@@ -102,7 +102,6 @@ export function ProductDetail({
         productSlug={product.slug}
         productName={product.name}
         playerSlug={product.playerSlug}
-        playerFirstName={playerFirstName}
       />
 
       {/* Demo banner — sits directly below the site header on every PDP. */}
