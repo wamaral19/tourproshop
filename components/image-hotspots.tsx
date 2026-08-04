@@ -16,6 +16,13 @@ export function ImageHotspots({
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const openSpot = openIndex !== null ? hotspots[openIndex] : null;
+  const openSponsor = openSpot
+    ? sponsors.find(
+        (s) => s.name.toLowerCase() === openSpot.sponsorName.toLowerCase(),
+      )
+    : undefined;
+
   useEffect(() => {
     if (openIndex === null) return;
     function onPointerDown(e: PointerEvent) {
@@ -85,7 +92,7 @@ export function ImageHotspots({
               <div
                 role="dialog"
                 aria-label={sponsor.name}
-                className={`absolute z-10 w-64 rounded-2xl bg-brand-cream p-4 text-left text-brand-ink shadow-xl ring-1 ring-brand-ink/10 sm:w-72 ${
+                className={`absolute z-10 hidden w-72 rounded-2xl bg-brand-cream p-4 text-left text-brand-ink shadow-xl ring-1 ring-brand-ink/10 sm:block ${
                   openLeft ? "right-[calc(100%+10px)]" : "left-[calc(100%+10px)]"
                 } ${openUp ? "bottom-0" : "top-0"}`}
               >
@@ -109,7 +116,7 @@ export function ImageHotspots({
             ) : isOpen && !sponsor ? (
               <div
                 role="dialog"
-                className={`absolute z-10 w-56 rounded-2xl bg-brand-cream p-4 text-sm text-brand-ink/70 shadow-xl ring-1 ring-brand-ink/10 ${
+                className={`absolute z-10 hidden w-56 rounded-2xl bg-brand-cream p-4 text-sm text-brand-ink/70 shadow-xl ring-1 ring-brand-ink/10 sm:block ${
                   openLeft ? "right-[calc(100%+10px)]" : "left-[calc(100%+10px)]"
                 } ${openUp ? "bottom-0" : "top-0"}`}
               >
@@ -119,6 +126,36 @@ export function ImageHotspots({
           </div>
         );
       })}
+
+      {/* Mobile popover — anchored to the image frame (not the dot) so the card
+          and its text always stay fully on screen. Desktop keeps the dot-side
+          popovers above; this one only renders below sm. */}
+      {openSpot ? (
+        <div
+          role="dialog"
+          aria-label={openSponsor?.name ?? openSpot.sponsorName}
+          className="pointer-events-auto absolute inset-x-3 bottom-3 z-30 rounded-2xl bg-brand-cream p-4 text-left text-brand-ink shadow-xl ring-1 ring-brand-ink/10 sm:hidden"
+        >
+          <div className="flex items-start justify-between gap-3">
+            <p className="font-condensed text-[11px] uppercase tracking-widest text-brand-deep">
+              {openSponsor?.name ?? openSpot.sponsorName}
+            </p>
+            <button
+              type="button"
+              aria-label="Close"
+              onClick={() => setOpenIndex(null)}
+              className="-mt-1 -mr-1 h-6 w-6 shrink-0 rounded-full text-brand-ink/60 hover:text-brand-ink"
+            >
+              ×
+            </button>
+          </div>
+          {openSponsor ? (
+            <p className="mt-2 text-sm leading-relaxed text-brand-ink/80">
+              {openSponsor.blurb}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 }
