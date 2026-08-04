@@ -31,11 +31,11 @@ const gemunu = Gemunu_Libre({
 
 export const metadata: Metadata = {
   title: {
-    default: "Tour Pro Shop — Looks from Inside the Ropes",
+    default: "Tour Pro Shop — From your favorite tour pro to you.",
     template: "%s | Tour Pro Shop",
   },
   description:
-    "Bringing you looks from inside the ropes. Heritage golf apparel, gear, and stories from the world's best.",
+    "From your favorite tour pro to you. Heritage golf apparel, gear, and stories from the world's best.",
   metadataBase: new URL("https://tourpro.shop"),
 };
 

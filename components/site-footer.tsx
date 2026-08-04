@@ -39,7 +39,7 @@ export function SiteFooter() {
           <div className="flex flex-col gap-6">
             <SiteLogo variant="footer" />
             <p className="max-w-sm font-display text-2xl leading-tight text-brand-ink/80">
-              Where the game lives.
+              From your favorite tour pro to you.
             </p>
             <FooterSubscribeForm />
           </div>
