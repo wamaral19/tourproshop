@@ -49,6 +49,8 @@ type InterestSource =
       productName: string;
       size?: string;
       colorway?: string;
+      /** Set when the signup came from an ad lander popup, e.g. `ig-polo`. */
+      campaign?: string;
     };
 
 async function postToDiscord(args: { email: string; source: InterestSource }) {
@@ -59,15 +61,25 @@ async function postToDiscord(args: { email: string; source: InterestSource }) {
   }
 
   const { source } = args;
+  const fromAd = source.kind === "product" && !!source.campaign;
   const title =
     source.kind === "product"
-      ? "New product interest"
+      ? fromAd
+        ? "New ad-lander signup"
+        : "New product interest"
       : source.kind === "player"
         ? "New waitlist signup"
         : "New subscriber";
 
   const fields: { name: string; value: string; inline?: boolean }[] = [];
   if (source.kind === "product") {
+    if (source.campaign) {
+      fields.push({
+        name: "Landed from",
+        value: `Instagram ad (\`${source.campaign}\`)`,
+        inline: false,
+      });
+    }
     fields.push(
       { name: "Product", value: source.productName, inline: true },
       { name: "Player", value: source.playerName, inline: true },
@@ -142,15 +154,16 @@ export async function POST(req: Request) {
     );
   }
 
-  const { email, playerSlug, productSlug, productName, size, colorway } = (body ??
-    {}) as {
-    email?: unknown;
-    playerSlug?: unknown;
-    productSlug?: unknown;
-    productName?: unknown;
-    size?: unknown;
-    colorway?: unknown;
-  };
+  const { email, playerSlug, productSlug, productName, size, colorway, campaign } =
+    (body ?? {}) as {
+      email?: unknown;
+      playerSlug?: unknown;
+      productSlug?: unknown;
+      productName?: unknown;
+      size?: unknown;
+      colorway?: unknown;
+      campaign?: unknown;
+    };
 
   if (typeof email !== "string" || !EMAIL_RE.test(email)) {
     return NextResponse.json(
@@ -185,6 +198,10 @@ export async function POST(req: Request) {
         colorway:
           typeof colorway === "string" && colorway.length > 0
             ? colorway
+            : undefined,
+        campaign:
+          typeof campaign === "string" && campaign.length > 0
+            ? campaign.slice(0, 64)
             : undefined,
       },
     });

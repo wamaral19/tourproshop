@@ -8,6 +8,7 @@ import { ProductImage } from "./product-image";
 import { ProductCard } from "./product-card";
 import { ImageHotspots } from "./image-hotspots";
 import { ProductInterestForm } from "./product-interest-form";
+import { AdLanderModal } from "./ad-lander-modal";
 import type { Product, ProductSize } from "@/lib/products";
 import { YOUTH_AGE_RANGE } from "@/lib/products";
 import { getSponsorsByPlayer } from "@/lib/sponsors";
@@ -95,6 +96,15 @@ export function ProductDetail({
 
   return (
     <article className="bg-brand-cream pb-24">
+      {/* Ad-lander email popup — only opens when the URL carries `?ad=...`,
+          so it targets paid ad traffic and leaves organic browsing alone. */}
+      <AdLanderModal
+        productSlug={product.slug}
+        productName={product.name}
+        playerSlug={product.playerSlug}
+        playerFirstName={playerFirstName}
+      />
+
       {/* Demo banner — sits directly below the site header on every PDP. */}
       <div className="bg-brand-deep px-4 py-2.5 text-center">
         <p className="font-condensed uppercase tracking-[0.18em] text-sm text-white">
