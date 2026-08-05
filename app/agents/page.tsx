@@ -95,21 +95,36 @@ export default function AgentsLandingPage() {
 
   return (
     <div className="agents-page">
-      {/* HERO */}
+      {/* HERO — fan legacy */}
       <section className="border-b border-line bg-brand-cream">
         <div className="mx-auto max-w-[1400px] px-4 pb-12 pt-16 md:px-8 md:pb-20 md:pt-24">
           <div className="grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:items-center md:gap-14">
             <div>
               <p className="eyebrow text-brand-deep">For agents</p>
               <h1 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight text-brand-ink md:text-5xl lg:text-5xl">
-                Increase the value of your player's sponsorship inventory.
+                Fans have favorites. Let them show it.
               </h1>
-              <p className="mt-6 font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
-                We create a new sponsorship asset by offering fans the same sponsor-inclusive apparel your players wear in competition.
-                <br />
-                <br />
-               Tour Pro Shop handles everything, including coordinating with sponsors for approval. No inventory, no logistics, no operational burden. We unlock additional sponsorship value while creating zero additional work for agents.
-              </p>
+              <div className="mt-6 space-y-5 font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
+                <p>
+                  Golf fans don&apos;t just follow the game. They follow the
+                  players — the personalities, the swings, the stories and the
+                  moments.
+                </p>
+                <p>
+                  But unlike fans of team sports, they have almost no way to show
+                  who they support.
+                </p>
+                <p>
+                  Tour Pro Shop gives fans access to the same sponsor-inclusive
+                  apparel players wear in competition — the closest thing golf has
+                  to a jersey.
+                </p>
+                <p>
+                  Every Tour player once looked up to someone. Give the Tour
+                  players of tomorrow a way to represent their favorite player
+                  today.
+                </p>
+              </div>
             </div>
             {heroProduct && heroImage ? (
               <figure className="md:justify-self-end md:w-full md:max-w-md">
@@ -144,6 +159,98 @@ export default function AgentsLandingPage() {
                 </div>
               </figure>
             ) : null}
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT WE NEED / BECOME PART OF MEMORIES */}
+      <section className="bg-brand-ink py-20 text-brand-cream md:py-28">
+        <div className="mx-auto max-w-[1400px] px-4 md:px-8">
+          <div className="grid gap-10 md:grid-cols-2 md:gap-16">
+            <div>
+              <h2 className="font-display text-3xl leading-tight tracking-tight md:text-4xl">
+                What do we need from you?
+              </h2>
+              <ul className="mt-6 space-y-4 font-sans text-base text-brand-cream/80 md:text-lg">
+                <li className="flex gap-3">
+                  <span
+                    aria-hidden
+                    className="mt-[0.6em] inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-accent"
+                  />
+                  <span>
+                    <strong className="font-semibold text-brand-cream">
+                      Approval.
+                    </strong>{" "}
+                    That&apos;s it.
+                  </span>
+                </li>
+                <li className="flex gap-3">
+                  <span
+                    aria-hidden
+                    className="mt-[0.6em] inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-accent"
+                  />
+                  <span>No time. No posts. No effort.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h2 className="font-display text-3xl leading-tight tracking-tight md:text-4xl">
+                Become part of lifelong memories.
+              </h2>
+              <p className="mt-6 max-w-xl font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">
+                Whether it&apos;s a junior winning their first tournament or
+                someone making their first hole-in-one — if someone is wearing
+                your player&apos;s shirt for a memorable life moment, they&apos;ll
+                never forget it.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MORE SPONSORSHIP VALUE — images left, copy right */}
+      <section className="border-b border-line bg-brand-cream">
+        <div className="mx-auto max-w-[1400px] px-4 pb-12 pt-16 md:px-8 md:pb-20 md:pt-24">
+          <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] md:items-center md:gap-14">
+            <figure className="grid w-full grid-cols-2 gap-4 md:max-w-md">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-[#e6e6e6]">
+                <Image
+                  src="/product images/Min Woo Lee Track Jacket/Lululemon Track Jacket Logo Flatlay.png"
+                  alt="Min Woo Lee's Lululemon pullover with sponsor placements"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 20vw"
+                  className="object-contain"
+                />
+              </div>
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-white">
+                <Image
+                  src="/product images/Keith Mitchell Visor/Spruce/KMCGV-3_3.webp"
+                  alt="Keith Mitchell's Imperial tour visor with Mizuno and Cisco marks"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 20vw"
+                  className="object-cover"
+                />
+              </div>
+            </figure>
+            <div>
+              <p className="eyebrow text-brand-deep">More sponsorship value</p>
+              <h2 className="mt-4 font-display text-3xl leading-tight tracking-tight text-brand-ink md:text-5xl">
+                Increase the value of your player&apos;s sponsorship inventory.
+              </h2>
+              <div className="mt-6 space-y-5 font-sans text-base leading-relaxed text-brand-ink/70 md:text-lg">
+                <p>
+                  We create a new sponsorship asset by offering fans the same
+                  sponsor-inclusive apparel your players wear in competition.
+                </p>
+                <p>
+                  Tour Pro Shop handles everything, including coordinating with
+                  sponsors for approval. No inventory, no logistics, no
+                  operational burden. We unlock additional sponsorship value while
+                  creating zero additional work for agents.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -273,7 +380,7 @@ export default function AgentsLandingPage() {
           {/* CALCULATOR */}
           <div className="flex flex-col gap-3 border-b border-line pb-8 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="eyebrow text-brand-deep">Here's the math</p>
+              <p className="eyebrow text-brand-deep">Here&apos;s the math</p>
               <h2 className="mt-3 font-display text-2xl leading-tight tracking-tight md:text-4xl">
                 Estimate the additional sponsor value created when fans wear the same sponsor-inclusive apparel as your player.
               </h2>
@@ -327,12 +434,12 @@ export default function AgentsLandingPage() {
             <div>
               <p className="eyebrow text-brand-accent">Support the Causes That Matter</p>
               <h2 className="mt-4 font-display text-3xl leading-tight tracking-tight md:text-5xl">
-                Sponsors give back
+                Players give back
               </h2>
               <p className="mt-6 max-w-xl font-sans text-base leading-relaxed text-brand-cream/80 md:text-lg">
                 A portion of every sale is directed to a philanthropic cause
-                of the sponsor&apos;s choosing. The sponsor decides where the dollars land,
-                and both the player and the sponsor share credit for giving back.
+                of the player&apos;s choosing. The player decides where the dollars land,
+                and both the player and their sponsors share credit for giving back.
               </p>
             </div>
             <div className="rounded-2xl border border-brand-cream/15 p-8 md:p-10">
@@ -345,7 +452,7 @@ export default function AgentsLandingPage() {
                   />
                   <span>
                     <strong className="font-semibold text-brand-cream">
-                      The sponsors direct the dollars
+                      The player directs the dollars
                     </strong>{" "}
                     to a cause that matters to them.
                   </span>
@@ -357,7 +464,7 @@ export default function AgentsLandingPage() {
                   />
                   <span>
                     <strong className="font-semibold text-brand-cream">
-                      The sponsors and player share the story
+                      The player and their sponsors share the story
                     </strong>{" "}
                     — a charitable narrative layered on top of the
                     impressions above.
