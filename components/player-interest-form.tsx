@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackLead } from "@/lib/meta-pixel";
 
 type State = "idle" | "submitting" | "done" | "error";
 
@@ -26,6 +27,7 @@ export function PlayerInterestForm({
         body: JSON.stringify({ playerSlug, email }),
       });
       if (!res.ok) throw new Error(`${res.status}`);
+      trackLead({ content_name: playerSlug, content_category: "Player interest" });
       setState("done");
     } catch {
       setErrorMsg("Something went wrong — try again in a moment.");

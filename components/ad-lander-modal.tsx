@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { trackLead } from "@/lib/meta-pixel";
 
 type State = "idle" | "submitting" | "done" | "error";
 
@@ -88,6 +89,11 @@ export function AdLanderModal({
         }),
       });
       if (!res.ok) throw new Error(`${res.status}`);
+      trackLead({
+        content_name: productName,
+        content_category: "Ad lander popup",
+        campaign,
+      });
       setState("done");
     } catch {
       setState("error");
