@@ -14,6 +14,8 @@ type Item = {
   width: number;
   height: number;
   alt: string;
+  href?: string;
+  label?: string;
 };
 
 const GRAVEYARD: Item[] = [
@@ -135,6 +137,14 @@ const SIGNALS: Item[] = [
     alt: "Marketing article: 'Notre Dame, Ohio State jersey patch deals mark revenue shift for blue blood programs' showing a SoFi patch",
   },
   {
+    src: "/graveyard-signals/signals/boston-fans-wearing-jerseys.jpeg",
+    width: 1280,
+    height: 853,
+    alt: "Boston Bruins fans and kids in team jerseys pressed against the glass as Brad Marchand skates up before a game",
+    href: "https://www.masslive.com/patriots/2023/11/boston-athletes-reveal-what-its-like-to-see-fans-wearing-their-jersey-vautour.html",
+    label: "Read the story: Boston athletes on what it feels like to see fans wearing their jersey",
+  },
+  {
     src: "/graveyard-signals/signals/jt-favorite-shirt-of-the-day.jpeg",
     width: 447,
     height: 447,
@@ -162,8 +172,8 @@ function Gallery({ items, tone }: { items: Item[]; tone: "dark" | "light" }) {
 
   return (
     <div className="mt-10 columns-1 gap-5 sm:columns-2 lg:columns-3 [column-fill:balance]">
-      {items.map((item) => (
-        <div key={item.src} className={cardClass}>
+      {items.map((item) => {
+        const image = (
           <Image
             src={item.src}
             alt={item.alt}
@@ -172,8 +182,43 @@ function Gallery({ items, tone }: { items: Item[]; tone: "dark" | "light" }) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="h-auto w-full"
           />
-        </div>
-      ))}
+        );
+
+        if (item.href) {
+          return (
+            <a
+              key={item.src}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`group block ${cardClass} transition-shadow hover:shadow-md`}
+            >
+              {image}
+              <div className="flex items-center justify-between gap-3 border-t border-line bg-surface-raised px-4 py-3">
+                <span className="font-sans text-sm font-medium leading-snug text-brand-deep underline decoration-brand-deep/30 underline-offset-4 group-hover:decoration-brand-deep">
+                  {item.label}
+                </span>
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden
+                  className="h-4 w-4 shrink-0 text-brand-deep transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                >
+                  <path d="M7 17L17 7M17 7H9M17 7v8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+            </a>
+          );
+        }
+
+        return (
+          <div key={item.src} className={cardClass}>
+            {image}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -196,7 +241,7 @@ export default function GraveyardSignalsPage() {
             </p>
             <p className="font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
               <strong className="font-semibold text-brand-ink">The Signals</strong>{" "}
-              are the proof that consumers want the real deal. Some of the asks are explicit, others show that there's enough demand to take whatever product they can get their hands on.
+              are the proof that consumers want the real deal. Some of the asks are explicit, others show that there&rsquo;s enough demand to take whatever product they can get their hands on.
             </p>
           </div>
         </div>
