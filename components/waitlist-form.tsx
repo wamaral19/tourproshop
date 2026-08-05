@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { trackLead } from "@/lib/meta-pixel";
+import { fbTrack, trackLead } from "@/lib/meta-pixel";
 
 type State = "idle" | "submitting" | "error";
 
@@ -39,6 +39,10 @@ export function WaitlistForm() {
         }),
       });
       if (!res.ok) throw new Error(`${res.status}`);
+      // Email is saved at this point (res.ok). Fire the conversion events
+      // exactly once here — after the success guard, before we navigate away.
+      // No-op if the pixel isn't loaded (typeof window.fbq !== "function").
+      fbTrack("CompleteRegistration");
       trackLead({ content_name: "Waitlist", campaign });
       router.push("/waitlist-confirmed");
     } catch {
