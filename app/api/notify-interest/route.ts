@@ -42,6 +42,12 @@ type InterestSource =
   | { kind: "player"; slug: string; name: string }
   | { kind: "general" }
   | {
+      kind: "waitlist";
+      firstName?: string;
+      /** Set when the signup came from a tagged link, e.g. `ig-jerseys`. */
+      campaign?: string;
+    }
+  | {
       kind: "product";
       playerSlug: string;
       playerName: string;
@@ -69,7 +75,9 @@ async function postToDiscord(args: { email: string; source: InterestSource }) {
         : "New product interest"
       : source.kind === "player"
         ? "New waitlist signup"
-        : "New subscriber";
+        : source.kind === "waitlist"
+          ? "New jersey waitlist signup"
+          : "New subscriber";
 
   const fields: { name: string; value: string; inline?: boolean }[] = [];
   if (source.kind === "product") {
@@ -96,6 +104,17 @@ async function postToDiscord(args: { email: string; source: InterestSource }) {
       value: `${source.name} (\`${source.slug}\`)`,
       inline: true,
     });
+  } else if (source.kind === "waitlist") {
+    fields.push({
+      name: "Source",
+      value: source.campaign
+        ? `Jersey waitlist (\`${source.campaign}\`)`
+        : "Jersey waitlist (/waitlist)",
+      inline: true,
+    });
+    if (source.firstName) {
+      fields.push({ name: "Name", value: source.firstName, inline: true });
+    }
   } else {
     fields.push({
       name: "Source",
@@ -154,16 +173,27 @@ export async function POST(req: Request) {
     );
   }
 
-  const { email, playerSlug, productSlug, productName, size, colorway, campaign } =
-    (body ?? {}) as {
-      email?: unknown;
-      playerSlug?: unknown;
-      productSlug?: unknown;
-      productName?: unknown;
-      size?: unknown;
-      colorway?: unknown;
-      campaign?: unknown;
-    };
+  const {
+    intent,
+    email,
+    firstName,
+    playerSlug,
+    productSlug,
+    productName,
+    size,
+    colorway,
+    campaign,
+  } = (body ?? {}) as {
+    intent?: unknown;
+    email?: unknown;
+    firstName?: unknown;
+    playerSlug?: unknown;
+    productSlug?: unknown;
+    productName?: unknown;
+    size?: unknown;
+    colorway?: unknown;
+    campaign?: unknown;
+  };
 
   if (typeof email !== "string" || !EMAIL_RE.test(email)) {
     return NextResponse.json(
@@ -174,7 +204,23 @@ export async function POST(req: Request) {
 
   const hasPlayer = typeof playerSlug === "string" && playerSlug.length > 0;
 
-  if (
+  if (intent === "waitlist") {
+    console.log(`[notify-interest] ${email} joined the jersey waitlist`);
+    await postToDiscord({
+      email,
+      source: {
+        kind: "waitlist",
+        firstName:
+          typeof firstName === "string" && firstName.trim().length > 0
+            ? firstName.trim().slice(0, 80)
+            : undefined,
+        campaign:
+          typeof campaign === "string" && campaign.length > 0
+            ? campaign.slice(0, 64)
+            : undefined,
+      },
+    });
+  } else if (
     typeof productSlug === "string" &&
     productSlug.length > 0 &&
     typeof productName === "string" &&

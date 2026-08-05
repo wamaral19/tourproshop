@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackLead } from "@/lib/meta-pixel";
 
 type State = "idle" | "submitting" | "done" | "error";
 
@@ -18,6 +19,7 @@ export function FooterSubscribeForm() {
         body: JSON.stringify({ email }),
       });
       if (!res.ok) throw new Error(`${res.status}`);
+      trackLead({ content_name: "Footer subscribe" });
       setState("done");
     } catch {
       setState("error");
