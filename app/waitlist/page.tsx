@@ -5,7 +5,7 @@ import {
   type WaitlistSlide,
 } from "@/components/waitlist-carousel";
 import { ProductImage } from "@/components/product-image";
-import { getProductBySlug } from "@/lib/products";
+import { products } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Golf jerseys are almost here",
@@ -15,35 +15,31 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-/** The exclusives shown in the hero rail, in order. Each uses its PDP lead
- *  image so the shot matches the product page exactly. */
-const SHOWCASE_SLUGS = [
-  "cameron-young-polo",
-  "sam-burns-polo",
-  "min-woo-lee-track-jacket",
-  "jackson-koivun-polo",
-];
+/** Every exclusive garment with real photography, in catalog order — the rail
+ *  auto-includes new drops as their photos land. Headwear is excluded so the
+ *  "golf jerseys" rail stays apparel-only. We render each product's lead image
+ *  (not an explicit gallery shot) so it centers in the frame instead of
+ *  top-anchoring the way the PDP gallery does. */
+const showcaseProducts = products.filter(
+  (product) =>
+    product.category !== "headwear" &&
+    !product.images[0]?.src.startsWith("/placeholders/"),
+);
 
 export default function WaitlistPage() {
-  const slides: WaitlistSlide[] = SHOWCASE_SLUGS.flatMap((slug) => {
-    const product = getProductBySlug(slug);
-    if (!product) return [];
-    return [
-      {
-        name: product.name,
-        href: `/products/${product.slug}`,
-        node: (
-          <ProductImage
-            product={product}
-            image={product.images[0]}
-            sizes="(max-width: 768px) 100vw, 40vw"
-            className="absolute inset-0 h-full w-full"
-            priority
-          />
-        ),
-      },
-    ];
-  });
+  const slides: WaitlistSlide[] = showcaseProducts.map((product, i) => ({
+    name: product.name,
+    href: `/products/${product.slug}`,
+    node: (
+      <ProductImage
+        product={product}
+        sizes="(max-width: 768px) 100vw, 40vw"
+        className="absolute inset-0 h-full w-full"
+        // Only the first slide is above the fold at load — the rest advance in.
+        priority={i === 0}
+      />
+    ),
+  }));
 
   return (
     <div className="agents-page">
