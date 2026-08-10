@@ -11,16 +11,17 @@ export type WaitlistSlide = {
   href: string;
 };
 
-/** Advance cadence — the brief calls for a new look every second. */
-const INTERVAL_MS = 1000;
+/** Advance cadence — a new look every 1.5s, slow enough to actually register. */
+const INTERVAL_MS = 1500;
 /** Slide transition; kept under the interval so motion settles between steps. */
 const TRANSITION_MS = 600;
 
 /**
  * Auto-advancing rail of Tour Pro Shop exclusives for the waitlist landing.
- * Steps to the next slide every second, wrapping around, and pauses while the
- * visitor hovers/focuses so they can actually look. Slides are rendered on the
- * server and passed in as `node` so each shot matches its PDP exactly.
+ * Steps to the next slide on a timer, wrapping around, and pauses while the
+ * visitor hovers/focuses so they can actually look. Prev/next arrows let them
+ * step through by hand. Slides are rendered on the server and passed in as
+ * `node` so each shot matches its PDP exactly.
  */
 export function WaitlistCarousel({ slides }: { slides: WaitlistSlide[] }) {
   const [index, setIndex] = useState(0);
@@ -34,6 +35,9 @@ export function WaitlistCarousel({ slides }: { slides: WaitlistSlide[] }) {
     );
     return () => clearInterval(id);
   }, [paused, slides.length]);
+
+  const go = (delta: number) =>
+    setIndex((i) => (i + delta + slides.length) % slides.length);
 
   const current = slides[index];
 
@@ -62,6 +66,41 @@ export function WaitlistCarousel({ slides }: { slides: WaitlistSlide[] }) {
             </div>
           ))}
         </div>
+
+        {/* Prev / next arrows. Fade in on hover/focus of the frame; always
+            visible on touch where there's no hover state. */}
+        <button
+          type="button"
+          onClick={() => go(-1)}
+          aria-label="Previous look"
+          className="absolute left-3 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-brand-cream/85 text-brand-ink shadow-sm ring-1 ring-brand-ink/10 backdrop-blur transition hover:bg-brand-cream focus-visible:opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100"
+        >
+          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden>
+            <path
+              d="M15 6l-6 6 6 6"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        <button
+          type="button"
+          onClick={() => go(1)}
+          aria-label="Next look"
+          className="absolute right-3 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-brand-cream/85 text-brand-ink shadow-sm ring-1 ring-brand-ink/10 backdrop-blur transition hover:bg-brand-cream focus-visible:opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100"
+        >
+          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden>
+            <path
+              d="M9 6l6 6-6 6"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
 
         {/* Dots */}
         <div className="absolute inset-x-0 bottom-3 flex items-center justify-center gap-2">
