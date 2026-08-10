@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { getPlayerBySlug } from "@/lib/players";
+import { YOUTH_AGE_RANGE, type ProductSize } from "@/lib/products";
 
 /**
  * Captures interest for two cases, both posted to the Discord channel
@@ -44,8 +45,10 @@ type InterestSource =
   | {
       kind: "waitlist";
       firstName?: string;
-      /** Whether the signup wants a youth or adult jersey. */
+      /** Whether the signup wants a youth or adult shirt. */
       sizeClass?: "youth" | "adult";
+      /** The letter size picked, when the signup chose one. */
+      size?: string;
       /** Set when the signup came from a tagged link, e.g. `ig-jerseys`. */
       campaign?: string;
     }
@@ -117,10 +120,20 @@ async function postToDiscord(args: { email: string; source: InterestSource }) {
     if (source.firstName) {
       fields.push({ name: "Name", value: source.firstName, inline: true });
     }
-    if (source.sizeClass) {
+    if (source.sizeClass || source.size) {
+      const group = source.sizeClass
+        ? source.sizeClass === "youth"
+          ? "Youth"
+          : "Adult"
+        : undefined;
+      const ageRange =
+        source.sizeClass === "youth" && source.size
+          ? YOUTH_AGE_RANGE[source.size as ProductSize]
+          : undefined;
+      const value = [group, source.size].filter(Boolean).join(" ");
       fields.push({
         name: "Size",
-        value: source.sizeClass === "youth" ? "Youth" : "Adult",
+        value: ageRange ? `${value} (${ageRange})` : value,
         inline: true,
       });
     }
@@ -229,6 +242,7 @@ export async function POST(req: Request) {
           sizeClass === "youth" || sizeClass === "adult"
             ? sizeClass
             : undefined,
+        size: typeof size === "string" && size.length > 0 ? size : undefined,
         campaign:
           typeof campaign === "string" && campaign.length > 0
             ? campaign.slice(0, 64)
