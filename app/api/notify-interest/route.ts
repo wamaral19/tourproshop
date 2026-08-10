@@ -44,6 +44,8 @@ type InterestSource =
   | {
       kind: "waitlist";
       firstName?: string;
+      /** Whether the signup wants a youth or adult jersey. */
+      sizeClass?: "youth" | "adult";
       /** Set when the signup came from a tagged link, e.g. `ig-jerseys`. */
       campaign?: string;
     }
@@ -115,6 +117,13 @@ async function postToDiscord(args: { email: string; source: InterestSource }) {
     if (source.firstName) {
       fields.push({ name: "Name", value: source.firstName, inline: true });
     }
+    if (source.sizeClass) {
+      fields.push({
+        name: "Size",
+        value: source.sizeClass === "youth" ? "Youth" : "Adult",
+        inline: true,
+      });
+    }
   } else {
     fields.push({
       name: "Source",
@@ -177,6 +186,7 @@ export async function POST(req: Request) {
     intent,
     email,
     firstName,
+    sizeClass,
     playerSlug,
     productSlug,
     productName,
@@ -187,6 +197,7 @@ export async function POST(req: Request) {
     intent?: unknown;
     email?: unknown;
     firstName?: unknown;
+    sizeClass?: unknown;
     playerSlug?: unknown;
     productSlug?: unknown;
     productName?: unknown;
@@ -213,6 +224,10 @@ export async function POST(req: Request) {
         firstName:
           typeof firstName === "string" && firstName.trim().length > 0
             ? firstName.trim().slice(0, 80)
+            : undefined,
+        sizeClass:
+          sizeClass === "youth" || sizeClass === "adult"
+            ? sizeClass
             : undefined,
         campaign:
           typeof campaign === "string" && campaign.length > 0

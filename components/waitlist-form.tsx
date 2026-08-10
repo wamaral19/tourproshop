@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { fbTrack, trackLead } from "@/lib/meta-pixel";
 
 type State = "idle" | "submitting" | "error";
+type SizeClass = "adult" | "youth";
 
 /**
  * Waitlist capture form for /waitlist. Collects only email and an optional
@@ -19,6 +20,7 @@ export function WaitlistForm() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [sizeClass, setSizeClass] = useState<SizeClass>("adult");
   const [state, setState] = useState<State>("idle");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -35,6 +37,7 @@ export function WaitlistForm() {
           intent: "waitlist",
           email,
           firstName: firstName.trim() || undefined,
+          sizeClass,
           campaign,
         }),
       });
@@ -76,6 +79,37 @@ export function WaitlistForm() {
             className="w-full rounded-full border border-line-strong bg-brand-cream px-6 py-3.5 font-sans text-base text-brand-ink outline-none transition placeholder:text-brand-ink/45 focus:border-brand-deep"
           />
         </label>
+        <fieldset className="block">
+          <legend className="mb-2 font-sans text-sm text-brand-ink/70">
+            Jersey size
+          </legend>
+          <div className="flex gap-2" role="radiogroup" aria-label="Jersey size">
+            {(
+              [
+                { value: "adult", label: "Adult" },
+                { value: "youth", label: "Youth" },
+              ] as const
+            ).map((option) => {
+              const selected = sizeClass === option.value;
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  role="radio"
+                  aria-checked={selected}
+                  onClick={() => setSizeClass(option.value)}
+                  className={`flex-1 rounded-full border px-6 py-3.5 font-sans text-base transition ${
+                    selected
+                      ? "border-brand-deep bg-brand-deep text-brand-cream"
+                      : "border-line-strong bg-brand-cream text-brand-ink hover:border-brand-deep"
+                  }`}
+                >
+                  {option.label}
+                </button>
+              );
+            })}
+          </div>
+        </fieldset>
         <button
           type="submit"
           disabled={state === "submitting"}
