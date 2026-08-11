@@ -184,6 +184,84 @@ async function postToDiscord(args: { email: string; source: InterestSource }) {
   }
 }
 
+/**
+ * Appends the signup as a row to a Google Sheet via an Apps Script web app.
+ * Set SHEETS_WEBHOOK_URL to the deployed `/exec` URL (`.dev.vars` locally,
+ * `wrangler secret put SHEETS_WEBHOOK_URL` in prod). The script decides the
+ * column order from the keys below; failures are logged but never fail the
+ * signup. When the secret is unset this is a no-op, so Discord keeps working.
+ */
+async function postToSheet(args: { email: string; source: InterestSource }) {
+  const url = await readEnv("SHEETS_WEBHOOK_URL");
+  if (!url) return;
+
+  const { email, source } = args;
+  const sizeClass = source.kind === "waitlist" ? source.sizeClass : undefined;
+  const ageRange =
+    sizeClass === "youth" &&
+    source.kind === "waitlist" &&
+    source.size
+      ? YOUTH_AGE_RANGE[source.size as ProductSize]
+      : undefined;
+
+  // One flat row. Empty strings keep columns aligned across signup types.
+  const row = {
+    timestamp: new Date().toISOString(),
+    type: source.kind,
+    email,
+    name: source.kind === "waitlist" ? (source.firstName ?? "") : "",
+    player:
+      source.kind === "product"
+        ? source.playerName
+        : source.kind === "player"
+          ? source.name
+          : "",
+    product: source.kind === "product" ? source.productName : "",
+    colorway: source.kind === "product" ? (source.colorway ?? "") : "",
+    sizeClass: sizeClass ?? "",
+    size:
+      "size" in source && source.size
+        ? ageRange
+          ? `${source.size} (${ageRange})`
+          : source.size
+        : "",
+    campaign:
+      (source.kind === "product" || source.kind === "waitlist") &&
+      source.campaign
+        ? source.campaign
+        : "",
+    playerSlug:
+      source.kind === "product"
+        ? source.playerSlug
+        : source.kind === "player"
+          ? source.slug
+          : "",
+    productSlug: source.kind === "product" ? source.productSlug : "",
+  };
+
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(row),
+      // Apps Script returns a redirect to the script output; follow it.
+      redirect: "follow",
+    });
+    if (!res.ok) {
+      console.error(
+        `[notify-interest] sheet ${res.status}: ${await res.text()}`,
+      );
+    }
+  } catch (err) {
+    console.error("[notify-interest] sheet post failed", err);
+  }
+}
+
+/** Fan out a signup to every sink; one failing never blocks the others. */
+async function notify(args: { email: string; source: InterestSource }) {
+  await Promise.allSettled([postToDiscord(args), postToSheet(args)]);
+}
+
 export async function POST(req: Request) {
   let body: unknown;
   try {
@@ -230,7 +308,7 @@ export async function POST(req: Request) {
 
   if (intent === "waitlist") {
     console.log(`[notify-interest] ${email} joined the jersey waitlist`);
-    await postToDiscord({
+    await notify({
       email,
       source: {
         kind: "waitlist",
@@ -261,7 +339,7 @@ export async function POST(req: Request) {
     console.log(
       `[notify-interest] ${email} wants ${productSlug} (${playerSlug})`,
     );
-    await postToDiscord({
+    await notify({
       email,
       source: {
         kind: "product",
@@ -284,13 +362,13 @@ export async function POST(req: Request) {
     const player = getPlayerBySlug(playerSlug);
     const playerName = player?.name ?? playerSlug;
     console.log(`[notify-interest] ${email} wants gear from ${playerSlug}`);
-    await postToDiscord({
+    await notify({
       email,
       source: { kind: "player", slug: playerSlug, name: playerName },
     });
   } else {
     console.log(`[notify-interest] ${email} general subscribe`);
-    await postToDiscord({ email, source: { kind: "general" } });
+    await notify({ email, source: { kind: "general" } });
   }
 
   return NextResponse.json({ ok: true });
