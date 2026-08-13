@@ -1134,6 +1134,71 @@ export const products: Product[] = [
     featured: true,
     visible: true,
   }),
+
+  // ─── Justin Rose · Peter Millar ──────────────────────────────────
+  createProduct({
+    id: "jr-quarter-zip",
+    slug: "justin-rose-quarter-zip",
+    name: "Justin Rose Quarter Zip",
+    category: "outerwear",
+    playerSlug: "justin-rose",
+    brand: "Peter Millar",
+    price: 178,
+    description:
+      "Justin Rose's cold-morning layer — Peter Millar's Albatross cotton-blend piqué quarter zip in Gale Grey, with his full sponsor lineup intact from the Mastercard circles on the collar to Flyhouse on the sleeve. A lightweight midlayer that styles like a sweater and plays like performance apparel: textured piqué for a sweater-like hand, pima cotton and modal for softness, and enough stretch to swing in.",
+    details: [
+      "45% polyester / 30% pima cotton / 20% modal / 5% spandex piqué knit",
+      "Textured piqué with a sweater-like look and stretch comfort",
+      "Stand collar with quarter-zip placket",
+      "Suede-like accents on the placket and interior collar",
+      "Banded cuffs and hem",
+      "Tailored fit",
+      "Tour sponsor placements: Mastercard, Workday, McLaren Golf, Teneo, Flyhouse",
+      "Machine wash cold with like colors; lay flat to dry",
+    ],
+    colorways: [{ name: "Gale Grey", hex: "#d4d2d7" }],
+    images: [
+      {
+        src: "/product images/Justin Rose Quarter Zip/Justin Rose Logo Q Zip.png",
+        alt: "Justin Rose Peter Millar Albatross quarter zip — flatlay showing sponsor placements",
+        fit: "contain",
+        bgColor: "#eeeeee",
+        hotspots: [
+          { x: 50.3, y: 21, sponsorName: "Peter Millar" },
+          { x: 63, y: 25, sponsorName: "Mastercard" },
+          { x: 63, y: 36, sponsorName: "Workday" },
+          { x: 37.9, y: 37, sponsorName: "McLaren Golf" },
+          { x: 79.6, y: 41, sponsorName: "Teneo" },
+          { x: 20.4, y: 40, sponsorName: "Flyhouse" },
+        ],
+      },
+      {
+        src: "/product images/Justin Rose Quarter Zip/Justin Rose Q Zip Lifestyle.png",
+        alt: "Justin Rose wearing the Peter Millar Albatross quarter zip on course",
+      },
+      {
+        src: "/product images/Justin Rose Quarter Zip/Peter Millar Flatlay Q Zip.jpg",
+        alt: "Peter Millar Albatross cotton-blend piqué quarter zip in Gale Grey — flatlay",
+        fit: "contain",
+        bgColor: "#f0f0f0",
+      },
+      {
+        src: "/product images/Justin Rose Quarter Zip/Peter Millar Stock Q Zip 1.jpg",
+        alt: "Peter Millar Albatross quarter zip — front view on model",
+      },
+      {
+        src: "/product images/Justin Rose Quarter Zip/Peter Millar Stock Q Zip 3.jpg",
+        alt: "Peter Millar Albatross quarter zip — stand collar and zip placket detail",
+      },
+      {
+        src: "/product images/Justin Rose Quarter Zip/Peter Millar Stock Q Zip 2.jpg",
+        alt: "Peter Millar Albatross quarter zip — back view",
+      },
+    ],
+    badge: "New",
+    featured: true,
+    visible: true,
+  }),
 ];
 
 export const featuredProducts = products.filter((p) => p.featured);

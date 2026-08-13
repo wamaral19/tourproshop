@@ -244,6 +244,38 @@ const SPONSORS_BY_PLAYER: Record<string, Sponsor[]> = {
         "The Michigan-based commercial property-and-casualty insurer. Amerisure's partnership with JJ leans into reliability and the long game — values shared on the course and in risk management.",
     },
   ],
+  "justin-rose": [
+    {
+      name: "Peter Millar",
+      blurb:
+        "The North Carolina-founded performance and lifestyle brand behind Justin's on-course look. Peter Millar's Crown Crafted tour line pairs classic silhouettes with modern performance fabrications — a natural match for a player whose style has stayed understated across three decades on tour.",
+    },
+    {
+      name: "Mastercard",
+      blurb:
+        "One of the most active brands in pro golf and a long-running PGA Tour partner. Rose is among the longest-tenured players on Mastercard's Priceless roster — the interlocking circles ride high on his left collar, one of the most recognizable marks in the game.",
+    },
+    {
+      name: "Workday",
+      blurb:
+        "The enterprise cloud platform for finance and HR, and one of golf's most visible software sponsors. Workday's left-chest placement backs a player known for preparation and process — the same qualities the brand sells to the Fortune 500.",
+    },
+    {
+      name: "McLaren Golf",
+      blurb:
+        "The golf arm of McLaren Racing, extending the Woking marque's engineering obsession from Formula 1 into the game. The speedmark sits at Justin's right chest — motorsport precision alongside one of golf's most technically minded swings.",
+    },
+    {
+      name: "Teneo",
+      blurb:
+        "The global CEO advisory firm that counsels boards and executives across communications, capital, and risk. Teneo's mark on Justin's left sleeve reflects a partnership built around counsel and longevity — the long game, played at the top.",
+    },
+    {
+      name: "Flyhouse",
+      blurb:
+        "A private aviation company serving clients who live on the road. Flyhouse rides on Justin's right sleeve — fitting for a player whose career has spanned the European Tour, the PGA Tour, the Olympics, and every time zone in between.",
+    },
+  ],
 };
 
 export function getSponsorsByPlayer(playerSlug: string): Sponsor[] {
