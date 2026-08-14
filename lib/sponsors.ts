@@ -212,6 +212,11 @@ const SPONSORS_BY_PLAYER: Record<string, Sponsor[]> = {
         "The global human-capital-management company and a prominent PGA Tour sponsor. ADP's front-chest mark reflects a partnership built around consistency and performance — on the course and in the workplace.",
     },
     {
+      name: "iCapital",
+      blurb:
+        "The fintech platform that built the rails for alternative investments across the wealth management industry. iCapital's newest addition to Burns's right chest puts the brand alongside ADP on one of the Tour's most consistent winners — a placement aimed squarely at the advisor and investor audiences who follow every week.",
+    },
+    {
       name: "Topgolf",
       blurb:
         "The tech-driven driving-range and entertainment brand that's grown the game for a whole new audience. Topgolf's partnership with Burns connects one of golf's most accessible experiences to a proven Tour winner.",

@@ -4,8 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import type { ProductImageHotspot } from "@/lib/products";
 import type { Sponsor } from "@/lib/sponsors";
 
-/** Overlays a set of circular "+" callouts on a product image. Clicking one
- *  toggles a popover that surfaces the matching sponsor's name and blurb. */
+/** Overlays a set of open ring callouts on a product image. Clicking one
+ *  toggles a popover that surfaces the matching sponsor's name and blurb.
+ *  The rings are hollow on purpose — they sit directly over sponsor logos,
+ *  so a filled dot would hide the mark it's pointing at (worst on mobile,
+ *  where the same fixed-size dot covers far more of a smaller image). A
+ *  hairline "+" sits inside to signal the ring is clickable. Both the ring
+ *  and the "+" are white over a dark halo, which keeps them legible on pale
+ *  flatlays and dark garments alike. */
 export function ImageHotspots({
   hotspots,
   sponsors,
@@ -72,17 +78,45 @@ export function ImageHotspots({
                 e.stopPropagation();
                 setOpenIndex(isOpen ? null : i);
               }}
-              className={`relative flex h-8 w-8 items-center justify-center rounded-full bg-white text-brand-ink shadow-md ring-1 ring-brand-ink/15 transition-transform hover:scale-110 ${
-                isOpen ? "scale-110" : ""
+              className={`relative flex h-7 w-7 items-center justify-center rounded-full border-2 transition-transform hover:scale-110 sm:h-8 sm:w-8 ${
+                isOpen
+                  ? "scale-110 border-white ring-1 ring-brand-ink/60"
+                  : "border-white/85 ring-1 ring-brand-ink/40"
               }`}
             >
-              <span aria-hidden className="block h-3 w-3 relative">
-                <span className="absolute left-1/2 top-0 h-full w-[1.5px] -translate-x-1/2 rounded-full bg-current" />
-                <span className="absolute top-1/2 left-0 h-[1.5px] w-full -translate-y-1/2 rounded-full bg-current" />
-              </span>
+              {/* Invisible hit area — keeps the tap target near 44px while the
+                  painted ring stays small enough not to crowd the logo. */}
+              <span aria-hidden className="absolute -inset-2 rounded-full" />
+              {/* "+" affordance — without it a bare ring reads as decoration
+                  rather than a control. Drawn as a hairline cross so the logo
+                  still shows through: the dark stroke underneath is a halo for
+                  the white one on top, which is what keeps it readable on both
+                  pale flatlays and dark garments (the same white-over-dark
+                  trick as the ring). Rotates to an "×" while open. */}
+              <svg
+                aria-hidden
+                viewBox="0 0 12 12"
+                className={`h-2.5 w-2.5 transition-transform duration-200 sm:h-3 sm:w-3 ${
+                  isOpen ? "rotate-45" : ""
+                }`}
+              >
+                <path
+                  d="M6 1.75V10.25M1.75 6H10.25"
+                  stroke="currentColor"
+                  strokeWidth="3.25"
+                  strokeLinecap="round"
+                  className="text-brand-ink/60"
+                />
+                <path
+                  d="M6 1.75V10.25M1.75 6H10.25"
+                  stroke="#fff"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
               <span
                 aria-hidden
-                className={`absolute inset-0 -z-10 rounded-full bg-white/60 ${
+                className={`absolute inset-0 -z-10 rounded-full ring-1 ring-white/70 ${
                   isOpen ? "animate-none" : "animate-ping"
                 }`}
               />
