@@ -4,8 +4,11 @@ import { categoryLabels, hasProductsForPlayer } from "@/lib/catalog";
 import { getRoster } from "@/lib/owgr";
 import { EXCLUSIVE_PLAYERS } from "@/lib/players";
 import { getPlayerImageUrl } from "@/lib/player-images";
+import { HOME_CATEGORY_IMAGES, pickLiveImage } from "@/lib/marketing-assets";
+import { LOCKDOWN } from "@/lib/site-mode";
 import { PlayerCard } from "@/components/player-card";
 import { HomeExclusivesRail } from "@/components/home-exclusives-rail";
+import { LockdownNotice } from "@/components/lockdown-notice";
 
 const HOME_EXCLUSIVE_ORDER = [
   "jackson-koivun",
@@ -16,6 +19,10 @@ const HOME_EXCLUSIVE_ORDER = [
 ];
 
 export default async function HomePage() {
+  // Lockdown short-circuits before any roster read — the notice must not be
+  // able to render a player name even by accident.
+  if (LOCKDOWN) return <LockdownNotice />;
+
   const players = await getRoster();
   const exclusives = EXCLUSIVE_PLAYERS(players);
 
@@ -42,6 +49,17 @@ export default async function HomePage() {
   }));
 
   const browsePlayers = players.slice(0, 12);
+
+  // Category tiles resolve their photo through the marketing-asset chains, so
+  // taking a player dark swaps the tile to the next live example rather than
+  // leaving their photo on the lander. A category with no live photo left keeps
+  // its tile and falls back to the plain brand panel.
+  const categoryTiles = (["polos", "outerwear", "headwear"] as const).map(
+    (cat) => {
+      const picked = pickLiveImage(HOME_CATEGORY_IMAGES[cat] ?? []);
+      return { cat, image: picked?.src ?? null, alt: picked?.alt ?? "" };
+    },
+  );
 
   return (
     <>
@@ -104,40 +122,21 @@ export default async function HomePage() {
           </div>
 
           <div className="mt-10 grid grid-cols-3 gap-3 md:gap-5">
-            {(
-              [
-                {
-                  cat: "polos",
-                  image:
-                    "/product images/Sam Burns Polo/Sam Burns Open Shirt.avif",
-                  alt: "Sam Burns in his Peter Millar polo — on-course lifestyle shot",
-                },
-                {
-                  cat: "outerwear",
-                  image:
-                    "/product images/Min Woo Lee Track Jacket/Min Woo Lee Track Jacket 001.avif",
-                  alt: "Min Woo Lee in his Lululemon track jacket",
-                },
-                {
-                  cat: "headwear",
-                  image:
-                    "/product images/Keith Mitchell Visor/White/Keith Mitchell Visor 02.webp",
-                  alt: "Keith Mitchell in his Imperial tour visor",
-                },
-              ] as const
-            ).map(({ cat, image, alt }) => (
+            {categoryTiles.map(({ cat, image, alt }) => (
               <Link
                 key={cat}
                 href={`/shop?category=${cat}`}
                 className="group relative flex aspect-[3/4] items-end overflow-hidden bg-brand-ink/95 p-5 text-brand-cream"
               >
-                <Image
-                  src={image}
-                  alt={alt}
-                  fill
-                  sizes="(min-width: 1024px) 460px, 33vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                />
+                {image ? (
+                  <Image
+                    src={image}
+                    alt={alt}
+                    fill
+                    sizes="(min-width: 1024px) 460px, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  />
+                ) : null}
                 <div
                   aria-hidden
                   className="absolute inset-0 bg-gradient-to-t from-brand-ink/80 to-transparent"

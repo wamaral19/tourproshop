@@ -7,6 +7,8 @@ import {
 import { ProductImage } from "@/components/product-image";
 import { isProductVisible } from "@/lib/catalog";
 import { products } from "@/lib/products";
+import { LockdownNotice } from "@/components/lockdown-notice";
+import { LOCKDOWN } from "@/lib/site-mode";
 
 export const metadata: Metadata = {
   title: "Golf jerseys are almost here",
@@ -30,6 +32,11 @@ const showcaseProducts = products.filter(
 );
 
 export default function WaitlistPage() {
+  // Live ad campaigns point here, so lockdown swaps the content in place rather
+  // than redirecting — the URL and its ?ad= tag have to survive. The product
+  // carousel is exactly what has to go: it names players and links to PDPs.
+  if (LOCKDOWN) return <LockdownNotice />;
+
   const slides: WaitlistSlide[] = showcaseProducts.map((product, i) => ({
     name: product.name,
     href: `/products/${product.slug}`,
