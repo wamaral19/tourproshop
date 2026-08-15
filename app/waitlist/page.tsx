@@ -5,6 +5,7 @@ import {
   type WaitlistSlide,
 } from "@/components/waitlist-carousel";
 import { ProductImage } from "@/components/product-image";
+import { isProductVisible } from "@/lib/catalog";
 import { products } from "@/lib/products";
 
 export const metadata: Metadata = {
@@ -15,13 +16,15 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-/** Every exclusive garment with real photography, in catalog order — the rail
- *  auto-includes new drops as their photos land. Headwear is excluded so the
- *  "golf jerseys" rail stays apparel-only. We render each product's lead image
- *  (not an explicit gallery shot) so it centers in the frame instead of
- *  top-anchoring the way the PDP gallery does. */
+/** Every live exclusive garment with real photography, in catalog order — the
+ *  rail auto-includes new drops as their photos land, and auto-drops anything
+ *  taken dark in the catalog. Headwear is excluded so the "golf jerseys" rail
+ *  stays apparel-only. We render each product's lead image (not an explicit
+ *  gallery shot) so it centers in the frame instead of top-anchoring the way
+ *  the PDP gallery does. */
 const showcaseProducts = products.filter(
   (product) =>
+    isProductVisible(product) &&
     product.category !== "headwear" &&
     !product.images[0]?.src.startsWith("/placeholders/"),
 );

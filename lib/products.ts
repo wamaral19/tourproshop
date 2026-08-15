@@ -302,6 +302,10 @@ export const products: Product[] = [
     ],
     badge: "Exclusive",
     featured: true,
+    // Temporarily dark — James Nicholas is running as a waitlist-signup player for now.
+    // Flip back to `visible: true` (and `relationship: "exclusive"` in
+    // data/owgr.json) to relist.
+    visible: false,
   },
   {
     id: "jn-hoodie",
@@ -1006,7 +1010,10 @@ export const products: Product[] = [
     ],
     badge: "New",
     featured: true,
-    visible: true,
+    // Temporarily dark — Wyndham Clark is running as a waitlist-signup player for now.
+    // Flip back to `visible: true` (and `relationship: "exclusive"` in
+    // data/owgr.json) to relist.
+    visible: false,
   }),
 
   // ─── Sam Burns · Peter Millar ──────────────────────────────────────────────

@@ -11,7 +11,6 @@ const HOME_EXCLUSIVE_ORDER = [
   "jackson-koivun",
   "ben-griffin",
   "cameron-young",
-  "james-nicholas",
   "keith-mitchell",
   "si-woo-kim",
 ];

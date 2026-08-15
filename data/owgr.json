@@ -579,7 +579,7 @@
       "age": 30,
       "turnedPro": 2018,
       "bio": "A Yale grad with a whip-smart short game and one of the easiest swings on Tour.",
-      "relationship": "exclusive",
+      "relationship": "linked",
       "vendorLinks": []
     },
     {
@@ -592,7 +592,7 @@
       "turnedPro": 2017,
       "signatureWin": "2023 U.S. Open",
       "bio": "A major champion who plays with the throttle wide open — big drives, bigger belief.",
-      "relationship": "exclusive",
+      "relationship": "linked",
       "vendorLinks": [
         { "vendor": "Municipal", "url": "https://municipal.com/collections/mens-golf", "kind": "apparel" }
       ]
