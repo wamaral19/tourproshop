@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LOCKDOWN } from "@/lib/site-mode";
 
 export const metadata: Metadata = {
   title: "You're on the list",
@@ -23,15 +24,20 @@ export default function WaitlistConfirmedPage() {
             sponsor-inclusive Tour looks, straight to your inbox.
           </p>
 
-          <div className="mt-10">
-            <Link
-              href="/shop"
-              className="inline-flex items-center gap-2 rounded-full bg-brand-deep px-6 py-3.5 font-sans text-base font-medium text-brand-cream transition hover:bg-brand-ink"
-            >
-              Browse the shop
-              <span aria-hidden>→</span>
-            </Link>
-          </div>
+          {/* The shop is dark during a lockdown, so this CTA would bounce
+              straight back to the notice. Drop it rather than send people in a
+              circle. */}
+          {LOCKDOWN ? null : (
+            <div className="mt-10">
+              <Link
+                href="/shop"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-deep px-6 py-3.5 font-sans text-base font-medium text-brand-cream transition hover:bg-brand-ink"
+              >
+                Browse the shop
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </section>

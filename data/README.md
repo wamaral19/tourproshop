@@ -37,7 +37,7 @@ Order in the file doesn't matter — the code sorts by `owgrRank` automatically.
 
 | Field | Notes |
 |---|---|
-| `owgrRank` | **Optional.** Leave undefined for players we carry as Exclusives who aren't in the OWGR top 20 (e.g., James Nicholas). |
+| `owgrRank` | **Optional.** Leave undefined for players we carry as Exclusives who aren't in the OWGR top 20 (e.g., Jackson Koivun). |
 | `slug` | Lowercase, hyphenated, accents stripped. `Ludvig Åberg` → `ludvig-aberg`. Used to match the headshot file in `public/player images/`. |
 | `relationship` | `"exclusive"` (we carry official licensed gear) or `"linked"` (we point to third-party vendors). |
 | `vendorLinks` | Optional array. For `linked` players, list where to shop their look. Each entry: `{ vendor, url, kind? }`. `kind` ∈ `apparel \| equipment \| headwear \| footwear \| other`. |

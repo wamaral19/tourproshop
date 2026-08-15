@@ -130,6 +130,24 @@ function createProduct(product: ProductTemplateInput): Product {
 }
 
 /**
+ * Product slugs pulled from every storefront surface — shop, featured, related
+ * rails, waitlist carousel, player navigation — regardless of the per-product
+ * `visible` flag. Direct PDP URLs 404 and the route is no longer pre-rendered.
+ *
+ * Use this to retire a single garment while its player stays live, the way
+ * HIDDEN_PLAYERS retires a whole player. No data is deleted: remove the slug
+ * to restore the piece to whatever state its catalog entry already describes.
+ */
+export const HIDDEN_PRODUCTS: ReadonlySet<string> = new Set([
+  // Cameron Young stays on the roster; only the polo comes down.
+  "cameron-young-polo",
+]);
+
+export function isProductHidden(slug: string): boolean {
+  return HIDDEN_PRODUCTS.has(slug);
+}
+
+/**
  * Mock catalog. Every piece is tied to an Exclusive player and the apparel
  * brand they wear in that category. Structured to mirror what we'll later map
  * from the Shopify Storefront API — only the data layer changes when we wire
