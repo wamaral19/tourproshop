@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FooterSubscribeForm } from "@/components/footer-subscribe-form";
+import { enforceLockdown } from "@/lib/lockdown";
 
 export const metadata: Metadata = {
   title: "Journal — Coming soon",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function JournalComingSoonPage() {
+  enforceLockdown();
   return (
     <section className="border-b border-line bg-brand-cream">
       <div className="mx-auto max-w-[1400px] px-4 pb-24 pt-20 md:px-8 md:pb-32 md:pt-28">

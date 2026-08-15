@@ -6,6 +6,7 @@ import {
   getProductBySlug,
 } from "@/lib/catalog";
 import { ProductDetail } from "@/components/product-detail";
+import { enforceLockdown } from "@/lib/lockdown";
 
 export async function generateStaticParams() {
   // Pre-render hidden PDPs too — they're reachable by direct URL even though
@@ -32,6 +33,7 @@ export default async function ProductPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  enforceLockdown();
   const { slug } = await params;
   const product = getProductBySlug(slug);
   if (!product) notFound();

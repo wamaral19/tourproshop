@@ -89,9 +89,7 @@ Then commit, merge, and deploy. That's the whole procedure.
 soon" copy, the rights-holder contact line, and the waitlist form. No player
 name, product, or link into a blocked route appears in the HTML.
 
-Everything else 307-redirects to `/`. It's an **allowlist**, not a blocklist —
-a page added to the app later is dark by default rather than leaking because
-nobody remembered to list it. The allowlist is:
+Everything else 307-redirects to `/`. The allowlist in `lib/site-mode.ts` is:
 
 | Route | Why it stays |
 |---|---|
@@ -103,12 +101,33 @@ nobody remembered to list it. The allowlist is:
 | `/admin/*` | Token-gated (`OUTREACH_ADMIN_TOKEN`) |
 | `/r/*`, `/s/*`, `/a/*` | Outreach click trackers; their destinations get caught on the next hop |
 
-The header and footer collapse to the wordmark, which is what actually takes
-Shop, Players, and TPS Exclusives out of the directory.
-[`proxy.ts`](../proxy.ts) is what stops anyone reaching them by URL.
+The header drops Shop, Players and TPS Exclusives, and the footer loses its
+columns of links into the shop and the roster — that is what takes them out of
+the directory. `enforceLockdown()` in [`lib/lockdown.ts`](../lib/lockdown.ts),
+called at the top of each blocked page, is what stops anyone reaching them by
+URL.
 
 The redirect is a **307**, not a 308 — lockdown is temporary and a permanent
 redirect would get cached past the flag flip.
+
+### Why this isn't middleware
+
+It was, and that was better: one edge-side allowlist in `proxy.ts`, so a page
+added later was dark by default. It does not work on this stack. Next 16 runs
+Proxy on the Node.js runtime and **refuses the `runtime` config option**, so it
+can't be moved back to Edge — and `@opennextjs/cloudflare` exits with "Node.js
+middleware is not currently supported" at bundle time. The deploy fails after a
+clean `next build`, which is a confusing place to discover it.
+
+So enforcement lives in the pages. To keep the property that made the allowlist
+worth having, `scripts/check-lockdown-coverage.mjs` runs as part of `npm run
+build` and fails it if any `app/**/page.tsx` is neither on the allowlist nor
+calling `enforceLockdown()`. Adding a page during a lockdown stops the build
+rather than quietly serving.
+
+**Adding a page while locked down**: put its route in `ALLOWED_EXACT` if it
+should stay up, or call `enforceLockdown()` as the first statement of its
+component if it shouldn't.
 
 ### Lifting it
 
@@ -120,11 +139,16 @@ Set `LOCKDOWN = false`. Nothing else changes; no content was deleted.
 
 One gap is worth knowing about before you rely on either lever.
 
-Files under `public/` — `/product images/Cam Young Polo/...`, `/player
-images/...` — are served by Cloudflare's static asset layer, which runs *before*
-the Worker. `proxy.ts` never sees those requests, so during a lockdown those URLs
-stay fetchable by anyone who already knows them. Nothing links to them once the
-pages are down, and they won't be in the index, but they are not blocked.
+Files under `public/` are served by Cloudflare's static asset layer and are not
+gated by anything, so during a lockdown those URLs stay fetchable by anyone who
+already knows them. Nothing links to them once the pages are down and they won't
+be indexed, but they are not blocked.
+
+Note this is *not* how the photography reaches the live pages. With
+`HIDE_PLAYER_NAMES` on, `npm run build` republishes every referenced photo under
+an opaque `/media/<hash>` URL and the markup points there, so no page source
+spells out a player's name. The original paths simply remain reachable
+alongside.
 
 `npm run audit:dark` lists exactly which files those are for a dark player.
 

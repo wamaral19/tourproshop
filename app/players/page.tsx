@@ -14,6 +14,7 @@ import {
 } from "@/lib/player-images";
 import { getPlayerShopHref } from "@/lib/catalog";
 import { PlayerBrowse } from "@/components/player-browse";
+import { enforceLockdown } from "@/lib/lockdown";
 
 export const metadata: Metadata = {
   title: "Players",
@@ -28,6 +29,7 @@ export default async function PlayersPage({
 }: {
   searchParams: Promise<SearchParams>;
 }) {
+  enforceLockdown();
   const { tier } = await searchParams;
   const isExclusivesView = tier === "exclusive";
 

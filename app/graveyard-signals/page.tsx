@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { isPlayerHidden } from "@/lib/players";
+import { enforceLockdown } from "@/lib/lockdown";
 
 export const metadata: Metadata = {
   title: "The Graveyard & the Signals",
@@ -242,6 +243,7 @@ function Gallery({ items, tone }: { items: Item[]; tone: "dark" | "light" }) {
 }
 
 export default function GraveyardSignalsPage() {
+  enforceLockdown();
   return (
     <div className="graveyard-signals-page">
       {/* HERO */}

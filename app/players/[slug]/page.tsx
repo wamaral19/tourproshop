@@ -7,6 +7,7 @@ import { getDisplayFirstName } from "@/lib/players";
 import { getPlayerImageUrl } from "@/lib/player-images";
 import { hasProductsForPlayer } from "@/lib/catalog";
 import { PlayerInterestForm } from "@/components/player-interest-form";
+import { enforceLockdown } from "@/lib/lockdown";
 
 type Params = Promise<{ slug: string }>;
 
@@ -29,6 +30,7 @@ export default async function PlayerLandingPage({
 }: {
   params: Params;
 }) {
+  enforceLockdown();
   const { slug } = await params;
   const player = await getOwgrPlayer(slug);
   if (!player) notFound();

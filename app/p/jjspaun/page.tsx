@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { isPlayerHidden } from "@/lib/players";
+import { enforceLockdown } from "@/lib/lockdown";
 
 /** This page is nothing but JJ Spaun's name, likeness, and gear, so it lives or
  *  dies with his roster entry — adding "jj-spaun" to HIDDEN_PLAYERS 404s the
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default function JJSpaunPitchPage() {
+  enforceLockdown();
   if (isPlayerHidden(PLAYER_SLUG)) notFound();
 
   return (
