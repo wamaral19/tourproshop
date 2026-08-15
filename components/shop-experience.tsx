@@ -11,6 +11,7 @@ import {
   type CatalogProductCategory,
 } from "@/lib/catalog";
 import { PLAYERS_SNAPSHOT } from "@/lib/players";
+import { PRICES_TBD } from "@/lib/format";
 import { ProductCard } from "./product-card";
 
 type SortKey = "featured" | "price-asc" | "price-desc" | "newest";
@@ -21,6 +22,11 @@ const SORT_LABELS: Record<SortKey, string> = {
   "price-asc": "Price · Low to High",
   "price-desc": "Price · High to Low",
 };
+
+// Sorting by price is meaningless while every price renders as "TBD".
+const SORT_OPTIONS = (Object.keys(SORT_LABELS) as SortKey[]).filter(
+  (k) => !(PRICES_TBD && k.startsWith("price-")),
+);
 
 // Player filter options — only players that actually have product entries.
 const PLAYER_OPTIONS = (() => {
@@ -181,7 +187,7 @@ export function ShopExperience() {
               onChange={(e) => setSort(e.target.value as SortKey)}
               className="h-9 rounded-full border border-line bg-transparent pl-3 pr-8 font-condensed text-xs uppercase tracking-widest"
             >
-              {(Object.keys(SORT_LABELS) as SortKey[]).map((k) => (
+              {SORT_OPTIONS.map((k) => (
                 <option key={k} value={k}>
                   {SORT_LABELS[k]}
                 </option>

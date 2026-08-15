@@ -4,6 +4,14 @@ const formatter = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 });
 
+/**
+ * Nothing is live yet, so every product price renders as a placeholder.
+ * The numbers in `lib/products.ts` are kept intact — flip this to false
+ * (and restore the price sort options in `components/shop-experience.tsx`)
+ * once real prices are set.
+ */
+export const PRICES_TBD: boolean = true;
+
 export function formatPrice(value: number) {
-  return formatter.format(value);
+  return PRICES_TBD ? "TBD" : formatter.format(value);
 }
