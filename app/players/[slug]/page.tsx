@@ -33,8 +33,11 @@ export default async function PlayerLandingPage({
   const player = await getOwgrPlayer(slug);
   if (!player) notFound();
 
-  // If we DO carry their gear, this page shouldn't render — push them to the
-  // filtered shop instead.
+  // The rule: zero live products means this page. Anyone we actually carry
+  // gear for is pushed to the filtered shop instead, so a player is never in
+  // both places. Pulling a player's last piece — via HIDDEN_PLAYERS,
+  // HIDDEN_PRODUCTS, or `visible: false` — moves them here automatically, and
+  // restoring it moves them back.
   if (hasProductsForPlayer(player.slug)) {
     redirect(`/shop?player=${player.slug}`);
   }
@@ -107,17 +110,10 @@ export default async function PlayerLandingPage({
             >
               ← All players
             </Link>
-            {player.bio ? (
-              <p className="mt-6 text-lg leading-relaxed text-brand-ink/80 md:text-xl">
-                {player.bio}
-              </p>
-            ) : null}
-            {player.signatureWin ? (
-              <p className="mt-4 font-sans text-sm text-brand-ink/65">
-                Signature win · {player.signatureWin}
-              </p>
-            ) : null}
-
+            {/* No bio or signature win here on purpose. This page exists to
+                capture demand, not to recap a career — the ask is the CTA
+                below. `bio` and `signatureWin` stay on the Player type for
+                surfaces that may want them later. */}
             <div className="mt-10">
               <PlayerInterestForm
                 playerSlug={player.slug}
