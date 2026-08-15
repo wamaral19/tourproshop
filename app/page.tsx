@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { categoryLabels } from "@/lib/catalog";
+import { categoryLabels, hasProductsForPlayer } from "@/lib/catalog";
 import { getRoster } from "@/lib/owgr";
 import { EXCLUSIVE_PLAYERS } from "@/lib/players";
 import { getPlayerImageUrl } from "@/lib/player-images";
@@ -22,9 +22,19 @@ export default async function HomePage() {
   // HOME_EXCLUSIVE_ORDER is the authoritative home-rail spec. New exclusives
   // are not auto-promoted to the landing page — add their slug above when
   // ready to feature them.
+  //
+  // Being listed is necessary but not sufficient: the rail sells gear, so a
+  // player only appears while we carry something shoppable for them. That
+  // makes every way of pulling a player self-healing here — HIDDEN_PLAYERS,
+  // HIDDEN_PRODUCTS, or a per-product `visible: false` all drop them off the
+  // lander with no edit to the list above, and restoring the piece puts them
+  // back in their original slot. Leave retired slugs in place.
   const orderedExclusives = HOME_EXCLUSIVE_ORDER.map((slug) =>
     exclusives.find((p) => p.slug === slug),
-  ).filter((p): p is NonNullable<typeof p> => Boolean(p));
+  ).filter(
+    (p): p is NonNullable<typeof p> =>
+      p !== undefined && hasProductsForPlayer(p.slug),
+  );
 
   const enrichedRail = orderedExclusives.map((p) => ({
     ...p,
