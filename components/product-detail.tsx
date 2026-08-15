@@ -236,6 +236,11 @@ export function ProductDetail({
           <p className="mt-5 text-base leading-relaxed text-brand-ink/80">
             {product.description}
           </p>
+          <p className="mt-4 text-base leading-relaxed text-brand-ink/80">
+            A portion of every sale is directed toward the player&apos;s
+            foundation or charity of their choice. See more about{" "}
+            {playerFirstName}&apos;s chosen cause below.
+          </p>
 
           {/* Colorways */}
           {product.colorways.length > 1 ? (
