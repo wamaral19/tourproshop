@@ -131,9 +131,14 @@ function PlayerTile({ player }: { player: EnrichedPlayer }) {
           className="absolute inset-0 bg-gradient-to-t from-brand-ink/55 via-brand-ink/0 to-brand-ink/0"
         />
         {player.relationship === "exclusive" ? (
-          <span className="eyebrow absolute left-3 top-3 rounded-full bg-brand-accent px-2.5 py-1 text-brand-cream">
-            TPS Exclusive
-          </span>
+          <div className="absolute left-3 top-3 flex flex-col items-start gap-1.5">
+            <span className="eyebrow rounded-full bg-brand-accent px-2.5 py-1 text-brand-cream">
+              TPS Exclusive
+            </span>
+            <span className="eyebrow rounded-full bg-brand-ink/80 px-2.5 py-1 text-brand-cream">
+              Demo
+            </span>
+          </div>
         ) : null}
       </div>
       <div className="flex items-baseline justify-between gap-3">

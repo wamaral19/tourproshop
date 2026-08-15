@@ -23,9 +23,14 @@ export function PlayerPortrait({
   const imageUrl = getPlayerImageUrl(player.slug);
   const badge =
     showBadge && player.relationship === "exclusive" ? (
-      <span className="eyebrow absolute left-3 top-3 rounded-full bg-brand-accent px-2.5 py-1 text-brand-cream">
-        TPS Exclusive
-      </span>
+      <div className="absolute left-3 top-3 flex flex-col items-start gap-1.5">
+        <span className="eyebrow rounded-full bg-brand-accent px-2.5 py-1 text-brand-cream">
+          TPS Exclusive
+        </span>
+        <span className="eyebrow rounded-full bg-brand-ink/80 px-2.5 py-1 text-brand-cream">
+          Demo
+        </span>
+      </div>
     ) : null;
 
   if (imageUrl) {

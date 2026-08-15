@@ -173,9 +173,14 @@ function PlayerExclusiveTile({
           aria-hidden
           className="absolute inset-0 bg-gradient-to-t from-brand-ink/65 via-brand-ink/0 to-brand-ink/0"
         />
-        <span className="absolute left-3 top-3 rounded-full bg-brand-accent px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-widest text-brand-cream">
-          TPS Exclusive
-        </span>
+        <div className="absolute left-3 top-3 flex flex-col items-start gap-1.5">
+          <span className="rounded-full bg-brand-accent px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-widest text-brand-cream">
+            TPS Exclusive
+          </span>
+          <span className="rounded-full bg-brand-ink/80 px-2.5 py-1 font-sans text-[10px] font-semibold uppercase tracking-widest text-brand-cream">
+            Demo
+          </span>
+        </div>
         <div className="absolute inset-x-3 bottom-3 flex items-end justify-between gap-2 text-brand-cream">
           <p className="font-sans text-lg font-semibold leading-tight tracking-tight md:text-xl">
             {player.name}

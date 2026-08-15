@@ -235,9 +235,12 @@ function ExclusiveTile({
         />
 
         {/* Top-left chip */}
-        <div className="absolute left-4 top-4 flex items-center gap-2 md:left-8 md:top-8">
+        <div className="absolute left-4 top-4 flex flex-col items-start gap-2 md:left-8 md:top-8">
           <span className="rounded-full bg-brand-accent px-3 py-1.5 font-sans text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-cream">
             Tour Pro Shop Exclusive
+          </span>
+          <span className="rounded-full bg-brand-ink/80 px-3 py-1.5 font-sans text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-cream">
+            Demo
           </span>
         </div>
 
