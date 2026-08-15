@@ -1200,6 +1200,68 @@ export const products: Product[] = [
     featured: true,
     visible: true,
   }),
+
+  // ─── Harry Higgs · Greyson Clothiers ──────────────────────────────
+  createProduct({
+    id: "hh-polo",
+    slug: "harry-higgs-polo",
+    name: "Harry Higgs Polo",
+    category: "polos",
+    playerSlug: "harry-higgs",
+    brand: "Greyson Clothiers",
+    price: 120,
+    description:
+      "Harry Higgs's tournament look — Greyson's Ghost Thistle polo in Maltese Blue, with his sponsor lineup intact: Dude Wipes at the left chest and Knockaround riding the right collar. A tonal geometric thistle-lattice print on lightweight four-way stretch performance fabric, cut with a classic spread collar and finished with the Greyson wolf at the back yoke. Reads classic from ten feet, a little bit of a statement up close — which is about right for Higgs.",
+    details: [
+      "90% recycled polyester / 10% spandex performance knit",
+      "Four-way stretch, lightweight, and moisture-wicking",
+      "Tonal geometric thistle-lattice print",
+      "Classic spread collar with collar stays and contrast navy underside",
+      "Four-button placket with engraved Greyson buttons",
+      "Embroidered Greyson wolf at the back yoke",
+      "Classic fit",
+      "Tour sponsor placements: Dude Wipes, Knockaround",
+      "Machine wash cold; tumble dry low. Do not iron decoration or dry clean",
+    ],
+    colorways: [{ name: "Maltese Blue", hex: "#bcd2e4" }],
+    images: [
+      {
+        src: "/product images/Harry Higgs/Harry Higgs Polo Hero 1 White.webp",
+        alt: "Harry Higgs Greyson Clothiers Ghost Thistle polo — front view showing sponsor placements",
+        fit: "contain",
+        hotspots: [
+          { x: 50.4, y: 14, sponsorName: "Greyson Clothiers" },
+          { x: 40, y: 22, sponsorName: "Knockaround" },
+          { x: 63.4, y: 26, sponsorName: "Dude Wipes" },
+        ],
+      },
+      {
+        src: "/product images/Harry Higgs/Harry Higgs Polo Flatlay Stock 1.webp",
+        alt: "Greyson Ghost Thistle polo in Maltese Blue — front view",
+        fit: "contain",
+      },
+      {
+        src: "/product images/Harry Higgs/Harry Higgs Polo Flatlay Stock 3.webp",
+        alt: "Greyson Ghost Thistle polo — back view with the wolf mark at the yoke",
+        fit: "contain",
+      },
+      {
+        src: "/product images/Harry Higgs/Harry Higgs Polo Flatlay Stock 2.jpg",
+        alt: "Greyson Ghost Thistle polo — spread collar, neck tape, and placket detail",
+      },
+      {
+        src: "/product images/Harry Higgs/Harry Higgs Polo Flatlay Stock 5.jpg",
+        alt: "Greyson Ghost Thistle polo — embroidered wolf mark detail",
+      },
+      {
+        src: "/product images/Harry Higgs/Harry Higgs Polo Flatlay Stock 4.webp",
+        alt: "Greyson Ghost Thistle polo — thistle-lattice print fabric detail",
+      },
+    ],
+    badge: "New",
+    featured: true,
+    visible: true,
+  }),
 ];
 
 export const featuredProducts = products.filter((p) => p.featured);

@@ -190,6 +190,23 @@ const SPONSORS_BY_PLAYER: Record<string, Sponsor[]> = {
         "A national design-build firm specializing in electrical, mechanical, and technology systems for large-scale projects. Power Design's partnership with Wyndham ties its building expertise to one of the tour's biggest hitters.",
     },
   ],
+  "harry-higgs": [
+    {
+      name: "Greyson Clothiers",
+      blurb:
+        "The premium golf and lifestyle label founded by Charlie Schaefer, known for the wolf mark, distinctive prints, and elevated performance fabrications. Greyson anchors Harry's on-course look — the Ghost Thistle print is his kind of shirt: classic from ten feet, a little bit of a statement up close.",
+    },
+    {
+      name: "Dude Wipes",
+      blurb:
+        "The Chicago-founded personal-care brand that turned flushable wipes into a cult consumer label — and one of the most unapologetically fun sponsors in pro sports. Their mark on Harry's left chest is close to a perfect match: golf's most self-deprecating everyman fronting a brand that never takes itself too seriously.",
+    },
+    {
+      name: "Knockaround",
+      blurb:
+        "The San Diego sunglasses company built on the idea that great shades shouldn't cost a paycheck — durable, polarized, and priced for the people actually walking the course. Knockaround rides the right collar on Harry's polo, a fitting placement for a player whose appeal has always been that he feels like one of us.",
+    },
+  ],
   "sam-burns": [
     {
       name: "Peter Millar",

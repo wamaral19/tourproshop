@@ -611,6 +611,20 @@
       "vendorLinks": [
         { "vendor": "Malbon Golf", "url": "https://malbon.com/collections/mens", "kind": "apparel" }
       ]
+    },
+    {
+      "slug": "harry-higgs",
+      "name": "Harry Higgs",
+      "country": "United States",
+      "countryCode": "US",
+      "age": 34,
+      "turnedPro": 2014,
+      "signatureWin": "2024 AdventHealth Championship",
+      "bio": "An SMU product and one of the most genuinely likable players in the game. Two wins in 2024 punched his ticket back to the PGA Tour, and a T4 at the 2021 PGA Championship sits on the résumé to prove the ceiling.",
+      "relationship": "exclusive",
+      "vendorLinks": [
+        { "vendor": "Greyson Clothiers", "url": "https://greysonclothiers.com/collections/mens-golf-wear", "kind": "apparel" }
+      ]
     }
   ]
 }
