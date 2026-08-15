@@ -4,7 +4,12 @@ import Link from "next/link";
 import { ImpressionsCalculator } from "@/components/impressions-calculator";
 import { ImageHotspots } from "@/components/image-hotspots";
 import { ProductImage } from "@/components/product-image";
-import { getProductBySlug } from "@/lib/products";
+import { MarketingFigure } from "@/components/marketing-figure";
+import {
+  getSponsorHotspotHero,
+  pickLiveImages,
+  SPONSOR_PLACEMENT_FIGURE,
+} from "@/lib/marketing-assets";
 import { getSponsorsByPlayer } from "@/lib/sponsors";
 
 export const metadata: Metadata = {
@@ -15,15 +20,20 @@ export const metadata: Metadata = {
 };
 
 export default function AgentsLandingPage() {
-  const heroProduct = getProductBySlug("sam-burns-polo");
-  // The hero is the sponsor-callout flatlay — match on the hotspots rather
-  // than the filename so a re-shot or renamed flatlay still resolves.
-  const heroImage = heroProduct?.images.find(
-    (img) => img.hotspots && img.hotspots.length > 0,
-  );
+  // The hero is a sponsor-callout flatlay, resolved from the live catalog
+  // rather than named here: it matches on the hotspots (so a re-shot or renamed
+  // flatlay still resolves) and skips any product whose player has gone dark
+  // (so this page needs no edit when one does).
+  const hero = getSponsorHotspotHero();
+  const heroProduct = hero?.product;
+  const heroImage = hero?.image;
   const heroSponsors = heroProduct
     ? getSponsorsByPlayer(heroProduct.playerSlug)
     : [];
+
+  // Two live examples of sponsor placement — dark players fall out of the chain
+  // and the next piece of gear takes their slot.
+  const placementFigure = pickLiveImages(SPONSOR_PLACEMENT_FIGURE, 2);
 
   const ownerMeta = {
     player: {
@@ -215,26 +225,10 @@ export default function AgentsLandingPage() {
       <section className="border-b border-line bg-brand-cream">
         <div className="mx-auto max-w-[1400px] px-4 pb-12 pt-16 md:px-8 md:pb-20 md:pt-24">
           <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] md:items-center md:gap-14">
-            <figure className="grid w-full grid-cols-2 gap-4 md:max-w-md">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-[#e6e6e6]">
-                <Image
-                  src="/product images/Min Woo Lee Track Jacket/Lululemon Track Jacket Logo Flatlay.png"
-                  alt="Min Woo Lee's Lululemon pullover with sponsor placements"
-                  fill
-                  sizes="(max-width: 768px) 50vw, 20vw"
-                  className="object-contain"
-                />
-              </div>
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-white">
-                <Image
-                  src="/product images/Keith Mitchell Visor/Spruce/KMCGV-3_3.webp"
-                  alt="Keith Mitchell's Imperial tour visor with Mizuno and Cisco marks"
-                  fill
-                  sizes="(max-width: 768px) 50vw, 20vw"
-                  className="object-cover"
-                />
-              </div>
-            </figure>
+            <MarketingFigure
+              images={placementFigure}
+              className="grid w-full grid-cols-2 gap-4 md:max-w-md"
+            />
             <div>
               <p className="eyebrow text-brand-deep">More sponsorship value</p>
               <h2 className="mt-4 font-display text-3xl leading-tight tracking-tight text-brand-ink md:text-5xl">

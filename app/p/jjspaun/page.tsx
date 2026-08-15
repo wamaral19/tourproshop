@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
+import { isPlayerHidden } from "@/lib/players";
+
+/** This page is nothing but JJ Spaun's name, likeness, and gear, so it lives or
+ *  dies with his roster entry — adding "jj-spaun" to HIDDEN_PLAYERS 404s the
+ *  link, same as it 404s his player page and PDP. */
+const PLAYER_SLUG = "jj-spaun";
 
 export const metadata: Metadata = {
   title: "A private pitch for JJ Spaun",
@@ -15,6 +22,8 @@ export const metadata: Metadata = {
 };
 
 export default function JJSpaunPitchPage() {
+  if (isPlayerHidden(PLAYER_SLUG)) notFound();
+
   return (
     <div className="jjspaun-page">
       {/* HERO */}

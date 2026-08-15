@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ImageHotspots } from "@/components/image-hotspots";
 import { ProductImage } from "@/components/product-image";
-import { getProductBySlug } from "@/lib/products";
+import { getSponsorHotspotHero } from "@/lib/marketing-assets";
 import { getSponsorsByPlayer } from "@/lib/sponsors";
 
 export const metadata: Metadata = {
@@ -14,12 +14,13 @@ export const metadata: Metadata = {
 };
 
 export default function ApparelLandingPage() {
-  const heroProduct = getProductBySlug("sam-burns-polo");
-  // The hero is the sponsor-callout flatlay — match on the hotspots rather
-  // than the filename so a re-shot or renamed flatlay still resolves.
-  const heroImage = heroProduct?.images.find(
-    (img) => img.hotspots && img.hotspots.length > 0,
-  );
+  // The hero is a sponsor-callout flatlay, resolved from the live catalog
+  // rather than named here: it matches on the hotspots (so a re-shot or renamed
+  // flatlay still resolves) and skips any product whose player has gone dark
+  // (so this page needs no edit when one does).
+  const hero = getSponsorHotspotHero();
+  const heroProduct = hero?.product;
+  const heroImage = hero?.image;
   const heroSponsors = heroProduct
     ? getSponsorsByPlayer(heroProduct.playerSlug)
     : [];
