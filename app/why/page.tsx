@@ -30,8 +30,8 @@ export default function WhyPage() {
             </p>
             <p>
               I was playing early on Masters Sunday and one of the guys was
-              talking about how much of a Cam Young fan he is. Sure, he could
-              buy a graphic shirt with Cam’s face printed on it, but that’s not
+              talking about how much of a Sam Burns fan he is. Sure, he could
+              buy a graphic shirt with Sam’s face printed on it, but that’s not
               really the vibe he wanted to give off. I had flashbacks to wanting
               one of Ernie’s SAP shirts as a kid. Almost every player in the top
               100 in the world has some super fans, why not give fans access to
