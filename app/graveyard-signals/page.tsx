@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { isPlayerHidden } from "@/lib/players";
 
 export const metadata: Metadata = {
   title: "The Graveyard & the Signals",
@@ -16,7 +17,20 @@ type Item = {
   alt: string;
   href?: string;
   label?: string;
+  /**
+   * Set when the shot identifies a specific player, in the image or in the alt
+   * text. Tagged items disappear from the board the moment that slug lands in
+   * HIDDEN_PLAYERS. Untagged items are generic fan/market evidence and stay.
+   */
+  playerSlug?: string;
 };
+
+/** Drops any item whose player has gone dark. */
+function live(items: Item[]): Item[] {
+  return items.filter(
+    (item) => !item.playerSlug || !isPlayerHidden(item.playerSlug),
+  );
+}
 
 const GRAVEYARD: Item[] = [
   {
@@ -24,12 +38,14 @@ const GRAVEYARD: Item[] = [
     width: 1000,
     height: 1250,
     alt: "Sam Burns wearing a bootleg vintage-style 'BURNSY' graphic tee in a locker room",
+    playerSlug: "sam-burns",
   },
   {
     src: "/graveyard-signals/graveyard/min-woo-lee-let-him-cook.jpg",
     width: 2580,
     height: 1490,
     alt: "A crowd of golf fans wearing red 'Let Him Cook' chef hats",
+    playerSlug: "min-woo-lee",
   },
   {
     src: "/graveyard-signals/graveyard/sinner-carota-boys.jpg",
@@ -42,6 +58,7 @@ const GRAVEYARD: Item[] = [
     width: 750,
     height: 1000,
     alt: "A print-on-demand t-shirt with an illustration of a golfer celebrating in a green jacket",
+    playerSlug: "hideki-matsuyama",
   },
   {
     src: "/graveyard-signals/graveyard/joe-dean-jolene-tee.png",
@@ -69,6 +86,7 @@ const SIGNALS: Item[] = [
     width: 1202,
     height: 1240,
     alt: "Peter Millar tweet announcing Cameron Young's Tour Logo Polo is now available",
+    playerSlug: "cameron-young",
   },
   {
     src: "/graveyard-signals/signals/we-want-the-mlb-logo.png",
@@ -254,7 +272,7 @@ export default function GraveyardSignalsPage() {
           <h2 className="mt-4 max-w-2xl font-display text-3xl leading-tight tracking-tight md:text-5xl">
             Merch that deserves to die.
           </h2>
-          <Gallery items={GRAVEYARD} tone="dark" />
+          <Gallery items={live(GRAVEYARD)} tone="dark" />
         </div>
       </section>
 
@@ -265,7 +283,7 @@ export default function GraveyardSignalsPage() {
           <h2 className="mt-4 max-w-2xl font-display text-3xl leading-tight tracking-tight md:text-5xl">
             The market is already shouting.
           </h2>
-          <Gallery items={SIGNALS} tone="light" />
+          <Gallery items={live(SIGNALS)} tone="light" />
         </div>
       </section>
 

@@ -4,27 +4,35 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart-context";
+import { LOCKDOWN, PARTNER_LINKS } from "@/lib/site-mode";
 
 type NavLink = { href: string; label: string };
 type NavGroup = { label: string; children: NavLink[] };
 type NavItem = NavLink | NavGroup;
 
-const NAV: NavItem[] = [
+const PARTNERS_GROUP: NavGroup = {
+  label: "Partners",
+  children: [...PARTNER_LINKS],
+};
+
+const FULL_NAV: NavItem[] = [
   { href: "/shop", label: "Shop" },
   { href: "/players", label: "Players" },
   { href: "/players?tier=exclusive", label: "TPS Exclusives" },
-  {
-    label: "Partners",
-    children: [
-      { href: "/for-players", label: "For Players" },
-      { href: "/agents", label: "Agents" },
-      { href: "/sponsors", label: "Corporate Sponsors" },
-      { href: "/apparel", label: "Apparel Sponsors" },
-      { href: "/ecosystem", label: "Ecosystem" },
-    ],
-  },
+  PARTNERS_GROUP,
   { href: "/why", label: "Why we exist" },
 ];
+
+/** Lockdown drops Shop, Players and TPS Exclusives from the directory — the
+ *  pitch stays, the storefront goes. proxy.ts is what stops anyone reaching
+ *  those routes by URL; this is what stops them being offered. */
+const LOCKDOWN_NAV: NavItem[] = [
+  { href: "/waitlist", label: "Waitlist" },
+  PARTNERS_GROUP,
+  { href: "/why", label: "Why we exist" },
+];
+
+const NAV: NavItem[] = LOCKDOWN ? LOCKDOWN_NAV : FULL_NAV;
 
 function isNavGroup(item: NavItem): item is NavGroup {
   return "children" in item;
@@ -193,9 +201,15 @@ export function SiteHeader() {
           <Wordmark className="h-4 pointer-events-auto" />
         </div>
 
-        <div className="absolute right-2 top-1/2 -translate-y-1/2">
-          <CartButton onOpen={cart.open} count={cart.itemCount} showCount={false} />
-        </div>
+        {LOCKDOWN ? null : (
+          <div className="absolute right-2 top-1/2 -translate-y-1/2">
+            <CartButton
+              onOpen={cart.open}
+              count={cart.itemCount}
+              showCount={false}
+            />
+          </div>
+        )}
       </div>
 
       {/* DESKTOP LAYOUT */}
@@ -218,41 +232,45 @@ export function SiteHeader() {
           )}
         </nav>
 
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            aria-label="Search"
-            className="flex h-10 w-10 items-center justify-center text-brand-ink/85 transition-colors hover:text-brand-deep"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
+        {LOCKDOWN ? (
+          <div aria-hidden className="w-[249px] max-w-[20vw]" />
+        ) : (
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              aria-label="Search"
+              className="flex h-10 w-10 items-center justify-center text-brand-ink/85 transition-colors hover:text-brand-deep"
             >
-              <circle cx="11" cy="11" r="6.5" />
-              <path d="M16 16l4 4" strokeLinecap="round" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            aria-label="Account"
-            className="flex h-10 w-10 items-center justify-center text-brand-ink/85 transition-colors hover:text-brand-deep"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
+              <svg
+                viewBox="0 0 24 24"
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <circle cx="11" cy="11" r="6.5" />
+                <path d="M16 16l4 4" strokeLinecap="round" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              aria-label="Account"
+              className="flex h-10 w-10 items-center justify-center text-brand-ink/85 transition-colors hover:text-brand-deep"
             >
-              <circle cx="12" cy="9" r="3.5" />
-              <path d="M5 20c1.5-3.6 4.4-5 7-5s5.5 1.4 7 5" strokeLinecap="round" />
-            </svg>
-          </button>
-          <CartButton onOpen={cart.open} count={cart.itemCount} />
-        </div>
+              <svg
+                viewBox="0 0 24 24"
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <circle cx="12" cy="9" r="3.5" />
+                <path d="M5 20c1.5-3.6 4.4-5 7-5s5.5 1.4 7 5" strokeLinecap="round" />
+              </svg>
+            </button>
+            <CartButton onOpen={cart.open} count={cart.itemCount} />
+          </div>
+        )}
       </div>
 
       {mobileOpen ? (

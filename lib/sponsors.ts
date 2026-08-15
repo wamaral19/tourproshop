@@ -1,3 +1,5 @@
+import { PLAYER_NAMES_HIDDEN } from "./site-mode";
+
 export type Sponsor = {
   name: string;
   blurb: string;
@@ -299,6 +301,20 @@ const SPONSORS_BY_PLAYER: Record<string, Sponsor[]> = {
     },
   ],
 };
+
+/**
+ * Sponsors as shown in public copy. While PLAYER_NAMES_HIDDEN is on the blurbs
+ * are dropped and only the sponsor name is surfaced: the copy is prose that
+ * names players by first name, surname and possessive ("Min Woo's swagger",
+ * "Griffin's perseverance"), and find-and-replacing a person out of a sentence
+ * is not something worth automating. The hotspot still does its job — it points
+ * at a mark and says whose brand it is.
+ */
+export function getPublicSponsorsByPlayer(playerSlug: string): Sponsor[] {
+  const sponsors = getSponsorsByPlayer(playerSlug);
+  if (!PLAYER_NAMES_HIDDEN) return sponsors;
+  return sponsors.map((sponsor) => ({ ...sponsor, blurb: "" }));
+}
 
 export function getSponsorsByPlayer(playerSlug: string): Sponsor[] {
   return SPONSORS_BY_PLAYER[playerSlug] ?? [];

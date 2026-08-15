@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { neutralSrc } from "@/lib/media";
 import type { Product, ProductImage as ProductImageData } from "@/lib/products";
 
 /**
@@ -13,12 +14,17 @@ import type { Product, ProductImage as ProductImageData } from "@/lib/products";
 export function ProductImage({
   product,
   image,
+  alt,
   className,
   priority,
   sizes,
 }: {
   product: Product;
   image?: ProductImageData;
+  /** Overrides the image's own alt text. Used where the catalog's alt strings
+   *  can't be shown — they describe whose gear it is, and PLAYER_NAMES_HIDDEN
+   *  means nobody's name goes in the markup. */
+  alt?: string;
   className?: string;
   priority?: boolean;
   sizes?: string;
@@ -48,8 +54,8 @@ export function ProductImage({
         style={useInlineBg ? { backgroundColor: target.bgColor } : undefined}
       >
         <Image
-          src={target.src}
-          alt={target.alt}
+          src={neutralSrc(target.src)}
+          alt={alt ?? target.alt}
           fill
           sizes={sizes ?? "(max-width: 768px) 88vw, 50vw"}
           priority={priority}
@@ -77,7 +83,7 @@ export function ProductImage({
         } as React.CSSProperties
       }
       data-priority={priority ? "true" : undefined}
-      aria-label={product.name}
+      aria-label={alt ?? product.name}
     >
       <svg
         viewBox="0 0 400 500"

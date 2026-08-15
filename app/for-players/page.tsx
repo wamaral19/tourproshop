@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { MarketingCarousel } from "@/components/marketing-carousel";
+import {
+  pickLiveImages,
+  SPONSOR_LINEUP_FIGURE,
+  SPONSOR_PLACEMENT_FIGURE,
+} from "@/lib/marketing-assets";
 
 export const metadata: Metadata = {
   title: "For Players — Let your fans show their support",
@@ -9,6 +15,11 @@ export const metadata: Metadata = {
 };
 
 export default function ForPlayersPage() {
+  // Both figures resolve through the marketing-asset chains, so a player going
+  // dark drops out of this pitch page without an edit here.
+  const lineupFigure = pickLiveImages(SPONSOR_LINEUP_FIGURE);
+  const placementFigure = pickLiveImages(SPONSOR_PLACEMENT_FIGURE);
+
   return (
     <div className="for-players-page">
       {/* HERO */}
@@ -29,28 +40,11 @@ export default function ForPlayersPage() {
                 </p>
               </div>
             </div>
-            <figure className="grid w-full grid-cols-2 gap-4 md:justify-self-end md:max-w-md">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-white">
-                <Image
-                  src="/product images/JJ Spaun Polo/JJ Spaun Polo Logo GPT.png"
-                  alt="A tournament polo with the player's full sponsor lineup intact"
-                  fill
-                  sizes="(max-width: 768px) 50vw, 20vw"
-                  className="scale-110 object-cover"
-                  priority
-                />
-              </div>
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-surface-raised">
-                <Image
-                  src="/product images/Sam Burns Polo/Sam Burns Polo Flatlay GPT.png"
-                  alt="Sam Burns's Peter Millar polo with his tour sponsor placements"
-                  fill
-                  sizes="(max-width: 768px) 50vw, 20vw"
-                  className="scale-110 object-contain"
-                  priority
-                />
-              </div>
-            </figure>
+            <MarketingCarousel
+              images={lineupFigure}
+              className="w-full md:justify-self-end md:max-w-md"
+              priority
+            />
           </div>
         </div>
       </section>
@@ -161,26 +155,10 @@ export default function ForPlayersPage() {
                 </p>
               </div>
             </div>
-            <figure className="grid w-full grid-cols-2 gap-4 md:justify-self-end md:max-w-md">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-surface-raised">
-                <Image
-                  src="/product images/Min Woo Lee Track Jacket/Lululemon Track Jacket Logo Flatlay.png"
-                  alt="Min Woo Lee's Lululemon pullover with sponsor placements"
-                  fill
-                  sizes="(max-width: 768px) 50vw, 20vw"
-                  className="object-contain"
-                />
-              </div>
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-white">
-                <Image
-                  src="/product images/Keith Mitchell Visor/Spruce/KMCGV-3_3.webp"
-                  alt="Keith Mitchell's Imperial tour visor with Mizuno and Cisco marks"
-                  fill
-                  sizes="(max-width: 768px) 50vw, 20vw"
-                  className="object-cover"
-                />
-              </div>
-            </figure>
+            <MarketingCarousel
+              images={placementFigure}
+              className="w-full md:justify-self-end md:max-w-md"
+            />
           </div>
         </div>
       </section>

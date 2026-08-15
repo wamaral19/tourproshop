@@ -143,9 +143,11 @@ export function ImageHotspots({
                     ×
                   </button>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-brand-ink/80">
-                  {sponsor.blurb}
-                </p>
+                {sponsor.blurb ? (
+                  <p className="mt-2 text-sm leading-relaxed text-brand-ink/80">
+                    {sponsor.blurb}
+                  </p>
+                ) : null}
               </div>
             ) : isOpen && !sponsor ? (
               <div
@@ -183,7 +185,7 @@ export function ImageHotspots({
               ×
             </button>
           </div>
-          {openSponsor ? (
+          {openSponsor?.blurb ? (
             <p className="mt-2 text-sm leading-relaxed text-brand-ink/80">
               {openSponsor.blurb}
             </p>

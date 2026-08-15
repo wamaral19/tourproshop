@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { getPlayerShopHref } from "@/lib/catalog";
 import type { Player } from "@/lib/players";
 import { PlayerPortrait } from "./player-portrait";
 
 export function PlayerCard({ player }: { player: Player }) {
   return (
     <Link
-      href={`/shop?player=${player.slug}`}
+      href={getPlayerShopHref(player.slug)}
       className="group flex flex-col gap-3"
     >
       <div className="relative aspect-[4/5] overflow-hidden">
