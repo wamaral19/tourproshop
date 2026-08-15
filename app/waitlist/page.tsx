@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { WaitlistForm } from "@/components/waitlist-form";
 import { ProductCarousel } from "@/components/product-carousel";
 import { ProductImage } from "@/components/product-image";
-import { isProductVisible } from "@/lib/catalog";
+import { getShowcaseProducts } from "@/lib/marketing-assets";
 import { getProductAlt, getProductLabel } from "@/lib/product-labels";
-import { products } from "@/lib/products";
 import { LockdownNotice } from "@/components/lockdown-notice";
 import { LOCKDOWN } from "@/lib/site-mode";
 
@@ -16,19 +15,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-/** Every live exclusive garment with real photography, in catalog order — the
- *  rail auto-includes new drops as their photos land, and auto-drops anything
- *  taken dark in the catalog. Headwear is excluded so the "golf jerseys" rail
- *  stays apparel-only. We render each product's lead image (not an explicit
- *  gallery shot) so it centers in the frame instead of top-anchoring the way
- *  the PDP gallery does. */
-const showcaseProducts = products.filter(
-  (product) =>
-    isProductVisible(product) &&
-    product.category !== "headwear" &&
-    !product.images[0]?.src.startsWith("/placeholders/"),
-);
-
 export default function WaitlistPage() {
   // Live ad campaigns point here, so lockdown swaps the content in place rather
   // than redirecting — the URL and its ?ad= tag have to survive. The product
@@ -38,7 +24,9 @@ export default function WaitlistPage() {
   // Link-free on purpose: the PDPs are dark, and the rail is here to show what
   // the waitlist is for, not to sell a specific piece. Captions name the apparel
   // brand rather than the player.
-  const slides = showcaseProducts.map((product, i) => ({
+  // Lead image per garment (not an explicit gallery shot) so it centers in the
+  // frame instead of top-anchoring the way the PDP gallery does.
+  const slides = getShowcaseProducts().map((product, i) => ({
     caption: getProductLabel(product),
     node: (
       <ProductImage
@@ -90,8 +78,8 @@ export default function WaitlistPage() {
             </h2>
             <p className="mt-4 font-sans text-base leading-relaxed text-brand-cream/70 md:text-lg">
               We make the sponsor-inclusive apparel worn in competition available
-              to fans — logos and all. Waitlist members get early access before
-              each drop goes live.
+              to fans — logos and all. Waitlist members are the first to hear
+              when a drop goes live.
             </p>
           </div>
 

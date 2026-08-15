@@ -1,46 +1,89 @@
+import { ProductCarousel } from "@/components/product-carousel";
+import { ProductImage } from "@/components/product-image";
 import { WaitlistForm } from "@/components/waitlist-form";
+import { getShowcaseProducts } from "@/lib/marketing-assets";
+import { getProductAlt } from "@/lib/product-labels";
 import { LOCKDOWN_CONTACT_EMAIL } from "@/lib/site-mode";
 
 /**
  * The only page the storefront serves while `LOCKDOWN` is on. Rendered at `/`
  * and at `/waitlist` (which keeps its own URL so live ad campaigns don't break).
  *
- * Built to read like /waitlist — same hero rhythm, same waitlist form, same
- * dark "what you're joining" band — minus the product carousel, because that
- * rail is the one thing on that page that names players and links to PDPs.
- * Nothing here references a player, a product, or a route that lockdown blocks.
+ * Built to read like /waitlist — same hero rhythm, same showcase rail, same
+ * waitlist form, same dark "what you're joining" band. Nothing here references a
+ * player, a product name, or a route that lockdown blocks: the rail is
+ * link-free, caption-free, and carries no sponsor hotspots, so it shows the gear
+ * without naming whose it is.
  */
 export function LockdownNotice() {
+  // Lead image per garment (not a gallery shot) so each one centers in the
+  // frame instead of top-anchoring the way the PDP gallery does. Alt text goes
+  // through getProductAlt and srcs through neutralSrc inside ProductImage, so
+  // neither the markup nor the asset URLs spell out a player's name.
+  const slides = getShowcaseProducts().map((product, i) => ({
+    node: (
+      <ProductImage
+        product={product}
+        alt={getProductAlt(product)}
+        sizes="(max-width: 768px) 100vw, 40vw"
+        className="absolute inset-0 h-full w-full"
+        // Only the first slide is above the fold at load — the rest advance in.
+        priority={i === 0}
+      />
+    ),
+  }));
+  // Degrades to a single centered column if every garment goes dark.
+  const hasRail = slides.length > 0;
+
   return (
     <div className="agents-page">
       {/* HERO */}
       <section className="border-b border-line bg-brand-cream">
         <div className="mx-auto max-w-[1400px] px-4 pb-16 pt-16 md:px-8 md:pb-24 md:pt-24">
-          <div className="max-w-2xl">
-            <p className="eyebrow text-brand-deep">Coming soon</p>
-            <h1 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight text-brand-ink md:text-5xl lg:text-6xl">
-              These pages are coming soon.
-            </h1>
+          <div
+            className={
+              hasRail
+                ? "grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:items-center md:gap-14"
+                : "max-w-2xl"
+            }
+          >
+            <div>
+              <p className="eyebrow text-brand-deep">Coming soon</p>
+              <h1 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight text-brand-ink md:text-5xl lg:text-6xl">
+                Jerseys for golf are here.
+                <span className="block text-brand-ink/45">Almost.</span>
+              </h1>
 
-            <div className="mt-6 space-y-5 font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
-              <p>
-                If you&rsquo;re a rights holder, please reach out directly to us
-                at{" "}
-                <a
-                  href={`mailto:${LOCKDOWN_CONTACT_EMAIL}`}
-                  className="font-medium text-brand-deep underline decoration-brand-deep/30 underline-offset-4 transition hover:decoration-brand-deep"
-                >
-                  {LOCKDOWN_CONTACT_EMAIL}
-                </a>
-                .
-              </p>
-              <p>
-                If you&rsquo;re interested in purchasing gear from your favorite
-                players, please sign up for the waitlist below.
-              </p>
+              <div className="mt-6 max-w-xl space-y-5 font-sans text-lg leading-relaxed text-brand-ink/70 md:text-xl">
+                <p>
+                  Tour Pro Shop is giving fans access to the gear they see pros
+                  wear inside the ropes, sponsors included. If you&rsquo;re
+                  interested in purchasing gear from your favorite players,
+                  please sign up for the waitlist below.
+                </p>
+                <p>
+                  If you&rsquo;re a rights holder, please reach out directly to
+                  us at{" "}
+                  <a
+                    href={`mailto:${LOCKDOWN_CONTACT_EMAIL}`}
+                    className="font-medium text-brand-deep underline decoration-brand-deep/30 underline-offset-4 transition hover:decoration-brand-deep"
+                  >
+                    {LOCKDOWN_CONTACT_EMAIL}
+                  </a>
+                  .
+                </p>
+              </div>
+
+              <WaitlistForm />
             </div>
 
-            <WaitlistForm />
+            {hasRail ? (
+              <ProductCarousel
+                slides={slides}
+                className="md:justify-self-end md:w-full md:max-w-md"
+                intervalMs={1500}
+              />
+            ) : null}
           </div>
         </div>
       </section>
@@ -55,8 +98,8 @@ export function LockdownNotice() {
             </h2>
             <p className="mt-4 font-sans text-base leading-relaxed text-brand-cream/70 md:text-lg">
               We make the sponsor-inclusive apparel worn in competition available
-              to fans — logos and all. Waitlist members get early access before
-              each drop goes live.
+              to fans — logos and all. Waitlist members are the first to hear
+              when a drop goes live.
             </p>
           </div>
 

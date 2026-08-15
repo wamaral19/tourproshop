@@ -88,6 +88,27 @@ export function pickLiveImages(
   return count === undefined ? live : live.slice(0, count);
 }
 
+/* ── Waitlist showcase rail ────────────────────────────────────────────────── */
+
+/**
+ * The garments the waitlist rail shows off: every live exclusive piece that has
+ * real photography, in catalog order.
+ *
+ * Reads the catalog, so it auto-includes new drops as their photos land and
+ * auto-drops anything taken dark — no hardcoded slug list to hand-edit. Headwear
+ * is excluded so a "golf jerseys" rail stays apparel-only, and placeholder SVGs
+ * are excluded because the rail is a photography showcase.
+ *
+ * Shared by /waitlist and the lockdown notice so the two can't drift.
+ */
+export function getShowcaseProducts(): CatalogProduct[] {
+  return getAllProducts().filter(
+    (product) =>
+      product.category !== "headwear" &&
+      !product.images[0]?.src.startsWith("/placeholders/"),
+  );
+}
+
 /* ── Sponsor-callout hero ──────────────────────────────────────────────────
  * /agents, /apparel, and /sponsors all lead with the same thing: a flatlay
  * carrying sponsor hotspots, plus that player's sponsor list. Rather than name
