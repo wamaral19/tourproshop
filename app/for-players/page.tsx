@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { MarketingFigure } from "@/components/marketing-figure";
+import { MarketingCarousel } from "@/components/marketing-carousel";
 import {
   pickLiveImages,
   SPONSOR_LINEUP_FIGURE,
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
 export default function ForPlayersPage() {
   // Both figures resolve through the marketing-asset chains, so a player going
   // dark drops out of this pitch page without an edit here.
-  const lineupFigure = pickLiveImages(SPONSOR_LINEUP_FIGURE, 2);
-  const placementFigure = pickLiveImages(SPONSOR_PLACEMENT_FIGURE, 2);
+  const lineupFigure = pickLiveImages(SPONSOR_LINEUP_FIGURE);
+  const placementFigure = pickLiveImages(SPONSOR_PLACEMENT_FIGURE);
 
   return (
     <div className="for-players-page">
@@ -40,9 +40,9 @@ export default function ForPlayersPage() {
                 </p>
               </div>
             </div>
-            <MarketingFigure
+            <MarketingCarousel
               images={lineupFigure}
-              className="grid w-full grid-cols-2 gap-4 md:justify-self-end md:max-w-md"
+              className="w-full md:justify-self-end md:max-w-md"
               priority
             />
           </div>
@@ -155,9 +155,9 @@ export default function ForPlayersPage() {
                 </p>
               </div>
             </div>
-            <MarketingFigure
+            <MarketingCarousel
               images={placementFigure}
-              className="grid w-full grid-cols-2 gap-4 md:justify-self-end md:max-w-md"
+              className="w-full md:justify-self-end md:max-w-md"
             />
           </div>
         </div>

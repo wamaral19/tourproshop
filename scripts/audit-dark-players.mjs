@@ -40,6 +40,10 @@ const ALLOWED_FILES = new Set([
   // The roster schema doc: its worked example is a real roster row by nature,
   // and it is a repo file, not a public surface.
   "data/README.md",
+  // Build artifact. It maps original asset paths to their published /media/
+  // URLs, so it necessarily contains the names — but it is gitignored and never
+  // rendered; only the opaque right-hand side reaches the browser.
+  "lib/media-map.generated.ts",
 ]);
 
 function walk(dir, out = []) {

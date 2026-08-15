@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { ImageHotspots } from "@/components/image-hotspots";
-import { ProductImage } from "@/components/product-image";
-import { getSponsorHotspotHero } from "@/lib/marketing-assets";
-import { getSponsorsByPlayer } from "@/lib/sponsors";
+import { SponsorHeroCarousel } from "@/components/sponsor-hero-carousel";
+import { getSponsorHotspotHeroes } from "@/lib/marketing-assets";
+import { getPublicSponsorsByPlayer } from "@/lib/sponsors";
 
 export const metadata: Metadata = {
   title: "For Apparel Brands — A new wholesale channel",
@@ -14,16 +12,14 @@ export const metadata: Metadata = {
 };
 
 export default function ApparelLandingPage() {
-  // The hero is a sponsor-callout flatlay, resolved from the live catalog
-  // rather than named here: it matches on the hotspots (so a re-shot or renamed
-  // flatlay still resolves) and skips any product whose player has gone dark
-  // (so this page needs no edit when one does).
-  const hero = getSponsorHotspotHero();
-  const heroProduct = hero?.product;
-  const heroImage = hero?.image;
-  const heroSponsors = heroProduct
-    ? getSponsorsByPlayer(heroProduct.playerSlug)
-    : [];
+  // The hero is a carousel of sponsor-callout flatlays, resolved from the live
+  // catalog rather than named here: it matches on the hotspots (so a re-shot or
+  // renamed flatlay still resolves) and skips any product whose player has gone
+  // dark (so this page needs no edit when one does).
+  const heroes = getSponsorHotspotHeroes().map((hero) => ({
+    ...hero,
+    sponsors: getPublicSponsorsByPlayer(hero.product.playerSlug),
+  }));
 
   return (
     <div className="apparel-page">
@@ -42,39 +38,10 @@ export default function ApparelLandingPage() {
                 tour becomes merchandise they can buy — with your brand on it.
               </p>
             </div>
-            {heroProduct && heroImage ? (
-              <figure className="md:justify-self-end md:w-full md:max-w-md">
-                <div className="relative aspect-[4/5]">
-                  <div className="absolute inset-0 overflow-hidden rounded-2xl border border-line">
-                    <ProductImage
-                      product={heroProduct}
-                      image={heroImage}
-                      sizes="(max-width: 768px) 100vw, 40vw"
-                      className="absolute inset-0 h-full w-full"
-                      priority
-                    />
-                  </div>
-                  {heroImage.hotspots && heroImage.hotspots.length > 0 ? (
-                    <ImageHotspots
-                      hotspots={heroImage.hotspots}
-                      sponsors={heroSponsors}
-                    />
-                  ) : null}
-                </div>
-                <figcaption className="mt-3 text-center font-condensed text-[11px] uppercase tracking-widest text-brand-ink/55">
-                  Tap a callout to see each sponsor
-                </figcaption>
-                <div className="mt-4 text-center">
-                  <Link
-                    href={`/products/${heroProduct.slug}`}
-                    className="inline-flex items-center gap-1.5 font-sans text-sm font-medium text-brand-deep underline decoration-brand-deep/30 underline-offset-4 transition hover:decoration-brand-deep"
-                  >
-                    View the {heroProduct.name}
-                    <span aria-hidden>→</span>
-                  </Link>
-                </div>
-              </figure>
-            ) : null}
+            <SponsorHeroCarousel
+              heroes={heroes}
+              className="md:justify-self-end md:w-full md:max-w-md"
+            />
           </div>
         </div>
       </section>

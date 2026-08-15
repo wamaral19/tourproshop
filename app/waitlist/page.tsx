@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { WaitlistForm } from "@/components/waitlist-form";
-import {
-  WaitlistCarousel,
-  type WaitlistSlide,
-} from "@/components/waitlist-carousel";
+import { ProductCarousel } from "@/components/product-carousel";
 import { ProductImage } from "@/components/product-image";
 import { isProductVisible } from "@/lib/catalog";
+import { getProductAlt, getProductLabel } from "@/lib/product-labels";
 import { products } from "@/lib/products";
 import { LockdownNotice } from "@/components/lockdown-notice";
 import { LOCKDOWN } from "@/lib/site-mode";
@@ -37,12 +35,15 @@ export default function WaitlistPage() {
   // carousel is exactly what has to go: it names players and links to PDPs.
   if (LOCKDOWN) return <LockdownNotice />;
 
-  const slides: WaitlistSlide[] = showcaseProducts.map((product, i) => ({
-    name: product.name,
-    href: `/products/${product.slug}`,
+  // Link-free on purpose: the PDPs are dark, and the rail is here to show what
+  // the waitlist is for, not to sell a specific piece. Captions name the apparel
+  // brand rather than the player.
+  const slides = showcaseProducts.map((product, i) => ({
+    caption: getProductLabel(product),
     node: (
       <ProductImage
         product={product}
+        alt={getProductAlt(product)}
         sizes="(max-width: 768px) 100vw, 40vw"
         className="absolute inset-0 h-full w-full"
         // Only the first slide is above the fold at load — the rest advance in.
@@ -70,7 +71,11 @@ export default function WaitlistPage() {
               <WaitlistForm />
             </div>
 
-            {slides.length > 0 ? <WaitlistCarousel slides={slides} /> : null}
+            <ProductCarousel
+              slides={slides}
+              className="md:justify-self-end md:w-full md:max-w-md"
+              intervalMs={1500}
+            />
           </div>
         </div>
       </section>

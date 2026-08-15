@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { ImpressionsCalculator } from "@/components/impressions-calculator";
-import { ImageHotspots } from "@/components/image-hotspots";
-import { ProductImage } from "@/components/product-image";
-import { getSponsorHotspotHero } from "@/lib/marketing-assets";
-import { getSponsorsByPlayer } from "@/lib/sponsors";
+import { SponsorHeroCarousel } from "@/components/sponsor-hero-carousel";
+import { getSponsorHotspotHeroes } from "@/lib/marketing-assets";
+import { neutralSrc } from "@/lib/media";
+import { PLAYER_NAMES_HIDDEN } from "@/lib/site-mode";
+import { getPublicSponsorsByPlayer } from "@/lib/sponsors";
 
 export const metadata: Metadata = {
   title: "For Sponsors — Get more out of your sponsorships",
@@ -37,16 +37,14 @@ const CHARTS: Chart[] = [
 ];
 
 export default function SponsorsLandingPage() {
-  // The hero is a sponsor-callout flatlay, resolved from the live catalog
-  // rather than named here: it matches on the hotspots (so a re-shot or renamed
-  // flatlay still resolves) and skips any product whose player has gone dark
-  // (so this page needs no edit when one does).
-  const hero = getSponsorHotspotHero();
-  const heroProduct = hero?.product;
-  const heroImage = hero?.image;
-  const heroSponsors = heroProduct
-    ? getSponsorsByPlayer(heroProduct.playerSlug)
-    : [];
+  // The hero is a carousel of sponsor-callout flatlays, resolved from the live
+  // catalog rather than named here: it matches on the hotspots (so a re-shot or
+  // renamed flatlay still resolves) and skips any product whose player has gone
+  // dark (so this page needs no edit when one does).
+  const heroes = getSponsorHotspotHeroes().map((hero) => ({
+    ...hero,
+    sponsors: getPublicSponsorsByPlayer(hero.product.playerSlug),
+  }));
 
   return (
     <div className="sponsors-page">
@@ -64,39 +62,10 @@ export default function SponsorsLandingPage() {
                 selling player-specific merchandise with your corporate logo at no additional cost to your brand.
               </p>
             </div>
-            {heroProduct && heroImage ? (
-              <figure className="md:justify-self-end md:w-full md:max-w-md">
-                <div className="relative aspect-[4/5]">
-                  <div className="absolute inset-0 overflow-hidden rounded-2xl border border-line">
-                    <ProductImage
-                      product={heroProduct}
-                      image={heroImage}
-                      sizes="(max-width: 768px) 100vw, 40vw"
-                      className="absolute inset-0 h-full w-full"
-                      priority
-                    />
-                  </div>
-                  {heroImage.hotspots && heroImage.hotspots.length > 0 ? (
-                    <ImageHotspots
-                      hotspots={heroImage.hotspots}
-                      sponsors={heroSponsors}
-                    />
-                  ) : null}
-                </div>
-                <figcaption className="mt-3 text-center font-condensed text-[11px] uppercase tracking-widest text-brand-ink/55">
-                  Tap a callout to see each sponsor
-                </figcaption>
-                <div className="mt-4 text-center">
-                  <Link
-                    href={`/products/${heroProduct.slug}`}
-                    className="inline-flex items-center gap-1.5 font-sans text-sm font-medium text-brand-deep underline decoration-brand-deep/30 underline-offset-4 transition hover:decoration-brand-deep"
-                  >
-                    View the {heroProduct.name}
-                    <span aria-hidden>→</span>
-                  </Link>
-                </div>
-              </figure>
-            ) : null}
+            <SponsorHeroCarousel
+              heroes={heroes}
+              className="md:justify-self-end md:w-full md:max-w-md"
+            />
           </div>
 
           <div className="mt-8 border-t border-line pt-8 md:mt-12 md:pt-10">
@@ -133,13 +102,17 @@ export default function SponsorsLandingPage() {
             <div className="mt-6 grid gap-6 md:mt-8 md:grid-cols-2 md:gap-6">
               {CHARTS.map((c, i) => (
                 <figure
-                  key={c.player}
+                  key={c.sponsor}
                   className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface-raised"
                 >
                   <div className="relative aspect-[6/2] w-full bg-brand-cream">
                     <Image
-                      src={c.src}
-                      alt={`Google search interest for ${c.sponsor} during ${c.player}'s ${c.event ?? "tournament"} performance`}
+                      src={neutralSrc(c.src)}
+                      alt={
+                        PLAYER_NAMES_HIDDEN
+                          ? `Google search interest for ${c.sponsor} during their player's ${c.event ?? "tournament"} performance`
+                          : `Google search interest for ${c.sponsor} during ${c.player}'s ${c.event ?? "tournament"} performance`
+                      }
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-contain px-2 py-0.5"
@@ -147,8 +120,12 @@ export default function SponsorsLandingPage() {
                     />
                   </div>
                   <figcaption className="border-t border-line px-4 py-3">
+                    {/* The player is the subject of the chart, so hiding names
+                        changes the caption's shape rather than dropping a word:
+                        the sponsor becomes the headline and the player line
+                        turns into an unattributed "their player". */}
                     <p className="font-condensed text-[11px] uppercase tracking-widest text-brand-ink/55">
-                      {c.player}
+                      {PLAYER_NAMES_HIDDEN ? "Their player" : c.player}
                     </p>
                     <p className="mt-1 font-sans text-base font-semibold text-brand-ink">
                       {c.sponsor}

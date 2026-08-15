@@ -6,7 +6,12 @@ import { usePathname } from "next/navigation";
 import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
 import { CartDrawer } from "./cart-drawer";
-import { LOCKDOWN, LOCKDOWN_CONTACT_EMAIL } from "@/lib/site-mode";
+import { FooterSubscribeForm } from "./footer-subscribe-form";
+import {
+  LOCKDOWN,
+  LOCKDOWN_CONTACT_EMAIL,
+  PARTNER_LINKS,
+} from "@/lib/site-mode";
 
 /** Private, link-only pitch pages under /p/* are bespoke standalone documents:
  *  no storefront header, footer, nav, or cart — just the Tour Pro Shop wordmark
@@ -33,19 +38,54 @@ function BareHeader() {
 }
 
 /** Lockdown footer. The real footer is three columns of links into the shop and
- *  the roster — every one of them dark. This keeps the wordmark, the year, and a
- *  way to reach us, and nothing else. */
+ *  the roster — every one of them dark. This keeps the pitch: the waitlist
+ *  signup, the Partners pages, and a way to reach us. */
 function LockdownFooter() {
   return (
     <footer className="mt-24 border-t border-line bg-brand-cream">
-      <div className="mx-auto flex max-w-[1400px] flex-col items-start justify-between gap-4 px-4 py-10 text-xs text-brand-ink/55 md:flex-row md:items-center md:px-8">
-        <p>© {new Date().getFullYear()} Tour Pro Shop. All rights reserved.</p>
-        <Link
-          href={`mailto:${LOCKDOWN_CONTACT_EMAIL}`}
-          className="hover:text-brand-deep"
-        >
-          {LOCKDOWN_CONTACT_EMAIL}
-        </Link>
+      <div className="mx-auto max-w-[1400px] px-4 py-14 md:px-8">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.4fr_1fr]">
+          <div className="flex flex-col gap-6">
+            <p className="max-w-sm font-display text-2xl leading-tight text-brand-ink/80">
+              From your favorite tour pro to you.
+            </p>
+            <FooterSubscribeForm />
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <h3 className="eyebrow text-brand-ink/60">Partners</h3>
+            <ul className="flex flex-col gap-2">
+              {PARTNER_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-brand-ink/85 hover:text-brand-deep"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  href="/why"
+                  className="text-sm text-brand-ink/85 hover:text-brand-deep"
+                >
+                  Why we exist
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-line pt-6 text-xs text-brand-ink/55 md:flex-row md:items-center">
+          <p>© {new Date().getFullYear()} Tour Pro Shop. All rights reserved.</p>
+          <Link
+            href={`mailto:${LOCKDOWN_CONTACT_EMAIL}`}
+            className="hover:text-brand-deep"
+          >
+            {LOCKDOWN_CONTACT_EMAIL}
+          </Link>
+        </div>
       </div>
     </footer>
   );
@@ -54,14 +94,15 @@ function LockdownFooter() {
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Lockdown collapses the shell to the bare wordmark. The nav and footer are
-  // the two places that link to the shop, the roster, and TPS Exclusives, so
-  // taking them out is what actually removes those pages "from the directory" —
-  // proxy.ts stops anyone reaching them by URL.
+  // Lockdown keeps the nav — the Partners pages and /why are still the pitch —
+  // but SiteHeader drops Shop, Players and TPS Exclusives from it, and the
+  // footer loses its columns of links into the roster and the shop. That is
+  // what removes those pages "from the directory"; proxy.ts is what stops
+  // anyone reaching them by URL. No cart drawer: nothing is for sale.
   if (LOCKDOWN) {
     return (
       <>
-        <BareHeader />
+        <SiteHeader />
         <main className="flex-1">{children}</main>
         <LockdownFooter />
       </>

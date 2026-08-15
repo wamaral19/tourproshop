@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { ImpressionsCalculator } from "@/components/impressions-calculator";
-import { ImageHotspots } from "@/components/image-hotspots";
-import { ProductImage } from "@/components/product-image";
-import { MarketingFigure } from "@/components/marketing-figure";
+import { MarketingCarousel } from "@/components/marketing-carousel";
+import { SponsorHeroCarousel } from "@/components/sponsor-hero-carousel";
 import {
-  getSponsorHotspotHero,
+  getSponsorHotspotHeroes,
   pickLiveImages,
   SPONSOR_PLACEMENT_FIGURE,
 } from "@/lib/marketing-assets";
-import { getSponsorsByPlayer } from "@/lib/sponsors";
+import { getPublicSponsorsByPlayer } from "@/lib/sponsors";
 
 export const metadata: Metadata = {
   title: "Make your players more valuable to sponsors",
@@ -20,20 +18,18 @@ export const metadata: Metadata = {
 };
 
 export default function AgentsLandingPage() {
-  // The hero is a sponsor-callout flatlay, resolved from the live catalog
-  // rather than named here: it matches on the hotspots (so a re-shot or renamed
-  // flatlay still resolves) and skips any product whose player has gone dark
-  // (so this page needs no edit when one does).
-  const hero = getSponsorHotspotHero();
-  const heroProduct = hero?.product;
-  const heroImage = hero?.image;
-  const heroSponsors = heroProduct
-    ? getSponsorsByPlayer(heroProduct.playerSlug)
-    : [];
+  // The hero is a carousel of sponsor-callout flatlays, resolved from the live
+  // catalog rather than named here: it matches on the hotspots (so a re-shot or
+  // renamed flatlay still resolves) and skips any product whose player has gone
+  // dark (so this page needs no edit when one does).
+  const heroes = getSponsorHotspotHeroes().map((hero) => ({
+    ...hero,
+    sponsors: getPublicSponsorsByPlayer(hero.product.playerSlug),
+  }));
 
-  // Two live examples of sponsor placement — dark players fall out of the chain
-  // and the next piece of gear takes their slot.
-  const placementFigure = pickLiveImages(SPONSOR_PLACEMENT_FIGURE, 2);
+  // Every live example of sponsor placement, one carousel slide each — dark
+  // players fall out of the chain automatically.
+  const placementFigure = pickLiveImages(SPONSOR_PLACEMENT_FIGURE);
 
   const ownerMeta = {
     player: {
@@ -138,39 +134,10 @@ export default function AgentsLandingPage() {
                 </p>
               </div>
             </div>
-            {heroProduct && heroImage ? (
-              <figure className="md:justify-self-end md:w-full md:max-w-md">
-                <div className="relative aspect-[4/5]">
-                  <div className="absolute inset-0 overflow-hidden rounded-2xl border border-line">
-                    <ProductImage
-                      product={heroProduct}
-                      image={heroImage}
-                      sizes="(max-width: 768px) 100vw, 40vw"
-                      className="absolute inset-0 h-full w-full"
-                      priority
-                    />
-                  </div>
-                  {heroImage.hotspots && heroImage.hotspots.length > 0 ? (
-                    <ImageHotspots
-                      hotspots={heroImage.hotspots}
-                      sponsors={heroSponsors}
-                    />
-                  ) : null}
-                </div>
-                <figcaption className="mt-3 text-center font-condensed text-[11px] uppercase tracking-widest text-brand-ink/55">
-                  Tap a callout to see each sponsor
-                </figcaption>
-                <div className="mt-4 text-center">
-                  <Link
-                    href={`/products/${heroProduct.slug}`}
-                    className="inline-flex items-center gap-1.5 font-sans text-sm font-medium text-brand-deep underline decoration-brand-deep/30 underline-offset-4 transition hover:decoration-brand-deep"
-                  >
-                    View the {heroProduct.name}
-                    <span aria-hidden>→</span>
-                  </Link>
-                </div>
-              </figure>
-            ) : null}
+            <SponsorHeroCarousel
+              heroes={heroes}
+              className="md:justify-self-end md:w-full md:max-w-md"
+            />
           </div>
         </div>
       </section>
@@ -225,9 +192,9 @@ export default function AgentsLandingPage() {
       <section className="border-b border-line bg-brand-cream">
         <div className="mx-auto max-w-[1400px] px-4 pb-12 pt-16 md:px-8 md:pb-20 md:pt-24">
           <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] md:items-center md:gap-14">
-            <MarketingFigure
+            <MarketingCarousel
               images={placementFigure}
-              className="grid w-full grid-cols-2 gap-4 md:max-w-md"
+              className="w-full md:max-w-md"
             />
             <div>
               <p className="eyebrow text-brand-deep">More sponsorship value</p>

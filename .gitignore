@@ -46,6 +46,8 @@ cloudflare-env.d.ts
 
 # generated at build time
 /lib/player-image-map.generated.ts
+/lib/media-map.generated.ts
+/public/media/
 
 # typescript
 *.tsbuildinfo

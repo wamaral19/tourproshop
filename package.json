@@ -4,14 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/generate-player-image-map.mjs && next build",
+    "build": "node scripts/generate-player-image-map.mjs && node scripts/generate-neutral-media.mjs && next build",
     "start": "next start",
     "lint": "eslint",
     "preview": "npm run cf-typegen && opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "npm run cf-typegen && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload": "npm run cf-typegen && opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
-    "audit:dark": "node scripts/audit-dark-players.mjs"
+    "audit:dark": "node scripts/audit-dark-players.mjs",
+    "generate": "node scripts/generate-player-image-map.mjs && node scripts/generate-neutral-media.mjs",
+    "predev": "npm run generate"
   },
   "dependencies": {
     "next": "16.2.4",
