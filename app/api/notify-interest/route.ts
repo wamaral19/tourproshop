@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { getPlayerBySlug } from "@/lib/players";
-import { YOUTH_AGE_RANGE, type ProductSize } from "@/lib/products";
 
 /**
  * Captures interest for two cases, both posted to the Discord channel
@@ -45,10 +44,9 @@ type InterestSource =
   | {
       kind: "waitlist";
       firstName?: string;
-      /** Whether the signup wants a youth or adult shirt. */
-      sizeClass?: "youth" | "adult";
-      /** The letter size picked, when the signup chose one. */
-      size?: string;
+      /** Free-text player the signup wants gear from — demand signal, not a
+       *  roster slug, so it captures players we don't carry yet. */
+      favoritePlayer?: string;
       /** Set when the signup came from a tagged link, e.g. `ig-jerseys`. */
       campaign?: string;
     }
@@ -120,20 +118,10 @@ async function postToDiscord(args: { email: string; source: InterestSource }) {
     if (source.firstName) {
       fields.push({ name: "Name", value: source.firstName, inline: true });
     }
-    if (source.sizeClass || source.size) {
-      const group = source.sizeClass
-        ? source.sizeClass === "youth"
-          ? "Youth"
-          : "Adult"
-        : undefined;
-      const ageRange =
-        source.sizeClass === "youth" && source.size
-          ? YOUTH_AGE_RANGE[source.size as ProductSize]
-          : undefined;
-      const value = [group, source.size].filter(Boolean).join(" ");
+    if (source.favoritePlayer) {
       fields.push({
-        name: "Size",
-        value: ageRange ? `${value} (${ageRange})` : value,
+        name: "Favorite player",
+        value: source.favoritePlayer,
         inline: true,
       });
     }
@@ -196,13 +184,6 @@ async function postToSheet(args: { email: string; source: InterestSource }) {
   if (!url) return;
 
   const { email, source } = args;
-  const sizeClass = source.kind === "waitlist" ? source.sizeClass : undefined;
-  const ageRange =
-    sizeClass === "youth" &&
-    source.kind === "waitlist" &&
-    source.size
-      ? YOUTH_AGE_RANGE[source.size as ProductSize]
-      : undefined;
 
   // One flat row. Empty strings keep columns aligned across signup types.
   const row = {
@@ -215,16 +196,16 @@ async function postToSheet(args: { email: string; source: InterestSource }) {
         ? source.playerName
         : source.kind === "player"
           ? source.name
-          : "",
+          : // The waitlist's free-text favorite player shares this column: it
+            // answers the same question, and reusing it keeps the sheet schema
+            // stable for rows written before the field existed.
+            source.kind === "waitlist"
+            ? (source.favoritePlayer ?? "")
+            : "",
     product: source.kind === "product" ? source.productName : "",
     colorway: source.kind === "product" ? (source.colorway ?? "") : "",
-    sizeClass: sizeClass ?? "",
-    size:
-      "size" in source && source.size
-        ? ageRange
-          ? `${source.size} (${ageRange})`
-          : source.size
-        : "",
+    sizeClass: "",
+    size: "size" in source && source.size ? source.size : "",
     campaign:
       (source.kind === "product" || source.kind === "waitlist") &&
       source.campaign
@@ -277,7 +258,7 @@ export async function POST(req: Request) {
     intent,
     email,
     firstName,
-    sizeClass,
+    favoritePlayer,
     playerSlug,
     productSlug,
     productName,
@@ -288,7 +269,7 @@ export async function POST(req: Request) {
     intent?: unknown;
     email?: unknown;
     firstName?: unknown;
-    sizeClass?: unknown;
+    favoritePlayer?: unknown;
     playerSlug?: unknown;
     productSlug?: unknown;
     productName?: unknown;
@@ -316,11 +297,10 @@ export async function POST(req: Request) {
           typeof firstName === "string" && firstName.trim().length > 0
             ? firstName.trim().slice(0, 80)
             : undefined,
-        sizeClass:
-          sizeClass === "youth" || sizeClass === "adult"
-            ? sizeClass
+        favoritePlayer:
+          typeof favoritePlayer === "string" && favoritePlayer.trim().length > 0
+            ? favoritePlayer.trim().slice(0, 80)
             : undefined,
-        size: typeof size === "string" && size.length > 0 ? size : undefined,
         campaign:
           typeof campaign === "string" && campaign.length > 0
             ? campaign.slice(0, 64)
