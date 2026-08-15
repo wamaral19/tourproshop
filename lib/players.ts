@@ -40,8 +40,19 @@ export type Player = {
  * Player slugs hidden from every storefront surface — roster, browse grid,
  * /players, shop, PDPs, related rails. Direct URLs 404. Use this to temporarily
  * pull a player without deleting their data; remove the slug to restore them.
+ *
+ * Restoring is a ladder, since a player can be pulled back in stages. Taking a
+ * slug out of this set returns them to whatever state the rest of their data
+ * describes — for james-nicholas and wyndham-clark that is currently the
+ * waitlist-signup state (`relationship: "linked"` in data/owgr.json, their
+ * polos `visible: false` in lib/products.ts). Flip those two back as well to
+ * relist them as full Exclusives with a live product.
  */
-export const HIDDEN_PLAYERS: ReadonlySet<string> = new Set(["sungjae-im"]);
+export const HIDDEN_PLAYERS: ReadonlySet<string> = new Set([
+  "sungjae-im",
+  "james-nicholas",
+  "wyndham-clark",
+]);
 
 export function isPlayerHidden(slug: string): boolean {
   return HIDDEN_PLAYERS.has(slug);
