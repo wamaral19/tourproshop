@@ -23,6 +23,7 @@ const NAV: NavItem[] = [
       { href: "/ecosystem", label: "Ecosystem" },
     ],
   },
+  { href: "/why", label: "Why we exist" },
 ];
 
 function isNavGroup(item: NavItem): item is NavGroup {
