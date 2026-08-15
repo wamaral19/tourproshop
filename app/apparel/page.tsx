@@ -14,9 +14,11 @@ export const metadata: Metadata = {
 };
 
 export default function ApparelLandingPage() {
-  const heroProduct = getProductBySlug("cameron-young-polo");
-  const heroImage = heroProduct?.images.find((img) =>
-    img.src.includes("Sponsor Logo Flatlay"),
+  const heroProduct = getProductBySlug("sam-burns-polo");
+  // The hero is the sponsor-callout flatlay — match on the hotspots rather
+  // than the filename so a re-shot or renamed flatlay still resolves.
+  const heroImage = heroProduct?.images.find(
+    (img) => img.hotspots && img.hotspots.length > 0,
   );
   const heroSponsors = heroProduct
     ? getSponsorsByPlayer(heroProduct.playerSlug)

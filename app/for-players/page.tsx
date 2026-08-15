@@ -42,8 +42,8 @@ export default function ForPlayersPage() {
               </div>
               <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-surface-raised">
                 <Image
-                  src="/product images/Cam Young Polo/Cam Young Polo Sponsor Logo Flatlay 01.jpg"
-                  alt="Cameron Young's Peter Millar polo with his tour sponsor placements"
+                  src="/product images/Sam Burns Polo/Sam Burns Polo Flatlay GPT.png"
+                  alt="Sam Burns's Peter Millar polo with his tour sponsor placements"
                   fill
                   sizes="(max-width: 768px) 50vw, 20vw"
                   className="scale-110 object-contain"

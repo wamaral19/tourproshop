@@ -1,6 +1,7 @@
 import { isPlayerHidden } from "./players";
 import {
   categoryLabels,
+  isProductHidden,
   products as demoProducts,
   type Product,
   type ProductCategory,
@@ -20,18 +21,23 @@ export type CatalogProductCategory = ProductCategory;
 /** Polos ship visible by default; other categories stay dark until we flip
  *  `visible: true` on the individual product. PDP routes still resolve by
  *  slug for direct links — see `getProductBySlug`. Products owned by a
- *  sitewide-hidden player are excluded regardless of the per-product flag. */
+ *  sitewide-hidden player, or listed in HIDDEN_PRODUCTS, are excluded
+ *  regardless of the per-product flag. */
 export function isProductVisible(product: Product): boolean {
   if (isPlayerHidden(product.playerSlug)) return false;
+  if (isProductHidden(product.slug)) return false;
   return product.visible ?? product.category === "polos";
 }
 
 /** Every product in the catalog, regardless of per-product visibility. Still
- *  excludes products owned by sitewide-hidden players so direct URLs 404. Use
- *  this only for things that need to know about hidden products (e.g. static
- *  path generation for PDP routes). */
+ *  excludes products owned by sitewide-hidden players, and products retired
+ *  via HIDDEN_PRODUCTS, so direct URLs 404. Use this only for things that need
+ *  to know about dark-but-live products (e.g. static path generation for PDP
+ *  routes). */
 export function getAllProductsIncludingHidden(): CatalogProduct[] {
-  return demoProducts.filter((p) => !isPlayerHidden(p.playerSlug));
+  return demoProducts.filter(
+    (p) => !isPlayerHidden(p.playerSlug) && !isProductHidden(p.slug),
+  );
 }
 
 export function getAllProducts(): CatalogProduct[] {

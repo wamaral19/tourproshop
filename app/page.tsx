@@ -98,8 +98,9 @@ export default async function HomePage() {
               [
                 {
                   cat: "polos",
-                  image: "/product images/Cam Young Polo/Cam Young Lifestyle 02.jpg",
-                  alt: "Cameron Young in his Peter Millar polo — on-course lifestyle shot",
+                  image:
+                    "/product images/Sam Burns Polo/Sam Burns Open Shirt.avif",
+                  alt: "Sam Burns in his Peter Millar polo — on-course lifestyle shot",
                 },
                 {
                   cat: "outerwear",
