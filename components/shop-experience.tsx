@@ -23,7 +23,7 @@ const SORT_LABELS: Record<SortKey, string> = {
   "price-desc": "Price · High to Low",
 };
 
-// Sorting by price is meaningless while every price renders as "TBD".
+// Sorting by price is meaningless while every price renders as "Price TBD".
 const SORT_OPTIONS = (Object.keys(SORT_LABELS) as SortKey[]).filter(
   (k) => !(PRICES_TBD && k.startsWith("price-")),
 );

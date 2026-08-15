@@ -13,5 +13,5 @@ const formatter = new Intl.NumberFormat("en-US", {
 export const PRICES_TBD: boolean = true;
 
 export function formatPrice(value: number) {
-  return PRICES_TBD ? "TBD" : formatter.format(value);
+  return PRICES_TBD ? "Price TBD" : formatter.format(value);
 }
