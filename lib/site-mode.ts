@@ -1,23 +1,35 @@
 /**
  * Sitewide lockdown switch.
  *
- * Flipping `LOCKDOWN` to `true` takes down every surface that sells gear or
- * names a player and leaves the pitch running: the waitlist, the Partners
- * pages, and "Why we exist".
+ * With `LOCKDOWN` on, every surface that sells gear or names a player comes
+ * down and the pitch keeps running: the waitlist, the Partners pages, and "Why
+ * we exist".
  *
- * This module is imported by `proxy.ts`, which runs on the edge. Keep it free
- * of imports so it stays cheap to bundle and can never drag app code into the
- * proxy bundle.
+ * It is no longer a hand-edited constant. The repo now produces two builds from
+ * the same source — the public one locked down, and a password-gated one with
+ * the full storefront — so the flags arrive from the build environment via
+ * `lib/site-mode.generated.ts`:
  *
- * See docs/going-dark.md for the full runbook.
+ *     npm run build             # locked, the default
+ *     SITE_MODE=full npm run build
+ *
+ * They are still literals by the time Next compiles, so nothing about how the
+ * app reads them has changed. See docs/going-dark.md for the full runbook.
  */
-export const LOCKDOWN = true;
+export { LOCKDOWN, HIDE_PLAYER_NAMES, SITE_PREVIEW } from "./site-mode.generated";
+
+import {
+  LOCKDOWN as LOCKED,
+  HIDE_PLAYER_NAMES as NAMES_HIDDEN,
+} from "./site-mode.generated";
 
 /**
- * Strips player names from copy, alt text, and product labels — garments are
- * identified by their apparel brand instead ("Peter Millar polo"). Separate
- * from `LOCKDOWN` because the two are likely to come apart: the Partners pages
- * are expected to stay name-free even after the storefront comes back.
+ * `HIDE_PLAYER_NAMES` strips player names from copy, alt text, and product
+ * labels — garments are identified by their apparel brand instead ("Peter
+ * Millar polo"). Separate from `LOCKDOWN` because the two are likely to come
+ * apart: the Partners pages are expected to stay name-free even after the
+ * storefront comes back. Set `HIDE_PLAYER_NAMES=true` on a full build to hold
+ * the names back while the storefront returns.
  *
  * Lockdown implies it. Read `PLAYER_NAMES_HIDDEN`, never either flag directly.
  *
@@ -25,9 +37,7 @@ export const LOCKDOWN = true;
  * and rewriting someone's own words is not something a flag should do. That
  * page is deliberately left as written — `npm run audit:dark` keeps flagging it.
  */
-export const HIDE_PLAYER_NAMES = true;
-
-export const PLAYER_NAMES_HIDDEN = LOCKDOWN || HIDE_PLAYER_NAMES;
+export const PLAYER_NAMES_HIDDEN = LOCKED || NAMES_HIDDEN;
 
 /** Where rights holders are told to reach us on the lockdown notice. */
 export const LOCKDOWN_CONTACT_EMAIL = "wyatt@tourpro.shop";

@@ -42,9 +42,17 @@ yarn-error.log*
 .open-next
 .wrangler
 .dev.vars
+.dev.vars.*
 cloudflare-env.d.ts
 
+# preview passwords — plaintext in, hashes out; neither belongs in git.
+# Globbed rather than named exactly: file sync leaves "… 2.sql" copies behind,
+# and one of those slipping into a commit is the whole failure mode.
+preview-passwords*.csv
+preview-passwords*.sql
+
 # generated at build time
+/lib/site-mode.generated.ts
 /lib/player-image-map.generated.ts
 /lib/media-map.generated.ts
 /public/media/

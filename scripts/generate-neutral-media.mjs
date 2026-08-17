@@ -18,6 +18,7 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import { resolveSiteMode } from "./site-mode.mjs";
 
 const ROOT = process.cwd();
 const OUT_MAP = path.join(ROOT, "lib", "media-map.generated.ts");
@@ -31,13 +32,7 @@ const SOURCE_FILES = [
 ];
 
 function namesHidden() {
-  const src = fs.readFileSync(path.join(ROOT, "lib", "site-mode.ts"), "utf8");
-  const read = (name) => {
-    const m = src.match(new RegExp(`export const ${name} = (true|false);`));
-    if (!m) throw new Error(`Could not read ${name} from lib/site-mode.ts`);
-    return m[1] === "true";
-  };
-  return read("LOCKDOWN") || read("HIDE_PLAYER_NAMES");
+  return resolveSiteMode().hidePlayerNames;
 }
 
 function collectSources() {

@@ -23,5 +23,68 @@
   ],
   "observability": {
     "enabled": true
+  },
+
+  // The password-gated twin of the worker above: same code, built with
+  // SITE_MODE=full so the storefront is up, and served behind HTTP Basic Auth.
+  //
+  // Deployed with `npm run deploy:full`, which builds with the right env and
+  // passes `--env preview` through to Wrangler. Bindings are non-inheritable,
+  // so everything the app needs is repeated here rather than inherited.
+  //
+  // See docs/going-dark.md § "The full site, behind a password".
+  "env": {
+    "preview": {
+      "name": "tourproshop-preview",
+
+      // Basic Auth wrapper around `.open-next/worker.js`. This is the only
+      // difference in how the two workers are entered.
+      "main": "worker-gate.js",
+
+      // Assets are normally served by Cloudflare *before* the Worker runs,
+      // which would leave /product images/... reachable without the password —
+      // and those paths spell out player names. Running the Worker first puts
+      // them behind the gate; OpenNext's asset resolver serves them back
+      // through the ASSETS binding.
+      "assets": {
+        "directory": ".open-next/assets",
+        "binding": "ASSETS",
+        "run_worker_first": true
+      },
+
+      "services": [
+        {
+          "binding": "WORKER_SELF_REFERENCE",
+          "service": "tourproshop-preview"
+        }
+      ],
+
+      // Same outreach database as production: /admin is for reading the real
+      // pipeline, and a second copy would just be stale. It also holds the
+      // preview passwords and their access log (migration 0006), which is what
+      // lets tourpro.shop/admin/passwords read the log without a password.
+      "d1_databases": [
+        {
+          "binding": "OUTREACH_DB",
+          "database_name": "tourproshop-outreach",
+          "database_id": "5b9a387a-d517-4944-89cb-d5cd18f92200"
+        }
+      ],
+
+      // Caps password guessing at 8 tries a minute per IP. 128 live passwords
+      // is 128 chances to guess, so the number of tries is what keeps them
+      // worth anything.
+      "ratelimits": [
+        {
+          "name": "PREVIEW_LOGIN_LIMITER",
+          "namespace_id": "1001",
+          "simple": { "limit": 8, "period": 60 }
+        }
+      ],
+
+      "observability": {
+        "enabled": true
+      }
+    }
   }
 }

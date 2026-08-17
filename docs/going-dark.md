@@ -1,14 +1,16 @@
 # Going dark
 
-Two levers, for two different situations.
+Two levers, for two different situations — and a way to keep showing the full
+site to people you choose while it's down.
 
 | Situation | Lever | Blast radius |
 |---|---|---|
 | One player needs to come off the site | `HIDDEN_PLAYERS` in `lib/players.ts` | That player, everywhere |
-| Every player needs to come off the site | `LOCKDOWN` in `lib/site-mode.ts` | The whole storefront |
+| Every player needs to come off the site | `SITE_MODE` at build time | The whole storefront |
+| Someone still needs to see the full site | [the private preview](#3-the-full-site-behind-a-password) | Nothing public changes |
 
-Neither deletes anything. Both are one-line edits that are reversed by undoing
-the line.
+Nothing here deletes anything, and nothing here is undone by editing content
+back in.
 
 ---
 
@@ -75,13 +77,22 @@ in `data/owgr.json` and `visible: true` on their products in `lib/products.ts`.
 
 ## 2. Full lockdown
 
-Flip one constant in [`lib/site-mode.ts`](../lib/site-mode.ts):
+Locked down is the **default**, and there is nothing to flip: `npm run build`
+with nothing set produces the dark site, and that is what
+`.github/workflows/deploy.yml` ships to `tourproshop` on every push to `main`.
 
-```ts
-export const LOCKDOWN = true;
+```bash
+npm run build                 # locked
+SITE_MODE=full npm run build  # the storefront, for the private preview
 ```
 
-Then commit, merge, and deploy. That's the whole procedure.
+A build that forgets to say what it is comes out dark, not naked. The flags land
+in `lib/site-mode.generated.ts` (written by `scripts/generate-site-mode.mjs`) as
+plain constants, so `LOCKDOWN` is still a literal by the time Next compiles it
+and the bundler can drop the branches it guards.
+
+To take the site down when it isn't already: nothing to do. To bring it back,
+see [Lifting it](#lifting-it).
 
 ### What happens
 
@@ -131,7 +142,133 @@ component if it shouldn't.
 
 ### Lifting it
 
-Set `LOCKDOWN = false`. Nothing else changes; no content was deleted.
+Build with `SITE_MODE=full`. Nothing else changes; no content was deleted.
+
+---
+
+## 3. The full site, behind a password
+
+The lockdown is what the public sees. The full storefront still runs, on a
+second worker, behind a password — so you can show it to someone without
+lifting the lockdown for everyone.
+
+Both come from the same commit. There is no branch to keep in sync: the flags
+arrive from the build environment, and locked is what you get if nothing says
+otherwise.
+
+| | Public | Private preview |
+|---|---|---|
+| Worker | `tourproshop` | `tourproshop-preview` |
+| Built with | *(nothing — locked is the default)* | `SITE_MODE=full SITE_PREVIEW=true` |
+| Entry point | `.open-next/worker.js` | `worker-gate.js` |
+| Storefront | down | up |
+| Player names | hidden | shown |
+| Meta Pixel | on | **off** |
+| Deploy | `npm run deploy` | `npm run deploy:full` |
+
+Both jobs run from `.github/workflows/deploy.yml` on every push to `main`, so
+the preview never drifts from what's live.
+
+### How the gate works
+
+`worker-gate.js` wraps the OpenNext worker. Every request goes through it —
+including static assets, because the preview environment sets
+`run_worker_first: true`. That last part matters: assets are normally served
+straight off Cloudflare's edge before any Worker runs, and the asset paths spell
+out player names.
+
+1. No session → the password page (a 401, rendered inline by the Worker with no
+   external assets, since the app's own CSS is behind the gate).
+2. A password that matches an unrevoked row in `preview_passwords` → the sign-in
+   is logged and a signed session cookie is set, good for 7 days.
+3. Every later request checks that cookie with an HMAC. No database read, so the
+   gate costs nothing on the asset requests that are most of the traffic.
+
+It **fails closed**: with no `PREVIEW_SESSION_SECRET` bound it serves a 503 and
+nothing else, so a half-finished setup can't quietly publish the roster.
+
+Passwords are matched case-insensitively and trimmed — they get typed by hand
+off a phone, and an autocapitalized first letter shouldn't lock someone out.
+
+### The password is their own email address
+
+Each agent enters the address the invitation was sent to. Nothing to distribute,
+nothing for them to lose, and the log names whoever looked without any
+cross-referencing.
+
+Be clear-eyed about what that gate is: **these passwords are guessable.**
+`aburge@excelsm.com` follows a pattern anyone can work out, and the list of who
+represents whom isn't secret. Someone who guesses the scheme is in. What the
+gate reliably does is keep the site off search engines and out of casual reach,
+and tell you exactly who looked — it is not a wall against someone determined.
+
+If that stops being good enough, the table already supports the alternative. The
+seed script takes `email,password` rows, so you can issue a random code to
+someone and their row keeps naming them without the code being readable back
+out. Nothing else has to change.
+
+The rate limiter (8 attempts a minute per IP, `PREVIEW_LOGIN_LIMITER` in
+`wrangler.jsonc`) is what stops someone working through a list of addresses.
+
+### Setting it up
+
+```bash
+# 1. The tables (once)
+npx wrangler d1 execute tourproshop-outreach --remote --file=migrations/0006_preview_passwords.sql
+
+# 2. The session signing key (once)
+openssl rand -hex 32 | npx wrangler secret put PREVIEW_SESSION_SECRET --env preview
+
+# 3. The invite list — one email per line, hashed on the way in
+node scripts/seed-preview-passwords.mjs preview-passwords.csv
+npx wrangler d1 execute tourproshop-outreach --remote --file=preview-passwords.generated.sql
+
+# 4. Ship it
+npm run deploy:full
+```
+
+Step 2 needs the worker to exist, so run `npm run deploy:full` first if it
+doesn't yet — it will serve a 503 until the secret is set, which is the point.
+
+Adding someone later is the same two commands — append them to the CSV and
+re-run. Row order is the key the upsert matches on, so **don't reorder the
+file**; append to the end.
+
+`.gitignore` covers `preview-passwords*.csv` and `*.sql`, globbed rather than
+named exactly because file sync leaves `… 2.csv` copies around.
+
+### Seeing who used what
+
+**`/admin/passwords?token=…`** — everyone invited, who has signed in, what they
+looked at, and every failed attempt. Sorted so whoever looked most recently is
+at the top, with the agency pulled off the email domain.
+
+Deliberately readable from the *public* site too, since both workers share the
+same database: `tourpro.shop/admin/passwords` works without a password of your
+own.
+
+To revoke someone:
+
+```bash
+npx wrangler d1 execute tourproshop-outreach --remote \
+  --command "UPDATE preview_passwords SET revoked_at = unixepoch() WHERE email = 'them@agency.com'"
+```
+
+Takes effect on their next sign-in — an existing session runs out its 7 days.
+
+### Testing it locally
+
+```bash
+npm run dev:full          # the full site, no gate — for building things
+npm run preview:full      # the real worker with the gate, on workerd
+```
+
+`preview:full` reads `.dev.vars.preview` (gitignored). It needs
+`PREVIEW_SESSION_SECRET`, and `OUTREACH_ADMIN_TOKEN` if you want the dashboard.
+Apply the migration and the seed to the local database with `--local` instead of
+`--remote` and you can sign in as any address on the list.
+
+Wrangler only reads `.dev.vars.preview` at startup — restart it after editing.
 
 ---
 

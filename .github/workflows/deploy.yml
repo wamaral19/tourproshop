@@ -52,3 +52,31 @@ jobs:
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
           env: ${{ steps.deployment.outputs.env }}
           env_url: https://tourproshop.wyatt-amaral.workers.dev
+
+  # The private preview: same commit, built with the storefront on, served
+  # behind the password gate at tourproshop-preview.
+  #
+  # Runs after production so a failure here can never hold up the public site.
+  # Safe to run before the passwords are set up: the gate fails closed and
+  # serves a 503 until PREVIEW_SESSION_SECRET is bound, never the site.
+  deploy-preview:
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Deploy the full site behind the gate
+        run: npm run deploy:full
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

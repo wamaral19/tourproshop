@@ -14,12 +14,12 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { resolveSiteMode } from "./site-mode.mjs";
 
 const ROOT = process.cwd();
 
 function lockdownOn() {
-  const src = fs.readFileSync(path.join(ROOT, "lib", "site-mode.ts"), "utf8");
-  return /export const LOCKDOWN = true;/.test(src);
+  return resolveSiteMode().lockdown;
 }
 
 /** Route path for an app-router page file. */

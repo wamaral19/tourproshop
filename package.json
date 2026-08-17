@@ -4,16 +4,20 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/generate-player-image-map.mjs && node scripts/generate-neutral-media.mjs && node scripts/check-lockdown-coverage.mjs && next build",
+    "predev": "npm run generate",
+    "dev:full": "SITE_MODE=full next dev",
+    "predev:full": "SITE_MODE=full npm run generate",
+    "build": "npm run generate && next build",
     "start": "next start",
     "lint": "eslint",
     "preview": "npm run cf-typegen && opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "preview:full": "SITE_MODE=full SITE_PREVIEW=true opennextjs-cloudflare build --env preview && SITE_MODE=full SITE_PREVIEW=true opennextjs-cloudflare preview --env preview",
     "deploy": "npm run cf-typegen && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy:full": "SITE_MODE=full SITE_PREVIEW=true opennextjs-cloudflare build --env preview && SITE_MODE=full SITE_PREVIEW=true opennextjs-cloudflare deploy --env preview",
     "upload": "npm run cf-typegen && opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "audit:dark": "node scripts/audit-dark-players.mjs",
-    "generate": "node scripts/generate-player-image-map.mjs && node scripts/generate-neutral-media.mjs && node scripts/check-lockdown-coverage.mjs",
-    "predev": "npm run generate"
+    "generate": "node scripts/generate-site-mode.mjs && node scripts/generate-player-image-map.mjs && node scripts/generate-neutral-media.mjs && node scripts/check-lockdown-coverage.mjs"
   },
   "dependencies": {
     "next": "16.2.4",
