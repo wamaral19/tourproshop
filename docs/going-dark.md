@@ -7,6 +7,7 @@ site to people you choose while it's down.
 |---|---|---|
 | One player needs to come off the site | `HIDDEN_PLAYERS` in `lib/players.ts` | That player, everywhere |
 | Every player needs to come off the site | `SITE_MODE` at build time | The whole storefront |
+| One photo can't be on the public site | [`DARK_HIDDEN_MEDIA`](#withholding-a-single-photo) in `lib/dark-media.ts` | That file, dark build only |
 | Someone still needs to see the full site | [the private preview](#3-the-full-site-behind-a-password) | Nothing public changes |
 
 Nothing here deletes anything, and nothing here is undone by editing content
@@ -272,6 +273,44 @@ Wrangler only reads `.dev.vars.preview` at startup — restart it after editing.
 
 ---
 
+## Withholding a single photo
+
+The narrowest lever, and the only one that applies to just one build: a file
+that shouldn't be on the public, locked-down site while the password-gated full
+site keeps showing it.
+
+Add its `src` — copied exactly as it appears in `lib/products.ts` or
+`lib/marketing-assets.ts`, spaces and all — to `DARK_HIDDEN_MEDIA` in
+[`lib/dark-media.ts`](../lib/dark-media.ts):
+
+```ts
+export const DARK_HIDDEN_MEDIA: readonly string[] = [
+  "/product images/Sam Burns Polo/Sam Burns Polo Flatlay GPT.png",
+];
+```
+
+That one line does all of this, on the locked build only:
+
+- the shot drops out of every product gallery
+- marketing figures and the sponsor-callout heroes skip it, and the next live
+  shot in the chain slides into its place
+- `npm run build` publishes no neutral `/media/<hash>` copy of it
+- `npm run deploy` deletes it from the assets it uploads, so the original URL
+  404s instead of staying quietly fetchable — the one place we close the
+  [asset gap](#assets) by default
+
+**A product whose *lead* shot is withheld comes down from the dark build
+entirely.** That is deliberate. The lead is what every card, rail, and carousel
+renders, so dropping only the file would promote whatever happened to be next in
+that product's gallery — on our catalog, usually an on-course photo of the
+player — onto exactly the surfaces a lockdown exists to keep name-free. Pulling
+the lead shot means pulling the garment. The full build still has both.
+
+Restoring is one deletion: take the path back out. Nothing was moved or deleted
+on disk, and the full build never stopped serving it.
+
+---
+
 ## Assets
 
 One gap is worth knowing about before you rely on either lever.
@@ -289,7 +328,11 @@ alongside.
 
 `npm run audit:dark` lists exactly which files those are for a dark player.
 
-To actually close it, pick one:
+For a single file there is now a third option, and it's the cheap one: list it
+in [`DARK_HIDDEN_MEDIA`](#withholding-a-single-photo). `npm run deploy` deletes
+those paths out of `.open-next/assets` before uploading, so they 404 on the
+public worker while the password-gated one still serves them. For a whole
+player's directory, pick one of these instead:
 
 **Option A — move the assets.** Take the player's directories out of `public/`
 (keep them in `_legacy/`, or anywhere outside the build). The build no longer

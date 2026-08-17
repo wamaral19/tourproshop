@@ -1,3 +1,4 @@
+import { isMediaDark } from "./dark-media";
 import { isPlayerHidden } from "./players";
 import {
   categoryLabels,
@@ -29,19 +30,43 @@ export function isProductVisible(product: Product): boolean {
   return product.visible ?? product.category === "polos";
 }
 
+/** Drops any shot withheld from this build (lib/dark-media.ts) out of a
+ *  product's gallery. Returns the product untouched when nothing is withheld,
+ *  so the full build hands back exactly what lib/products.ts declares. */
+function withPublishedImages(product: Product): Product {
+  const images = product.images.filter((image) => !isMediaDark(image.src));
+  return images.length === product.images.length
+    ? product
+    : { ...product, images };
+}
+
+/** A product whose lead shot is withheld comes down with it. The lead is what
+ *  every card, rail, and carousel renders, so dropping only the file would
+ *  promote whatever happened to be next in the gallery — usually an on-course
+ *  photo of the player — onto the surfaces a lockdown exists to keep name-free.
+ *  See docs/going-dark.md § "Withholding a single photo". */
+function hasPublishedLead(product: Product): boolean {
+  return !isMediaDark(product.images[0]?.src ?? "");
+}
+
 /** Every product in the catalog, regardless of per-product visibility. Still
- *  excludes products owned by sitewide-hidden players, and products retired
- *  via HIDDEN_PRODUCTS, so direct URLs 404. Use this only for things that need
- *  to know about dark-but-live products (e.g. static path generation for PDP
- *  routes). */
+ *  excludes products owned by sitewide-hidden players, products retired via
+ *  HIDDEN_PRODUCTS, and products whose lead photography is withheld from this
+ *  build, so direct URLs 404. Use this only for things that need to know about
+ *  dark-but-live products (e.g. static path generation for PDP routes). */
 export function getAllProductsIncludingHidden(): CatalogProduct[] {
-  return demoProducts.filter(
-    (p) => !isPlayerHidden(p.playerSlug) && !isProductHidden(p.slug),
-  );
+  return demoProducts
+    .filter(
+      (p) =>
+        !isPlayerHidden(p.playerSlug) &&
+        !isProductHidden(p.slug) &&
+        hasPublishedLead(p),
+    )
+    .map(withPublishedImages);
 }
 
 export function getAllProducts(): CatalogProduct[] {
-  return demoProducts.filter(isProductVisible);
+  return getAllProductsIncludingHidden().filter(isProductVisible);
 }
 
 export function getFeaturedProducts(): CatalogProduct[] {

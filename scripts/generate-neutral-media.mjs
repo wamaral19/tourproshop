@@ -18,6 +18,7 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import { withheldMedia } from "./dark-media.mjs";
 import { resolveSiteMode } from "./site-mode.mjs";
 
 const ROOT = process.cwd();
@@ -41,8 +42,13 @@ function collectSources() {
     const text = fs.readFileSync(path.join(ROOT, file), "utf8");
     for (const m of text.matchAll(/src: "(\/[^"]+)"/g)) found.add(m[1]);
   }
+  // Files withheld from this build render nowhere, so publishing a neutral copy
+  // would only republish them under a URL nothing links to.
+  const withheld = withheldMedia(ROOT);
   // Placeholders are generated SVG, not photography — nothing to hide.
-  return [...found].filter((src) => !src.startsWith("/placeholders/"));
+  return [...found].filter(
+    (src) => !src.startsWith("/placeholders/") && !withheld.has(src),
+  );
 }
 
 function neutralName(src) {

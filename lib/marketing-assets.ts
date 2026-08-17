@@ -1,4 +1,5 @@
 import { getAllProducts, type CatalogProduct } from "./catalog";
+import { isMediaDark } from "./dark-media";
 import { isPlayerHidden } from "./players";
 import { getProductLabel } from "./product-labels";
 import type { ProductImage } from "./products";
@@ -53,10 +54,11 @@ export type MarketingImage = {
 };
 
 /**
- * An image is live when its player is live and — if it names one — its product
- * is still in the visible catalog.
+ * An image is live when the file itself is published in this build, its player
+ * is live, and — if it names one — its product is still in the visible catalog.
  */
 function isLive(image: MarketingImage, liveSlugs: ReadonlySet<string>): boolean {
+  if (isMediaDark(image.src)) return false;
   if (isPlayerHidden(image.playerSlug)) return false;
   if (image.productSlug && !liveSlugs.has(image.productSlug)) return false;
   return true;
