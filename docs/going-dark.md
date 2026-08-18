@@ -159,6 +159,7 @@ otherwise.
 
 | | Public | Private preview |
 |---|---|---|
+| Address | `tourpro.shop` | `preview.tourpro.shop` |
 | Worker | `tourproshop` | `tourproshop-preview` |
 | Built with | *(nothing — locked is the default)* | `SITE_MODE=full SITE_PREVIEW=true` |
 | Entry point | `.open-next/worker.js` | `worker-gate.js` |

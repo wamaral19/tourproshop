@@ -37,6 +37,18 @@
     "preview": {
       "name": "tourproshop-preview",
 
+      // Served from our own domain rather than a workers.dev subdomain, because
+      // this link goes out to agents: preview.tourpro.shop reads as us, and a
+      // shortened workers.dev URL in a mail client reads as a phishing attempt.
+      // Wrangler creates the DNS record and the cert on deploy — the zone is
+      // already in this account, since it serves the public site.
+      //
+      // It has to be a subdomain, not a path under tourpro.shop. A route only
+      // forwards the paths it matches, and the app emits absolute URLs
+      // (/_next/…, /media/…, every internal link), which would land back on the
+      // public worker and get redirected by the lockdown.
+      "routes": [{ "pattern": "preview.tourpro.shop", "custom_domain": true }],
+
       // Basic Auth wrapper around `.open-next/worker.js`. This is the only
       // difference in how the two workers are entered.
       "main": "worker-gate.js",
