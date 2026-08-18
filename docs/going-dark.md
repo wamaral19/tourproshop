@@ -309,11 +309,19 @@ password-gated build keeps every photograph.
 
 ### What still renders
 
-Three things, none of them a picture of somebody's gear:
+Four things, none of them a picture of a golfer or a tour garment:
 
 - the wordmark (`/logo.svg`), which is our own mark
 - the value-ecosystem diagram on `/ecosystem`, which is inline SVG we drew
 - the search-interest charts on `/sponsors`, which are data about a sponsor
+- the F1 and Premier League kit in the "proven playbook" sections of `/agents`,
+  `/apparel`, `/sponsors` and `/for-players`
+
+That last one is photography, and deliberately so. Those two shots are the
+argument that section makes — logos worn as a uniform, in sports that already
+work this way. They are third-party kit cited as precedent: no golfer, no tour
+garment, nothing anyone could mistake for our catalog. The exposure this
+takedown is about isn't in them.
 
 ### How it's enforced
 
@@ -329,9 +337,13 @@ its own: the grid would keep its empty column and strand the copy in a
 half-width well.
 
 **Adding a section with a photograph in it**: render it through one of those
-four components and it goes dark on its own. A bare `<Image>` does not — gate it
-with `PHOTOGRAPHY_HIDDEN` and collapse its grid, the way the "proven playbook"
-figures on `/agents`, `/apparel`, `/sponsors` and `/for-players` do.
+four components and it goes dark on its own. A bare `<Image>` does not — it is
+outside all of this, and stays up unless you gate it by hand. That is the right
+default for something like the "proven playbook" kit, and the wrong one for a
+tour garment, so the question to ask of a new `<Image>` is whose gear is in it.
+
+To gate one, wrap it in `PHOTOGRAPHY_HIDDEN ? null : (…)` and collapse its grid
+the same way the heroes on those four pages do.
 
 ### It also stops the photos being published
 

@@ -467,39 +467,31 @@ export default function AgentsLandingPage() {
       {/* PROVEN ECOSYSTEM */}
       <section className="bg-brand-cream py-20 text-brand-ink md:py-28">
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-          <div
-            className={
-              PHOTOGRAPHY_HIDDEN
-                ? "max-w-3xl"
-                : "grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center md:gap-16"
-            }
-          >
-            {PHOTOGRAPHY_HIDDEN ? null : (
-              <div className="grid grid-cols-2 gap-3 md:gap-4">
-                <figure className="overflow-hidden rounded-2xl border border-line">
-                  <div className="relative aspect-[4/5] w-full">
-                    <Image
-                      src="/Sponsor Images/Lando Norris Logo Shirt.jpg"
-                      alt="Lando Norris in a McLaren sponsor-logo shirt — sponsor logos worn like a uniform"
-                      fill
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                      className="object-cover"
-                    />
-                  </div>
-                </figure>
-                <figure className="overflow-hidden rounded-2xl border border-line">
-                  <div className="relative aspect-[4/5] w-full">
-                    <Image
-                      src="/Sponsor Images/Liverpool Jersey.webp"
-                      alt="Liverpool kit with Standard Chartered sponsor — Premier League fans wearing sponsored jerseys as everyday gear"
-                      fill
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                      className="object-cover"
-                    />
-                  </div>
-                </figure>
-              </div>
-            )}
+          <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center md:gap-16">
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
+              <figure className="overflow-hidden rounded-2xl border border-line">
+                <div className="relative aspect-[4/5] w-full">
+                  <Image
+                    src="/Sponsor Images/Lando Norris Logo Shirt.jpg"
+                    alt="Lando Norris in a McLaren sponsor-logo shirt — sponsor logos worn like a uniform"
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover"
+                  />
+                </div>
+              </figure>
+              <figure className="overflow-hidden rounded-2xl border border-line">
+                <div className="relative aspect-[4/5] w-full">
+                  <Image
+                    src="/Sponsor Images/Liverpool Jersey.webp"
+                    alt="Liverpool kit with Standard Chartered sponsor — Premier League fans wearing sponsored jerseys as everyday gear"
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover"
+                  />
+                </div>
+              </figure>
+            </div>
             <div>
               <p className="eyebrow text-brand-deep">A proven playbook</p>
               <h2 className="mt-4 font-display text-3xl leading-tight tracking-tight md:text-5xl">

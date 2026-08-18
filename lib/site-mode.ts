@@ -53,6 +53,9 @@ export const PLAYER_NAMES_HIDDEN = LOCKED || NAMES_HIDDEN;
  * - the wordmark (`/logo.svg`), which is our own mark, not a player's
  * - the value-ecosystem diagram on `/ecosystem`, which is inline SVG we drew
  * - the search-interest charts on `/sponsors`, which are data about a sponsor
+ * - the F1 and Premier League kit in the "proven playbook" sections, which is
+ *   third-party sport being cited as precedent — no golfer, no tour garment,
+ *   and nothing anyone could mistake for our catalog
  *
  * Lockdown implies it, and nothing else sets it: the password-gated full build
  * keeps every photograph. Read this, never `LOCKDOWN`, when the question is
