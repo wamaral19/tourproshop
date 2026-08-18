@@ -39,6 +39,34 @@ import {
  */
 export const PLAYER_NAMES_HIDDEN = LOCKED || NAMES_HIDDEN;
 
+/**
+ * Photography comes off the build entirely — the dark site is text.
+ *
+ * `PLAYER_NAMES_HIDDEN` was the answer while the pictures stayed: names out of
+ * copy and alt text, srcs rewritten to /media/<hash>. That leaves a locked-down
+ * site that still *shows* the gear, and a flatlay of a tour shirt is recognisable
+ * whether or not the markup names whose it is — the sponsor marks are right
+ * there on the garment. So the public build now renders no photography at all.
+ *
+ * What this does not cover, deliberately:
+ *
+ * - the wordmark (`/logo.svg`), which is our own mark, not a player's
+ * - the value-ecosystem diagram on `/ecosystem`, which is inline SVG we drew
+ * - the search-interest charts on `/sponsors`, which are data about a sponsor
+ *
+ * Lockdown implies it, and nothing else sets it: the password-gated full build
+ * keeps every photograph. Read this, never `LOCKDOWN`, when the question is
+ * whether a picture renders.
+ *
+ * The four components that put photography on a page —`ProductImage`,
+ * `MarketingCarousel`, `MarketingFigure` and `SponsorHeroCarousel` — each check
+ * it and render nothing, so a surface added later is text by default rather
+ * than leaking a flatlay because nobody remembered this flag. Pages that pair
+ * prose with a picture also collapse their two-column grid to a single readable
+ * column, since a null figure otherwise leaves the copy in a half-width well.
+ */
+export const PHOTOGRAPHY_HIDDEN = LOCKED;
+
 /** Where rights holders are told to reach us on the lockdown notice. */
 export const LOCKDOWN_CONTACT_EMAIL = "wyatt@tourpro.shop";
 

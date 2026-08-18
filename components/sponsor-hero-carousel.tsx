@@ -3,7 +3,7 @@ import { ProductCarousel } from "./product-carousel";
 import { ProductImage } from "./product-image";
 import type { SponsorHero } from "@/lib/marketing-assets";
 import { getProductAlt, getProductLabel } from "@/lib/product-labels";
-import { LOCKDOWN } from "@/lib/site-mode";
+import { LOCKDOWN, PHOTOGRAPHY_HIDDEN } from "@/lib/site-mode";
 import type { Sponsor } from "@/lib/sponsors";
 
 export type SponsorHeroSlide = SponsorHero & { sponsors: Sponsor[] };
@@ -35,6 +35,9 @@ export function SponsorHeroCarousel({
   heroes: SponsorHeroSlide[];
   className?: string;
 }) {
+  // Text-only build: the callouts were already off, and now the photography
+  // underneath them goes too, so the whole hero comes off.
+  if (PHOTOGRAPHY_HIDDEN) return null;
   if (heroes.length === 0) return null;
 
   // Not merely hidden: with callouts off, ImageHotspots never renders, so the

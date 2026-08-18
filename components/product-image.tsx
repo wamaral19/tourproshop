@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { neutralSrc } from "@/lib/media";
+import { PHOTOGRAPHY_HIDDEN } from "@/lib/site-mode";
 import type { Product, ProductImage as ProductImageData } from "@/lib/products";
 
 /**
@@ -29,6 +30,11 @@ export function ProductImage({
   priority?: boolean;
   sizes?: string;
 }) {
+  // The dark build is text — no photography, and no placeholder SVG standing
+  // in for it either. Callers frame this themselves, so they check the flag too
+  // rather than leaving an empty box where the picture was.
+  if (PHOTOGRAPHY_HIDDEN) return null;
+
   const target = image ?? product.images[0];
   const isReal = target && !target.src.startsWith("/placeholders/");
   // `align` is a gallery-only hint — only honor it when an explicit image

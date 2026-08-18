@@ -7,8 +7,9 @@
  * those land in the page source of every live page as `src` and `<link
  * rel=preload>` attributes. Anyone opening DevTools reads the roster.
  *
- * So when PLAYER_NAMES_HIDDEN is on, every referenced photo is also published
- * under /media/<hash><ext>, and lib/media.ts swaps the paths at render time.
+ * So when PLAYER_NAMES_HIDDEN is on, every photo still referenced by a page is
+ * also published under /media/<hash><ext>, and lib/media.ts swaps the paths at
+ * render time. On the text-only build that is just the /sponsors charts.
  * The hash is derived from the original path, so URLs are stable across builds
  * and stay cacheable.
  *
@@ -32,13 +33,34 @@ const SOURCE_FILES = [
   "app/sponsors/page.tsx",
 ];
 
+/**
+ * The same list for a build with `PHOTOGRAPHY_HIDDEN` on.
+ *
+ * That build renders no photography, so the search-interest charts on
+ * /sponsors are the only `src:` literals that still reach a page. Publishing
+ * the rest would copy the whole photography library into the assets the public
+ * worker uploads, under opaque URLs that nothing links to — the neutral copy
+ * exists to keep a name out of the markup, and there is no markup left to keep
+ * it out of.
+ *
+ * Anything dropped here is still on disk under public/ and still served by the
+ * password-gated worker, which builds with photography on. See
+ * docs/going-dark.md § "A text-only public build".
+ */
+const TEXT_ONLY_SOURCE_FILES = ["app/sponsors/page.tsx"];
+
 function namesHidden() {
   return resolveSiteMode().hidePlayerNames;
 }
 
+/** Mirrors `PHOTOGRAPHY_HIDDEN` in lib/site-mode.ts — lockdown, and only it. */
+function photographyHidden() {
+  return resolveSiteMode().lockdown;
+}
+
 function collectSources() {
   const found = new Set();
-  for (const file of SOURCE_FILES) {
+  for (const file of photographyHidden() ? TEXT_ONLY_SOURCE_FILES : SOURCE_FILES) {
     const text = fs.readFileSync(path.join(ROOT, file), "utf8");
     for (const m of text.matchAll(/src: "(\/[^"]+)"/g)) found.add(m[1]);
   }

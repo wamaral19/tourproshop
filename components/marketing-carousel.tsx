@@ -6,6 +6,7 @@ import {
   type MarketingImage,
 } from "@/lib/marketing-assets";
 import { neutralSrc } from "@/lib/media";
+import { PHOTOGRAPHY_HIDDEN } from "@/lib/site-mode";
 
 /**
  * Carousel of sponsor-marked gear, used on the Partners pitch pages.
@@ -29,6 +30,8 @@ export function MarketingCarousel({
   sizes?: string;
   priority?: boolean;
 }) {
+  // Text-only build: the rail is photography end to end, so it comes off.
+  if (PHOTOGRAPHY_HIDDEN) return null;
   if (images.length === 0) return null;
 
   const slides = images.map((image, i) => ({

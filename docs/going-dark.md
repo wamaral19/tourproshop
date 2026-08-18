@@ -8,6 +8,7 @@ site to people you choose while it's down.
 | One player needs to come off the site | `HIDDEN_PLAYERS` in `lib/players.ts` | That player, everywhere |
 | Every player needs to come off the site | `SITE_MODE` at build time | The whole storefront |
 | One photo can't be on the public site | [`DARK_HIDDEN_MEDIA`](#withholding-a-single-photo) in `lib/dark-media.ts` | That file, dark build only |
+| *No* photo can be on the public site | [already done](#a-text-only-public-build) — lockdown implies it | All photography, dark build only |
 | Someone still needs to see the full site | [the private preview](#3-the-full-site-behind-a-password) | Nothing public changes |
 
 Nothing here deletes anything, and nothing here is undone by editing content
@@ -100,6 +101,9 @@ see [Lifting it](#lifting-it).
 `/` and `/waitlist` render the coming-soon notice: the "these pages are coming
 soon" copy, the rights-holder contact line, and the waitlist form. No player
 name, product, or link into a blocked route appears in the HTML.
+
+The pages that stay up carry **no photography at all** — see [A text-only public
+build](#a-text-only-public-build).
 
 Everything else 307-redirects to `/`. The allowlist in `lib/site-mode.ts` is:
 
@@ -287,6 +291,62 @@ Wrangler only reads `.dev.vars.preview` at startup — restart it after editing.
 
 ---
 
+## A text-only public build
+
+The locked-down site is text. Not "text plus a few safe pictures" — the
+Partners pages, the coming-soon notice, and everything else still serving
+render no photograph of a player or a garment.
+
+Hiding names was the earlier answer, and it isn't enough on its own. A flatlay
+of a tour shirt is recognisable whether or not the markup says whose it is: the
+sponsor marks are on the garment, in the picture. Neutralising the `src` keeps
+the roster out of DevTools; it doesn't make the shirt anonymous.
+
+There is nothing to flip. `PHOTOGRAPHY_HIDDEN` in
+[`lib/site-mode.ts`](../lib/site-mode.ts) is defined as `LOCKDOWN`, so the
+public build is text-only for exactly as long as it is locked down, and the
+password-gated build keeps every photograph.
+
+### What still renders
+
+Three things, none of them a picture of somebody's gear:
+
+- the wordmark (`/logo.svg`), which is our own mark
+- the value-ecosystem diagram on `/ecosystem`, which is inline SVG we drew
+- the search-interest charts on `/sponsors`, which are data about a sponsor
+
+### How it's enforced
+
+The four components that put photography on a page each check the flag and
+render nothing: `ProductImage`, `MarketingCarousel`, `MarketingFigure` and
+`SponsorHeroCarousel`. That is the same fail-closed shape as the route
+allowlist — a surface added later is text by default, rather than leaking a
+flatlay because nobody remembered this flag.
+
+Pages that pair prose with a picture also collapse their two-column grid to a
+single column when the flag is on. A component returning `null` is not enough on
+its own: the grid would keep its empty column and strand the copy in a
+half-width well.
+
+**Adding a section with a photograph in it**: render it through one of those
+four components and it goes dark on its own. A bare `<Image>` does not — gate it
+with `PHOTOGRAPHY_HIDDEN` and collapse its grid, the way the "proven playbook"
+figures on `/agents`, `/apparel`, `/sponsors` and `/for-players` do.
+
+### It also stops the photos being published
+
+`npm run build` publishes neutral `/media/<hash>` copies of every photo a page
+still references. On the text-only build that's the two `/sponsors` charts,
+down from eighty — so the public worker no longer uploads the photography
+library under opaque URLs that nothing links to.
+
+This narrows the [asset gap](#assets) but does not close it: the originals under
+`public/` are untouched and still served by Cloudflare's asset layer at their
+own paths, which spell out player names. Everything in that section still
+applies.
+
+---
+
 ## Withholding a single photo
 
 The narrowest lever, and the only one that applies to just one build: a file
@@ -334,11 +394,12 @@ gated by anything, so during a lockdown those URLs stay fetchable by anyone who
 already knows them. Nothing links to them once the pages are down and they won't
 be indexed, but they are not blocked.
 
-Note this is *not* how the photography reaches the live pages. With
-`HIDE_PLAYER_NAMES` on, `npm run build` republishes every referenced photo under
-an opaque `/media/<hash>` URL and the markup points there, so no page source
-spells out a player's name. The original paths simply remain reachable
-alongside.
+Note this is *not* how the photography reaches the live pages — and while the
+site is locked down, [it doesn't reach them at all](#a-text-only-public-build).
+With `HIDE_PLAYER_NAMES` on, `npm run build` republishes each photo a page still
+references under an opaque `/media/<hash>` URL and the markup points there, so no
+page source spells out a player's name. The original paths simply remain
+reachable alongside.
 
 `npm run audit:dark` lists exactly which files those are for a dark player.
 

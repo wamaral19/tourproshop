@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { PHOTOGRAPHY_HIDDEN } from "@/lib/site-mode";
 import type { MarketingImage } from "@/lib/marketing-assets";
 
 /**
@@ -20,6 +21,8 @@ export function MarketingFigure({
   sizes?: string;
   priority?: boolean;
 }) {
+  // Text-only build: the figure is photography end to end, so it comes off.
+  if (PHOTOGRAPHY_HIDDEN) return null;
   if (images.length === 0) return null;
 
   return (

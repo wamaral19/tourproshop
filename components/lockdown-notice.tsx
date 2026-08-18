@@ -1,52 +1,26 @@
-import { ProductCarousel } from "@/components/product-carousel";
-import { ProductImage } from "@/components/product-image";
 import { WaitlistForm } from "@/components/waitlist-form";
-import { getShowcaseProducts } from "@/lib/marketing-assets";
-import { getProductAlt } from "@/lib/product-labels";
 import { LOCKDOWN_CONTACT_EMAIL } from "@/lib/site-mode";
 
 /**
  * The only page the storefront serves while `LOCKDOWN` is on. Rendered at `/`
  * and at `/waitlist` (which keeps its own URL so live ad campaigns don't break).
  *
- * Built to read like /waitlist — same hero rhythm, same showcase rail, same
- * waitlist form, same dark "what you're joining" band. Nothing here references a
- * player, a product name, or a route that lockdown blocks: the rail is
- * link-free, caption-free, and carries no sponsor hotspots, so it shows the gear
- * without naming whose it is.
+ * Built to read like /waitlist — same hero rhythm, same waitlist form, same dark
+ * "what you're joining" band. Nothing here references a player, a product name,
+ * or a route that lockdown blocks.
+ *
+ * It used to carry a showcase rail of garments, link-free and caption-free so it
+ * showed the gear without naming whose it was. That rail is gone: this component
+ * renders only while `LOCKDOWN` is on, which is exactly when `PHOTOGRAPHY_HIDDEN`
+ * is on, so the pitch is made in words. See lib/site-mode.ts.
  */
 export function LockdownNotice() {
-  // Lead image per garment (not a gallery shot) so each one centers in the
-  // frame instead of top-anchoring the way the PDP gallery does. Alt text goes
-  // through getProductAlt and srcs through neutralSrc inside ProductImage, so
-  // neither the markup nor the asset URLs spell out a player's name.
-  const slides = getShowcaseProducts().map((product, i) => ({
-    node: (
-      <ProductImage
-        product={product}
-        alt={getProductAlt(product)}
-        sizes="(max-width: 768px) 100vw, 40vw"
-        className="absolute inset-0 h-full w-full"
-        // Only the first slide is above the fold at load — the rest advance in.
-        priority={i === 0}
-      />
-    ),
-  }));
-  // Degrades to a single centered column if every garment goes dark.
-  const hasRail = slides.length > 0;
-
   return (
     <div className="agents-page">
       {/* HERO */}
       <section className="border-b border-line bg-brand-cream">
         <div className="mx-auto max-w-[1400px] px-4 pb-16 pt-16 md:px-8 md:pb-24 md:pt-24">
-          <div
-            className={
-              hasRail
-                ? "grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:items-center md:gap-14"
-                : "max-w-2xl"
-            }
-          >
+          <div className="max-w-2xl">
             <div>
               <p className="eyebrow text-brand-deep">Coming soon</p>
               <h1 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight text-brand-ink md:text-5xl lg:text-6xl">
@@ -77,13 +51,6 @@ export function LockdownNotice() {
               <WaitlistForm />
             </div>
 
-            {hasRail ? (
-              <ProductCarousel
-                slides={slides}
-                className="md:justify-self-end md:w-full md:max-w-md"
-                intervalMs={1500}
-              />
-            ) : null}
           </div>
         </div>
       </section>
