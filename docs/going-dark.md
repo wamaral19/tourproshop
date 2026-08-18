@@ -232,9 +232,23 @@ npm run deploy:full
 Step 2 needs the worker to exist, so run `npm run deploy:full` first if it
 doesn't yet — it will serve a 503 until the secret is set, which is the point.
 
-Adding someone later is the same two commands — append them to the CSV and
-re-run. Row order is the key the upsert matches on, so **don't reorder the
-file**; append to the end.
+### Adding someone later
+
+Use the dashboard: **`/admin/passwords?token=…`** has an *Invite someone* form.
+Enter their email, leave the password blank so their address is their password,
+and they can sign in immediately. No rebuild, no deploy.
+
+Leave the password field *filled in* to hand someone a code instead — useful
+when an address bounces, or when a shared inbox means the email isn't really
+theirs. The row still names them; the code can't be read back out.
+
+Rows added that way are **not** in `preview-passwords.csv`. If you keep the CSV
+as your record of who was invited, add them there too — nothing reconciles the
+two for you.
+
+The CSV route still works and is better for a batch: append to the end and
+re-run the two commands above. Row order is the key the upsert matches on, so
+**don't reorder the file**.
 
 `.gitignore` covers `preview-passwords*.csv` and `*.sql`, globbed rather than
 named exactly because file sync leaves `… 2.csv` copies around.
@@ -249,14 +263,13 @@ Deliberately readable from the *public* site too, since both workers share the
 same database: `tourpro.shop/admin/passwords` works without a password of your
 own.
 
-To revoke someone:
+Every row has a **revoke** link, and revoked rows can be restored the same way.
 
-```bash
-npx wrangler d1 execute tourproshop-outreach --remote \
-  --command "UPDATE preview_passwords SET revoked_at = unixepoch() WHERE email = 'them@agency.com'"
-```
-
-Takes effect on their next sign-in — an existing session runs out its 7 days.
+Revoking takes effect on their *next sign-in*. An existing session keeps working
+until its seven days are up, because the signed cookie is exactly what lets the
+gate avoid a database read on every request. If you need someone out
+immediately, rotate `PREVIEW_SESSION_SECRET` — that invalidates every session at
+once and everyone signs in again.
 
 ### Testing it locally
 

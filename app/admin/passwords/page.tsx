@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getCfEnv } from "@/lib/outreach";
+import { addPassword, setRevoked } from "./actions";
 
 /**
  * Which passwords have been used to get into the private preview, and when.
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 /** Where the gated build is served. Shown so the link is to hand. */
-const PREVIEW_HOST = "tourproshop-preview.wyatt-amaral.workers.dev";
+const PREVIEW_URL = "https://preview.tourpro.shop";
 
 type PasswordRow = {
   password_index: number;
@@ -173,7 +174,10 @@ export default async function PasswordsDashboard({
         <div>
           <h1 className="text-xl font-bold">Passwords</h1>
           <p className="mt-1 text-xs text-neutral-500">
-            Private preview at {PREVIEW_HOST}
+            Private preview at{" "}
+            <a href={PREVIEW_URL} className="underline">
+              {PREVIEW_URL.replace("https://", "")}
+            </a>
           </p>
         </div>
         <a
@@ -192,6 +196,55 @@ export default async function PasswordsDashboard({
         <Stat label="Failed (last 200)" value={denied} />
       </section>
 
+      <section className="mb-8 rounded border border-neutral-300 bg-white p-4">
+        <h2 className="mb-3 text-xs uppercase tracking-wider text-neutral-600">
+          Invite someone
+        </h2>
+        <form
+          action={addPassword}
+          className="grid grid-cols-1 gap-3 md:grid-cols-[2fr_2fr_auto]"
+        >
+          <input type="hidden" name="token" value={token} />
+          <label className="flex flex-col gap-1">
+            <span className="text-xs uppercase tracking-wider text-neutral-500">
+              Email
+            </span>
+            <input
+              name="email"
+              type="email"
+              required
+              placeholder="them@agency.com"
+              className="rounded border border-neutral-400 bg-white px-2 py-1.5"
+            />
+          </label>
+          <label className="flex flex-col gap-1">
+            <span className="text-xs uppercase tracking-wider text-neutral-500">
+              Password — leave blank to use their email
+            </span>
+            <input
+              name="password"
+              placeholder="(their email address)"
+              autoComplete="off"
+              className="rounded border border-neutral-400 bg-white px-2 py-1.5"
+            />
+          </label>
+          <button
+            type="submit"
+            className="self-end rounded bg-black px-4 py-1.5 text-white"
+          >
+            Invite
+          </button>
+        </form>
+        <p className="mt-3 text-xs text-neutral-500">
+          They sign in at{" "}
+          <a href={PREVIEW_URL} className="underline">
+            {PREVIEW_URL.replace("https://", "")}
+          </a>{" "}
+          with whatever you set here. Added this way, they are not in
+          preview-passwords.csv — update it too if you keep that as the record.
+        </p>
+      </section>
+
       <section className="mb-8">
         <h2 className="mb-3 text-xs uppercase tracking-wider text-neutral-600">
           Everyone invited
@@ -206,6 +259,7 @@ export default async function PasswordsDashboard({
                 <Th className="text-right">Views</Th>
                 <Th>Last used</Th>
                 <Th>Status</Th>
+                <Th></Th>
               </tr>
             </thead>
             <tbody>
@@ -231,6 +285,27 @@ export default async function PasswordsDashboard({
                     ) : (
                       <span className="text-neutral-400">unused</span>
                     )}
+                  </Td>
+                  <Td>
+                    <form action={setRevoked}>
+                      <input type="hidden" name="token" value={token} />
+                      <input
+                        type="hidden"
+                        name="password_index"
+                        value={c.password_index}
+                      />
+                      <input
+                        type="hidden"
+                        name="revoke"
+                        value={c.revoked_at ? "0" : "1"}
+                      />
+                      <button
+                        type="submit"
+                        className="text-neutral-500 underline hover:text-black"
+                      >
+                        {c.revoked_at ? "restore" : "revoke"}
+                      </button>
+                    </form>
                   </Td>
                 </tr>
               ))}
@@ -325,7 +400,7 @@ function Th({
   children,
   className = "",
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }) {
   return <th className={`px-2 py-2 font-semibold ${className}`}>{children}</th>;

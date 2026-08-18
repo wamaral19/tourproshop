@@ -147,6 +147,12 @@ export default async function ApparelOutreachDashboard({
             sponsors →
           </a>
           <a
+            href={`/admin/passwords?token=${encodeURIComponent(token)}`}
+            className="underline"
+          >
+            passwords →
+          </a>
+          <a
             href={`/admin/apparel?token=${encodeURIComponent(token)}`}
             className="underline"
           >
