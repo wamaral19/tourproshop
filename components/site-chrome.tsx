@@ -73,6 +73,14 @@ function LockdownFooter() {
                   Why we exist
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/faq"
+                  className="text-sm text-brand-ink/85 hover:text-brand-deep"
+                >
+                  FAQ
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

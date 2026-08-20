@@ -88,6 +88,9 @@ export const LOCKDOWN_CONTACT_EMAIL = "wyatt@tourpro.shop";
  *   completes.
  * - The Partners pages and `/why` are the pitch. They sell the model, not a
  *   player, and with `PLAYER_NAMES_HIDDEN` on they name no one.
+ * - `/faq` answers what people ask while there is nothing to buy — timing,
+ *   pricing, sizing — so it is most useful precisely during a lockdown. It
+ *   names no player.
  * - `/contact` carries no player content and gives people a way to reach us.
  * - `/api/*` keeps the signup endpoint alive; `/admin/*` is token-gated;
  *   `/r/*`, `/s/*`, `/a/*` are outreach click trackers whose destinations get
@@ -99,6 +102,7 @@ const ALLOWED_EXACT: readonly string[] = [
   "/waitlist-confirmed",
   "/contact",
   "/why",
+  "/faq",
   "/for-players",
   "/agents",
   "/sponsors",

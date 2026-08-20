@@ -21,6 +21,7 @@ const FULL_NAV: NavItem[] = [
   { href: "/players?tier=exclusive", label: "TPS Exclusives" },
   PARTNERS_GROUP,
   { href: "/why", label: "Why we exist" },
+  { href: "/faq", label: "FAQ" },
 ];
 
 /** Lockdown drops Shop, Players and TPS Exclusives from the directory — the
@@ -30,6 +31,7 @@ const LOCKDOWN_NAV: NavItem[] = [
   { href: "/waitlist", label: "Waitlist" },
   PARTNERS_GROUP,
   { href: "/why", label: "Why we exist" },
+  { href: "/faq", label: "FAQ" },
 ];
 
 const NAV: NavItem[] = LOCKDOWN ? LOCKDOWN_NAV : FULL_NAV;
